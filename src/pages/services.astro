@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingForm from '../components/BookingForm.astro';
+import { services } from '../data/services';
+---
+
+<BaseLayout
+  title="Services — Keyline Visuals"
+  description="Interior and exterior stills, walkthrough video, aerial, twilight, floor plans, virtual staging, and listing websites for agents in Oxford and North Mississippi."
+>
+  <section class="section">
+    <div class="wash wash--hero" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="mono">Services</p>
+      <h1 class="display srv__title">Everything I shoot, and what you get back</h1>
+      <p class="prose srv__intro">
+        Seven things, priced on the pricing page and delivered on a clock. Every one of them can be
+        booked on its own or folded into a package on the same visit.
+      </p>
+
+      <nav class="srv__jump" aria-label="Jump to a service">
+        {services.map((s) => <a class="mono srv__jump-link" href={`#${s.slug}`}>{s.name}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  {
+    services.map((s) => (
+      <section class="section section--hair" id={s.slug}>
+        <div class="wrap srv">
+          <div class="srv__head reveal">
+            <p class="mono">{s.eyebrow}</p>
+            <h2 class="display srv__name">{s.name}</h2>
+            <p class="stamp srv__stamp">
+              {s.stamp.map((chunk) => (
+                <span>{chunk}</span>
+              ))}
+            </p>
+          </div>
+
+          <div class="srv__body reveal">
+            {s.detail.map((para) => (
+              <p class="srv__para">{para}</p>
+            ))}
+
+            <ul class="srv__list">
+              {s.includes.map((line) => (
+                <li>{line}</li>
+              ))}
+            </ul>
+
+            <a class="btn btn--ghost srv__cta" href="/#book">
+              Book {s.name.toLowerCase()}
+            </a>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <BookingForm />
+</BaseLayout>
+
+<style>
+  .srv__title {
+    margin-top: 18px;
+    font-size: var(--fs-96);
+    max-width: 16ch;
+  }
+  .srv__intro {
+    margin-top: 24px;
+    font-size: var(--fs-20);
+  }
+
+  .srv__jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 44px;
+  }
+  .srv__jump-link {
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    transition: color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
+  }
+  .srv__jump-link:hover {
+    color: var(--paper);
+    border-color: var(--line-lift);
+  }
+
+  .srv {
+    display: grid;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+  }
+  .srv__name {
+    margin-top: 16px;
+    font-size: var(--fs-40);
+  }
+  .srv__stamp {
+    margin-top: 18px;
+  }
+
+  .srv__para {
+    color: var(--muted);
+    max-width: 68ch;
+  }
+  .srv__para + .srv__para {
+    margin-top: 18px;
+  }
+
+  .srv__list {
+    display: grid;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-14);
+  }
+  .srv__list li {
+    padding-left: 22px;
+    position: relative;
+    color: var(--paper);
+  }
+  .srv__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 10px;
+    height: 1px;
+    background: var(--horizon);
+  }
+
+  .srv__cta {
+    margin-top: 32px;
+  }
+
+  @media (min-width: 900px) {
+    .srv {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    }
+    .srv__head {
+      position: sticky;
+      top: 104px;
+    }
+  }
+</style>

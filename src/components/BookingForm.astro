@@ -1,0 +1,326 @@
+---
+import { site } from '../data/site';
+import { packages } from '../data/pricing';
+
+/* Formspree endpoint. GitHub Pages cannot run server code, so the form posts
+   straight to Formspree over fetch.
+   CONTENT-TODO: create a form at formspree.io, copy the 8-character form ID
+   out of its endpoint URL, and put it in .env as:
+       PUBLIC_FORMSPREE_ID=xxxxxxxx
+   See .env.example. */
+const formId = import.meta.env.PUBLIC_FORMSPREE_ID ?? '';
+const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
+---
+
+<section class="section section--hair" id="book">
+  <div class="wash wash--soft" aria-hidden="true"></div>
+
+  <div class="wrap book">
+    <div class="book__aside reveal">
+      <p class="mono">Book a shoot</p>
+      <h2 class="display book__title">Tell me the address and a day</h2>
+      <p class="prose book__intro">
+        I answer booking requests within a couple of hours during the week. If the date is tight,
+        call — a text gets a faster yes or no than a form does.
+      </p>
+
+      <p class="book__status">
+        <span class="book__dot" aria-hidden="true"></span>
+        <span class="mono">{site.bookingWindow}</span>
+      </p>
+
+      <div class="book__direct">
+        <a class="book__phone" href={site.phoneHref}>{site.phone}</a>
+        <p class="mono book__phone-note">
+          Call or text · <a class="link" href={`mailto:${site.email}`}>{site.email}</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="book__panel reveal">
+      <form
+        class="form"
+        data-book-form
+        action={endpoint || undefined}
+        method="post"
+        novalidate
+        data-fail-msg={`That did not send — the connection dropped somewhere. Try again, or call ${site.phone} and I will book it over the phone right now.`}
+      >
+        <p class="form__error" data-form-error hidden role="alert"></p>
+
+        <div class="form__row">
+          <div class="field">
+            <label class="field__label" for="name">Your name</label>
+            <input class="field__input" id="name" name="name" type="text" autocomplete="name" required
+              data-msg="Enter your name so I know who the gallery goes to." />
+            <p class="field__msg" data-msg-for="name" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="brokerage">Brokerage <span class="field__opt">optional</span></label>
+            <input class="field__input" id="brokerage" name="brokerage" type="text" autocomplete="organization" />
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label class="field__label" for="email">Email</label>
+            <input class="field__input" id="email" name="email" type="email" autocomplete="email" required
+              data-msg="Enter an email so I can send the gallery link."
+              data-msg-format="That address is missing an @ — check it and try again." />
+            <p class="field__msg" data-msg-for="email" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="phone">Phone</label>
+            <input class="field__input" id="phone" name="phone" type="tel" autocomplete="tel" required
+              data-msg="Add a number so I can text you if something on site needs a decision." />
+            <p class="field__msg" data-msg-for="phone" hidden></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="address">Property address</label>
+          <input class="field__input" id="address" name="address" type="text" autocomplete="street-address" required
+            data-msg="Enter the address so I can check drive time and airspace before I confirm." />
+          <p class="field__msg" data-msg-for="address" hidden></p>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label class="field__label" for="sqft">Square footage <span class="field__opt">estimate is fine</span></label>
+            <input class="field__input" id="sqft" name="sqft" type="text" inputmode="numeric" />
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="package">Package</label>
+            <select class="field__input" id="package" name="package">
+              <option value="Not sure yet">Not sure yet — recommend one</option>
+              {packages.map((p) => <option value={p.name}>{p.name}</option>)}
+              <option value="Add-ons only">Add-ons only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="dates">Preferred dates <span class="field__opt">optional</span></label>
+          <input class="field__input" id="dates" name="dates" type="text"
+            placeholder="Thursday or Friday morning" />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="notes">Anything I should know <span class="field__opt">optional</span></label>
+          <textarea class="field__input field__input--area" id="notes" name="notes" rows="4"
+            placeholder="Occupied or vacant, lockbox code, gate code, pets, tricky driveway."></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
+
+        <button class="btn btn--primary btn--wide form__submit" type="submit" data-form-submit>
+          Send booking request
+        </button>
+
+        <p class="mono form__foot">
+          No deposit · I confirm by text or email · Cancel free up to 24 hours out
+        </p>
+      </form>
+
+      <div class="done" data-form-done hidden>
+        <p class="mono">Booking request sent</p>
+        <h3 class="display done__title">Got it. Give me a couple of hours.</h3>
+        <p class="done__body">
+          I will text or email to confirm the date and time, and send a one-page prep sheet for the
+          seller the day before. If you need an answer faster than that, call
+          <a class="link" href={site.phoneHref}>{site.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .book {
+    display: grid;
+    gap: clamp(40px, 5vw, 64px);
+    align-items: start;
+  }
+
+  .book__title {
+    margin-top: 18px;
+    font-size: var(--fs-40);
+  }
+  .book__intro {
+    margin-top: 20px;
+  }
+
+  .book__status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 34px;
+  }
+  .book__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--glow);
+    flex: none;
+  }
+
+  .book__direct {
+    margin-top: 18px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .book__phone {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 118%;
+    font-size: var(--fs-28);
+    letter-spacing: -0.01em;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--t-hover) var(--ease);
+  }
+  .book__phone:hover {
+    border-bottom-color: var(--glow);
+  }
+  .book__phone-note {
+    margin-top: 10px;
+  }
+
+  .book__panel {
+    border: 1px solid var(--line-soft);
+    background: var(--night);
+    padding: 26px;
+  }
+
+  .form {
+    display: grid;
+    gap: 20px;
+  }
+  .form__row {
+    display: grid;
+    gap: 20px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+  .field__label {
+    font-size: var(--fs-14);
+    font-weight: 500;
+  }
+  .field__opt {
+    font-family: var(--font-mono);
+    font-size: var(--fs-12);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: 6px;
+  }
+  .field__input {
+    width: 100%;
+    padding: 13px 14px;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    font-size: var(--fs-16);
+    transition: border-color var(--t-hover) var(--ease);
+  }
+  .field__input::placeholder {
+    color: var(--muted);
+    opacity: 0.75;
+  }
+  .field__input:hover {
+    border-color: var(--line-lift);
+  }
+  .field__input:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 1px;
+    border-color: var(--signal);
+  }
+  .field__input--area {
+    resize: vertical;
+    min-height: 108px;
+    font-family: var(--font-body);
+  }
+  select.field__input {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+      linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 19px) 22px, calc(100% - 14px) 22px;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 40px;
+  }
+
+  .field[data-invalid] .field__input {
+    border-color: var(--glow);
+  }
+  .field__msg {
+    font-size: var(--fs-14);
+    color: var(--glow);
+  }
+  .field__msg[hidden] {
+    display: none;
+  }
+
+  .form__error {
+    padding: 14px 16px;
+    border: 1px solid var(--glow);
+    color: var(--paper);
+    font-size: var(--fs-14);
+  }
+  .form__error[hidden] {
+    display: none;
+  }
+
+  .form__submit {
+    margin-top: 6px;
+  }
+  .form__submit[aria-busy='true'] {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .form__foot {
+    text-align: center;
+  }
+
+  .done {
+    padding-block: 20px;
+  }
+  .done[hidden] {
+    display: none;
+  }
+  .done__title {
+    margin-top: 16px;
+    font-size: var(--fs-28);
+  }
+  .done__body {
+    margin-top: 18px;
+    color: var(--muted);
+    max-width: 46ch;
+  }
+
+  @media (min-width: 620px) {
+    .form__row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 980px) {
+    .book {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    }
+    .book__panel {
+      padding: 32px;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/form.js';
+</script>

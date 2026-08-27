@@ -1,0 +1,118 @@
+{
+  "generated": "SVG placeholders \u2014 replace with real photography",
+  "files": [
+    {
+      "file": "/placeholders/service-stills.svg",
+      "label": "STILLS",
+      "width": 1600,
+      "height": 1000,
+      "ratio": "1600:1000"
+    },
+    {
+      "file": "/placeholders/service-video.svg",
+      "label": "VIDEO",
+      "width": 1600,
+      "height": 1000,
+      "ratio": "1600:1000"
+    },
+    {
+      "file": "/placeholders/work-01-twilight-front.svg",
+      "label": "TWILIGHT \u00b7 FRONT",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-02-interior-kitchen.svg",
+      "label": "INTERIOR \u00b7 KITCHEN",
+      "width": 1067,
+      "height": 1600,
+      "ratio": "1067:1600"
+    },
+    {
+      "file": "/placeholders/work-03-aerial-lot.svg",
+      "label": "AERIAL \u00b7 LOT",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-04-interior-living.svg",
+      "label": "INTERIOR \u00b7 LIVING",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-05-exterior-front.svg",
+      "label": "EXTERIOR \u00b7 FRONT",
+      "width": 1067,
+      "height": 1600,
+      "ratio": "1067:1600"
+    },
+    {
+      "file": "/placeholders/work-06-video-walkthrough.svg",
+      "label": "VIDEO \u00b7 WALKTHROUGH",
+      "width": 1600,
+      "height": 900,
+      "ratio": "1600:900"
+    },
+    {
+      "file": "/placeholders/work-07-twilight-rear.svg",
+      "label": "TWILIGHT \u00b7 REAR",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-08-interior-bath.svg",
+      "label": "INTERIOR \u00b7 BATH",
+      "width": 1067,
+      "height": 1600,
+      "ratio": "1067:1600"
+    },
+    {
+      "file": "/placeholders/work-09-aerial-neighborhood.svg",
+      "label": "AERIAL \u00b7 AREA",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-10-exterior-rear.svg",
+      "label": "EXTERIOR \u00b7 REAR",
+      "width": 1600,
+      "height": 1067,
+      "ratio": "1600:1067"
+    },
+    {
+      "file": "/placeholders/work-11-interior-primary.svg",
+      "label": "INTERIOR \u00b7 PRIMARY",
+      "width": 1067,
+      "height": 1600,
+      "ratio": "1067:1600"
+    },
+    {
+      "file": "/placeholders/work-12-video-vertical.svg",
+      "label": "VIDEO \u00b7 VERTICAL",
+      "width": 900,
+      "height": 1600,
+      "ratio": "900:1600"
+    },
+    {
+      "file": "/placeholders/hero-day.svg",
+      "label": "HERO \u00b7 MIDDAY",
+      "width": 1200,
+      "height": 750,
+      "ratio": "16:10"
+    },
+    {
+      "file": "/placeholders/hero-twilight.svg",
+      "label": "HERO \u00b7 BLUE HOUR",
+      "width": 1200,
+      "height": 750,
+      "ratio": "16:10"
+    }
+  ],
+  "note": "Replace every file here with real photography at the same aspect ratio. See CONTENT-TODO.md."
+}

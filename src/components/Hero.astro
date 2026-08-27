@@ -1,0 +1,122 @@
+---
+import TwilightSlider from './TwilightSlider.astro';
+---
+
+<section class="section hero">
+  <div class="wash wash--hero" aria-hidden="true"></div>
+
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="mono hero__eyebrow" data-rise="0">Oxford, MS · North Mississippi</p>
+
+      <h1 class="display hero__title">
+        <span class="hero__line" data-rise="1">Shot today.</span>
+        <span class="hero__line hero__line--grad" data-rise="2">Listed tomorrow.</span>
+      </h1>
+
+      <p class="hero__sub" data-rise="3">
+        Photography, video, aerial, and twilight for listing agents across Oxford and North
+        Mississippi — edited overnight and in your inbox by 9am.
+      </p>
+
+      <div class="hero__actions" data-rise="4">
+        <a class="btn btn--primary" href="#book">Book a shoot</a>
+        <a class="btn btn--ghost" href="#work">See the work</a>
+      </div>
+    </div>
+
+    <div class="hero__media" data-rise="5">
+      <TwilightSlider />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    overflow: hidden;
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: clamp(44px, 6vw, 72px);
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: 26px;
+  }
+
+  .hero__title {
+    /* --fs-96 overflows a two-column hero once Archivo is at 125% width.
+       The 64 step is the largest that holds "TOMORROW" on one line. */
+    font-size: var(--fs-64);
+    display: flex;
+    flex-direction: column;
+  }
+  .hero__line {
+    display: block;
+  }
+  .hero__line--grad {
+    background: linear-gradient(96deg, var(--paper) 12%, var(--signal) 96%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @supports not (background-clip: text) {
+    .hero__line--grad {
+      color: var(--signal);
+    }
+  }
+
+  .hero__sub {
+    margin-top: 26px;
+    max-width: 46ch;
+    font-size: var(--fs-20);
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 36px;
+  }
+
+  /* Full-bleed slider on small screens. */
+  .hero__media {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  @media (min-width: 980px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(48px, 5vw, 80px);
+    }
+    .hero__media {
+      margin-inline: 0;
+    }
+  }
+
+  /* One orchestrated page-load, then nothing else moves on its own. */
+  @media (prefers-reduced-motion: no-preference) {
+    [data-rise] {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise 380ms var(--ease) forwards;
+    }
+    [data-rise='0'] { animation-delay: 40ms; }
+    [data-rise='1'] { animation-delay: 110ms; }
+    [data-rise='2'] { animation-delay: 180ms; }
+    [data-rise='3'] { animation-delay: 250ms; }
+    [data-rise='4'] { animation-delay: 320ms; }
+    [data-rise='5'] { animation-delay: 220ms; }
+  }
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

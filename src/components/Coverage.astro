@@ -1,0 +1,58 @@
+---
+import { towns } from '../data/site';
+---
+
+<section class="section section--hair" id="coverage">
+  <div class="wrap cov">
+    <div class="cov__copy reveal">
+      <p class="mono">Where I shoot</p>
+      <h2 class="display cov__title">Oxford out to about forty-five miles</h2>
+      <p class="prose cov__body">
+        Anything inside 25 miles of the Square has no travel fee. Past that it is a flat rate per
+        mile, quoted before you book so it is never a surprise on the invoice. Tupelo and Holly
+        Springs are regular runs — if you have two listings out that way, book them the same day
+        and the travel is split between them.
+      </p>
+    </div>
+
+    <ul class="cov__towns reveal">
+      {towns.map((t) => <li class="cov__town">{t}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cov {
+    display: grid;
+    gap: clamp(36px, 4vw, 60px);
+  }
+  .cov__title {
+    margin-top: 18px;
+    font-size: var(--fs-40);
+  }
+  .cov__body {
+    margin-top: 22px;
+  }
+  .cov__towns {
+    display: grid;
+    gap: 0;
+    align-content: start;
+    border-top: 1px solid var(--line);
+  }
+  .cov__town {
+    padding-block: 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-16);
+  }
+
+  @media (min-width: 900px) {
+    .cov {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: start;
+    }
+    .cov__towns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 28px;
+    }
+  }
+</style>

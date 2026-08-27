@@ -1,0 +1,89 @@
+---
+const steps = [
+  {
+    stamp: 'Shoot day',
+    title: 'I show up ready and you do not have to be there',
+    body: 'Send the address, the square footage, and a lockbox code or a time. I bring lighting for every interior and a drone if the package has one. A 2,500 square foot house takes about an hour. You get a text when I am done and another if anything on site needs your attention — a burned-out bulb, a dead lawn, a neighbor\'s boat in the frame.',
+  },
+  {
+    stamp: 'Next morning',
+    title: 'Photos are in your inbox by nine',
+    body: 'Edited overnight: exposure blended, verticals straightened, color corrected room by room. The gallery link has MLS-sized files in one folder and full-resolution in another, so you are not resizing anything before you upload. Video and floor plans follow one day behind.',
+  },
+  {
+    stamp: 'Same week',
+    title: 'Everything else lands before the listing goes live',
+    body: 'Walkthrough video, the vertical cut for social, floor plan, virtual staging, and the listing website if it is on the order. The invoice comes with the gallery. If the seller changes something after the shoot, I will come back for a partial reshoot rather than making you list with a photo that is now wrong.',
+  },
+];
+---
+
+<section class="section section--hair" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="mono">How it runs</p>
+      <h2 class="display">From booking to live</h2>
+      <p class="prose">
+        The only thing I need from you is an address and a way in. Everything after that runs on a
+        clock.
+      </p>
+    </div>
+
+    <ol class="proc">
+      {
+        steps.map((step) => (
+          <li class="proc__step reveal">
+            <p class="mono proc__stamp">{step.stamp}</p>
+            <h3 class="proc__title">{step.title}</h3>
+            <p class="proc__body">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .proc {
+    display: grid;
+    gap: 42px;
+    position: relative;
+  }
+
+  .proc__stamp {
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  /* The connecting rule: cobalt on the left, signal by the last step. */
+  .proc__step:nth-child(1) .proc__stamp {
+    border-image: linear-gradient(90deg, var(--cobalt), var(--horizon)) 1;
+  }
+  .proc__step:nth-child(2) .proc__stamp {
+    border-image: linear-gradient(90deg, var(--horizon), color-mix(in srgb, var(--horizon) 50%, var(--signal))) 1;
+  }
+  .proc__step:nth-child(3) .proc__stamp {
+    border-image: linear-gradient(90deg, color-mix(in srgb, var(--horizon) 50%, var(--signal)), var(--signal)) 1;
+  }
+
+  .proc__title {
+    margin-top: 18px;
+    font-size: var(--fs-20);
+    font-weight: 500;
+    line-height: 1.3;
+    max-width: 26ch;
+  }
+  .proc__body {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: var(--fs-14);
+    max-width: 60ch;
+  }
+
+  @media (min-width: 860px) {
+    .proc {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 36px;
+    }
+  }
+</style>

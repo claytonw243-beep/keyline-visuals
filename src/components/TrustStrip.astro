@@ -1,0 +1,55 @@
+---
+import { trustStrip } from '../data/site';
+---
+
+<div class="strip">
+  <div class="wrap strip__inner">
+    {
+      trustStrip.map((item) => (
+        <div class="strip__cell reveal">
+          <span class="mono strip__label">{item.label}</span>
+          <span class="strip__value">{item.value}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .strip {
+    border-block: 1px solid var(--line);
+    padding-block: 26px;
+  }
+  .strip__inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 32px;
+  }
+  .strip__cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .strip__label {
+    color: var(--muted);
+  }
+  .strip__value {
+    font-size: var(--fs-14);
+    font-weight: 500;
+    color: var(--paper);
+  }
+
+  @media (min-width: 760px) {
+    .strip__inner {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .strip__cell {
+      padding-left: 22px;
+      border-left: 1px solid var(--line);
+    }
+    .strip__cell:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+</style>

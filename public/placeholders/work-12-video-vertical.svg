@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1600" width="900" height="1600" role="img" aria-label="Placeholder for VIDEO · VERTICAL">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0B1426"/>
+      <stop offset="62%" stop-color="#0E1B33"/>
+      <stop offset="100%" stop-color="#060A14"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1600" fill="url(#g)"/>
+  <rect x="32" y="32" width="836" height="1536" fill="none" stroke="#14264A" stroke-width="2"/>
+  <g stroke="#2C5AA8" stroke-width="2" opacity="0.65">
+    <line x1="405" y1="800" x2="495" y2="800"/>
+    <line x1="450" y1="755" x2="450" y2="845"/>
+  </g>
+  <text x="450" y="714.5" fill="#E9EDF5" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="34" letter-spacing="3.06" text-anchor="middle">VIDEO · VERTICAL</text>
+  <text x="450" y="917" fill="#8A99B5" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="23" letter-spacing="2.07" text-anchor="middle">TUPELO</text>
+  <text x="51.2" y="1548.8" fill="#8A99B5" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="23" letter-spacing="1.84">900 × 1600</text>
+  <text x="848.8" y="1548.8" fill="#8A99B5" font-family="'IBM Plex Mono',ui-monospace,monospace" font-size="23" letter-spacing="1.84" text-anchor="end">work-12-video-vertical.svg</text>
+</svg>

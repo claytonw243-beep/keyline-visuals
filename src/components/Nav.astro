@@ -1,0 +1,197 @@
+---
+import { nav, site } from '../data/site';
+const path = Astro.url.pathname;
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__inner">
+    <a class="logo" href="/" aria-label={`${site.name} — home`}>
+      <span class="logo__mark" aria-hidden="true"></span>
+      <span class="logo__text">Keyline<span class="logo__thin">Visuals</span></span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="nav__link"
+            aria-current={path === item.href ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="nav__cta">
+      <a class="nav__call mono" href={site.phoneHref}>{site.phone}</a>
+      <a class="btn btn--primary nav__book" href="/#book">Book a shoot</a>
+    </div>
+
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-nav-toggle>
+      <span class="visually-hidden">Menu</span>
+      <span class="nav__bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+
+  <div class="nav__panel" id="mobile-menu" hidden data-nav-panel>
+    <div class="wrap nav__panel-inner">
+      {nav.map((item) => <a href={item.href} class="nav__panel-link">{item.label}</a>)}
+      <a href="/#book" class="btn btn--primary nav__panel-book">Book a shoot</a>
+      <a href={site.phoneHref} class="mono nav__panel-call">{site.phone}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    background: var(--ink);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--t-hover) var(--ease);
+  }
+  .nav[data-scrolled] {
+    border-bottom-color: var(--line);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 72px;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: auto;
+  }
+  .logo__mark {
+    width: 12px;
+    height: 22px;
+    border: 1px solid var(--edge-strong);
+    border-left: 3px solid var(--signal);
+    flex: none;
+  }
+  .logo__text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 118%;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: var(--fs-16);
+    line-height: 1;
+  }
+  .logo__thin {
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 0.35em;
+  }
+
+  .nav__links {
+    display: none;
+    gap: 30px;
+  }
+  .nav__link {
+    font-size: var(--fs-14);
+    color: var(--muted);
+    padding-block: 6px;
+    border-bottom: 1px solid transparent;
+    transition: color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
+  }
+  .nav__link:hover {
+    color: var(--paper);
+    border-bottom-color: var(--glow);
+  }
+  .nav__link[aria-current='page'] {
+    color: var(--paper);
+  }
+
+  .nav__cta {
+    display: none;
+    align-items: center;
+    gap: 22px;
+  }
+  .nav__call {
+    color: var(--muted);
+    transition: color var(--t-hover) var(--ease);
+  }
+  .nav__call:hover {
+    color: var(--paper);
+  }
+  .nav__book {
+    padding: 11px 20px;
+    font-size: var(--fs-14);
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--edge);
+    cursor: pointer;
+    margin-right: calc(var(--gutter) * -0.35);
+  }
+  .nav__bars {
+    display: grid;
+    gap: 5px;
+    width: 18px;
+  }
+  .nav__bars i {
+    display: block;
+    height: 1px;
+    background: var(--paper);
+    transition: transform 150ms var(--ease);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars i:first-child {
+    transform: translateY(3px) rotate(45deg);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars i:last-child {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+
+  .nav__panel {
+    border-top: 1px solid var(--line);
+    background: var(--ink);
+  }
+  .nav__panel[hidden] {
+    display: none;
+  }
+  .nav__panel-inner {
+    display: flex;
+    flex-direction: column;
+    padding-block: 12px 26px;
+  }
+  .nav__panel-link {
+    padding-block: 15px;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-20);
+  }
+  .nav__panel-book {
+    margin-top: 22px;
+  }
+  .nav__panel-call {
+    padding-top: 20px;
+  }
+
+  @media (min-width: 900px) {
+    .nav__links,
+    .nav__cta {
+      display: flex;
+    }
+    .nav__toggle,
+    .nav__panel {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/nav.js';
+</script>

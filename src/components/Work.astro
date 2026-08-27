@@ -1,0 +1,299 @@
+---
+import { gallery, filters } from '../data/gallery';
+
+interface Props {
+  limit?: number;
+  heading?: string;
+  eyebrow?: string;
+  intro?: string;
+  headingLevel?: 'h1' | 'h2';
+}
+
+const {
+  limit,
+  heading = 'Recent listings',
+  eyebrow = 'The work',
+  intro = 'Every frame here is from a real listing in the coverage area. Filter it down to whatever you are about to shoot.',
+  headingLevel = 'h2',
+} = Astro.props;
+
+const shots = limit ? gallery.slice(0, limit) : gallery;
+const Heading = headingLevel;
+---
+
+<section class="section section--hair" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="mono">{eyebrow}</p>
+      <Heading class="display">{heading}</Heading>
+      <p class="prose">{intro}</p>
+    </div>
+
+    <div class="work__filters reveal" role="group" aria-label="Filter the gallery">
+      {
+        filters.map((f, i) => (
+          <button
+            type="button"
+            class="work__filter mono"
+            data-filter-btn={f.key}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            {f.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <p class="mono work__count" data-work-count aria-live="polite">
+      Showing {shots.length} of {shots.length}
+    </p>
+
+    <div class="work__grid" data-work-grid>
+      {
+        shots.map((shot, i) => (
+          <button
+            type="button"
+            class:list={['work__item', 'reveal', `work__item--${shot.orientation}`]}
+            data-filter={shot.filter}
+            data-lb={i}
+            data-lb-src={shot.file}
+            data-lb-caption={shot.caption}
+            data-lb-meta={`${shot.propertyType} · ${shot.area} · ${shot.meta}`}
+          >
+            <img
+              src={shot.file}
+              alt={shot.caption}
+              width={shot.orientation === 'portrait' ? 1067 : 1600}
+              height={shot.orientation === 'portrait' ? 1600 : 1067}
+              loading={i < 3 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <span class="work__overlay">
+              <span class="mono work__meta">
+                <span>{shot.propertyType}</span>
+                <span>{shot.area}</span>
+                <span>{shot.meta}</span>
+              </span>
+            </span>
+          </button>
+        ))
+      }
+    </div>
+
+    <p class="work__empty mono" data-work-empty hidden>
+      Nothing in that category yet. Pick another filter, or ask what I have — the gallery is a
+      sample, not the archive.
+    </p>
+
+    {
+      limit && (
+        <div class="work__more reveal">
+          <a class="btn btn--ghost" href="/work/">
+            See the full gallery
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<dialog class="lb" data-lightbox aria-label="Gallery image">
+  <button class="lb__close" type="button" data-lb-close aria-label="Close">
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path d="M2 2 14 14M14 2 2 14" stroke="currentColor" stroke-width="1.6" />
+    </svg>
+  </button>
+  <div class="lb__stage">
+    <button class="lb__nav lb__nav--prev" type="button" data-lb-prev aria-label="Previous image">
+      <svg viewBox="0 0 12 20" width="12" height="20" fill="none" aria-hidden="true"
+        ><path d="M10 1 2 10l8 9" stroke="currentColor" stroke-width="1.6" /></svg
+      >
+    </button>
+    <img class="lb__img" data-lb-img alt="" />
+    <button class="lb__nav lb__nav--next" type="button" data-lb-next aria-label="Next image">
+      <svg viewBox="0 0 12 20" width="12" height="20" fill="none" aria-hidden="true"
+        ><path d="M2 1l8 9-8 9" stroke="currentColor" stroke-width="1.6" /></svg
+      >
+    </button>
+  </div>
+  <p class="lb__caption">
+    <span class="mono" data-lb-meta></span>
+    <span data-lb-text></span>
+  </p>
+</dialog>
+
+<style>
+  .work__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .work__filter {
+    padding: 9px 15px;
+    border: 1px solid var(--line);
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease),
+      background-color var(--t-hover) var(--ease);
+  }
+  .work__filter:hover {
+    color: var(--paper);
+    border-color: var(--line-lift);
+  }
+  .work__filter[aria-pressed='true'] {
+    color: var(--paper);
+    border-color: var(--edge-strong);
+    background: var(--night);
+  }
+
+  .work__count {
+    margin-bottom: 22px;
+  }
+
+  .work__grid {
+    columns: 1;
+    column-gap: 14px;
+  }
+
+  .work__item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 14px;
+    border: 1px solid var(--line-soft);
+    background: var(--night);
+    position: relative;
+    cursor: zoom-in;
+    break-inside: avoid;
+    overflow: hidden;
+    transition: border-color var(--t-hover) var(--ease);
+  }
+  .work__item:hover {
+    border-color: var(--line-lift);
+  }
+  .work__item[hidden] {
+    display: none;
+  }
+  .work__item img {
+    width: 100%;
+    height: auto;
+    transition: opacity var(--t-hover) var(--ease);
+  }
+  .work__item:hover img {
+    opacity: 0.7;
+  }
+
+  .work__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    opacity: 0;
+    background: linear-gradient(180deg, rgb(var(--ink-c) / 0) 45%, rgb(var(--ink-c) / 0.88) 100%);
+    transition: opacity var(--t-hover) var(--ease);
+  }
+  .work__item:hover .work__overlay,
+  .work__item:focus-visible .work__overlay {
+    opacity: 1;
+  }
+  .work__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    color: var(--paper);
+    text-align: left;
+  }
+  .work__meta span + span::before {
+    content: '· ';
+    color: var(--muted);
+  }
+
+  .work__empty {
+    padding: 40px 0;
+    max-width: 52ch;
+  }
+  .work__more {
+    margin-top: 34px;
+  }
+
+  @media (min-width: 640px) {
+    .work__grid {
+      columns: 2;
+    }
+  }
+  @media (min-width: 1040px) {
+    .work__grid {
+      columns: 3;
+    }
+  }
+
+  /* --- Lightbox --- */
+
+  .lb {
+    width: min(1180px, 94vw);
+    max-height: 92vh;
+    padding: 0;
+    border: 1px solid var(--line-lift);
+    background: var(--night);
+    color: var(--paper);
+    overflow: visible;
+  }
+  .lb::backdrop {
+    background: rgb(var(--ink-c) / 0.94);
+  }
+  .lb__stage {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+  }
+  .lb__img {
+    flex: 1;
+    min-width: 0;
+    max-height: 74vh;
+    width: auto;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+  .lb__nav,
+  .lb__close {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    transition: border-color var(--t-hover) var(--ease), color var(--t-hover) var(--ease);
+  }
+  .lb__nav:hover,
+  .lb__close:hover {
+    border-color: var(--line-lift);
+    color: var(--signal);
+  }
+  .lb__close {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    transform: translateY(-100%);
+    border-bottom: 0;
+  }
+  .lb__caption {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px 18px 20px;
+    color: var(--muted);
+    font-size: var(--fs-14);
+    max-width: 68ch;
+  }
+</style>
+
+<script>
+  import '../scripts/lightbox.js';
+</script>

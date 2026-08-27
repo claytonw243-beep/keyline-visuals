@@ -1,0 +1,186 @@
+---
+import { Picture } from 'astro:assets';
+import day from '../assets/hero-day.jpg';
+import twilight from '../assets/hero-twilight.jpg';
+
+/* A real matched pair: 108 Cedar Hill Drive, shot from one tripod position in
+   midday light and again at blue hour. Measured registration between the two
+   frames is scale 1.001 with sub-pixel offset, so the house does not move when
+   the handle does — which is the entire point of the interaction.
+   If either frame is ever replaced, the other has to be reshot with it. */
+---
+
+<figure class="tw" data-twilight>
+  <div class="tw__frame" data-tw-frame>
+    <Picture
+      class="tw__img"
+      src={day}
+      formats={['avif', 'webp']}
+      fallbackFormat="jpg"
+      widths={[640, 960, 1280, 1536]}
+      sizes="(min-width: 980px) 50vw, 100vw"
+      alt="A single-storey white brick ranch with a covered front porch, photographed in flat midday light under a blue sky."
+      loading="eager"
+      draggable="false"
+    />
+
+    <div class="tw__clip">
+      <Picture
+        class="tw__img"
+        src={twilight}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        widths={[640, 960, 1280, 1536]}
+        sizes="(min-width: 980px) 50vw, 100vw"
+        alt="A single-storey brick and siding house at blue hour, every window lit warm, landscape lighting on, and the sky still holding orange over the treeline."
+        loading="eager"
+        fetchpriority="high"
+        draggable="false"
+      />
+    </div>
+
+    <span class="mono tw__tag tw__tag--l">Midday</span>
+    <span class="mono tw__tag tw__tag--r">Blue hour</span>
+
+    <div
+      class="tw__handle"
+      data-tw-handle
+      role="slider"
+      tabindex="0"
+      aria-label="Twilight comparison. Use the left and right arrow keys to move the divider."
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="40"
+      aria-orientation="horizontal"
+    >
+      <span class="tw__grab" aria-hidden="true">
+        <svg viewBox="0 0 24 12" width="24" height="12" fill="none" aria-hidden="true">
+          <path d="M9.5 1.5 4 6l5.5 4.5M14.5 1.5 20 6l-5.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>
+        </svg>
+      </span>
+    </div>
+  </div>
+
+  <figcaption class="mono tw__cap">
+    <!-- CONTENT-TODO: the twilight add-on price -->
+    Twilight conversion · +$[XX] per listing
+  </figcaption>
+</figure>
+
+<style>
+  .tw {
+    --pos: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .tw__frame {
+    position: relative;
+    aspect-ratio: 1200 / 750;
+    overflow: hidden;
+    border: 1px solid var(--line-lift);
+    background: var(--night);
+    cursor: ew-resize;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .tw__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Exterior frames are 3:2 against a 16:10 window. Anchoring to the top
+       trims dead foreground instead of eating into the sky. */
+    object-position: center top;
+    pointer-events: none;
+  }
+  .tw__frame picture {
+    display: contents;
+  }
+
+  .tw__clip {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 0 var(--pos));
+    transition: clip-path 220ms var(--ease);
+  }
+  .tw.is-dragging .tw__clip,
+  .tw.is-dragging .tw__handle {
+    transition: none;
+  }
+
+  .tw__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--glow);
+    cursor: ew-resize;
+    touch-action: none;
+    transition: left 220ms var(--ease);
+  }
+  .tw__handle::after {
+    /* Wider invisible hit area than the visible 2px line. */
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: -18px;
+    right: -18px;
+  }
+  .tw__handle:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 4px;
+  }
+
+  .tw__grab {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    background: var(--glow);
+    color: var(--ink);
+    border-radius: 50%;
+  }
+
+  .tw__tag {
+    position: absolute;
+    bottom: 14px;
+    z-index: 2;
+    color: var(--paper);
+    background: rgb(var(--ink-c) / 0.72);
+    padding: 5px 10px;
+    pointer-events: none;
+  }
+  .tw__tag--l {
+    left: 14px;
+  }
+  .tw__tag--r {
+    right: 14px;
+  }
+
+  .tw__cap {
+    color: var(--muted);
+  }
+
+  @media (min-width: 900px) {
+    .tw__grab {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/slider.js';
+</script>

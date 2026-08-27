@@ -1,0 +1,112 @@
+---
+import { site, towns } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <a class="logo" href="/">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__text">Keyline<span class="logo__thin">Visuals</span></span>
+      </a>
+      <p class="mono foot__base">{site.base}</p>
+    </div>
+
+    <div class="foot__col">
+      <p class="mono foot__label">Contact</p>
+      <a class="foot__line" href={site.phoneHref}>{site.phone}</a>
+      <a class="foot__line" href={`mailto:${site.email}`}>{site.email}</a>
+      <a class="foot__line" href={site.instagramUrl} rel="me noopener">Instagram</a>
+    </div>
+
+    <div class="foot__col">
+      <p class="mono foot__label">Service area</p>
+      <p class="foot__area">{towns.join(' · ')}</p>
+    </div>
+  </div>
+
+  <div class="wrap foot__base-row">
+    <p class="mono">© {year} {site.name}</p>
+    <p class="mono">Licensed FAA Part 107 remote pilot</p>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--line);
+    padding-block: clamp(56px, 6vw, 88px) 32px;
+  }
+  .foot__inner {
+    display: grid;
+    gap: 44px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo__mark {
+    width: 12px;
+    height: 22px;
+    border: 1px solid var(--edge-strong);
+    border-left: 3px solid var(--signal);
+    flex: none;
+  }
+  .logo__text {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 118%;
+    text-transform: uppercase;
+    font-size: var(--fs-16);
+    line-height: 1;
+  }
+  .logo__thin {
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 0.35em;
+  }
+  .foot__base {
+    margin-top: 14px;
+  }
+  .foot__label {
+    margin-bottom: 16px;
+  }
+  .foot__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .foot__line {
+    color: var(--muted);
+    font-size: var(--fs-14);
+    border-bottom: 1px solid transparent;
+    transition: color var(--t-hover) var(--ease), border-color var(--t-hover) var(--ease);
+  }
+  .foot__line:hover {
+    color: var(--paper);
+    border-bottom-color: var(--glow);
+  }
+  .foot__area {
+    color: var(--muted);
+    font-size: var(--fs-14);
+    max-width: 40ch;
+  }
+  .foot__base-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    justify-content: space-between;
+    margin-top: clamp(48px, 6vw, 76px);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (min-width: 760px) {
+    .foot__inner {
+      grid-template-columns: 1.2fr 1fr 1.2fr;
+      gap: 40px;
+    }
+  }
+</style>

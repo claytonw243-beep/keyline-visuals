@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750" role="img" aria-label="Placeholder illustration of a two-storey house photographed in flat midday light">
+  <defs>
+    <linearGradient id="d-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9EABBF"/>
+      <stop offset="60%" stop-color="#BFC7D3"/>
+      <stop offset="100%" stop-color="#D2D6DC"/>
+    </linearGradient>
+    <linearGradient id="d-lawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8A79B"/>
+      <stop offset="100%" stop-color="#8F8E85"/>
+    </linearGradient>
+    <clipPath id="d-frame"><rect width="1200" height="750"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#d-frame)">
+    <rect width="1200" height="750" fill="url(#d-sky)"/>
+
+    <!-- distant treeline -->
+    <path d="M0 512 q60 -34 118 -8 q54 -40 116 -14 q44 -36 104 -10 q60 -30 128 -4 q70 -34 140 -6 q66 -28 138 -2 q72 -30 148 -6 q62 -22 108 4 V560 H0 Z" fill="#8D95A1" opacity="0.75"/>
+
+    <rect y="518" width="1200" height="232" fill="url(#d-lawn)"/>
+
+    <!-- driveway -->
+    <path d="M812 520 H958 L1096 750 H688 Z" fill="#BEC1C8"/>
+    <path d="M812 520 H958 L1096 750 H688 Z" fill="none" stroke="#AAAEB6" stroke-width="2"/>
+
+    <!-- garage wing -->
+    <path d="M694 344 L836 272 L978 344 Z" fill="#767E8C"/>
+    <rect x="720" y="344" width="232" height="176" fill="#C9CDD5"/>
+    <rect x="720" y="344" width="232" height="176" fill="none" stroke="#AFB4BE" stroke-width="1.5"/>
+    <rect x="758" y="398" width="156" height="122" fill="#B0B5BF"/>
+    <g stroke="#9FA5B0" stroke-width="1.5">
+      <line x1="758" y1="428" x2="914" y2="428"/>
+      <line x1="758" y1="459" x2="914" y2="459"/>
+      <line x1="758" y1="490" x2="914" y2="490"/>
+    </g>
+
+    <!-- main block -->
+    <rect x="640" y="192" width="42" height="84" fill="#8A8F99"/>
+    <path d="M262 272 L510 172 L758 272 Z" fill="#6C7484"/>
+    <path d="M262 272 L510 172 L758 272 Z" fill="none" stroke="#5D6472" stroke-width="2"/>
+    <rect x="300" y="270" width="420" height="250" fill="#D5D9E0"/>
+    <rect x="300" y="270" width="420" height="250" fill="none" stroke="#B7BCC6" stroke-width="1.5"/>
+    <!-- shadow side -->
+    <rect x="640" y="270" width="80" height="250" fill="#000" opacity="0.07"/>
+
+    <!-- upper windows -->
+    <g fill="#828B9C" stroke="#6E7686" stroke-width="2">
+      <rect x="336" y="298" width="62" height="74"/>
+      <rect x="428" y="298" width="62" height="74"/>
+      <rect x="520" y="298" width="62" height="74"/>
+      <rect x="612" y="298" width="62" height="74"/>
+    </g>
+
+    <!-- lower windows and door -->
+    <rect x="336" y="408" width="152" height="92" fill="#828B9C" stroke="#6E7686" stroke-width="2"/>
+    <line x1="412" y1="408" x2="412" y2="500" stroke="#6E7686" stroke-width="2"/>
+    <rect x="622" y="408" width="62" height="92" fill="#828B9C" stroke="#6E7686" stroke-width="2"/>
+    <rect x="518" y="404" width="74" height="116" fill="#8A7460" stroke="#75614F" stroke-width="2"/>
+    <circle cx="578" cy="464" r="4" fill="#C6C9CF"/>
+
+    <!-- porch step -->
+    <rect x="504" y="512" width="102" height="12" fill="#C2C5CC"/>
+
+    <!-- tree -->
+    <rect x="138" y="428" width="20" height="96" fill="#7D766C"/>
+    <g fill="#949187" opacity="0.95">
+      <circle cx="148" cy="392" r="66"/>
+      <circle cx="100" cy="416" r="46"/>
+      <circle cx="196" cy="418" r="48"/>
+      <circle cx="150" cy="444" r="52"/>
+    </g>
+
+    <!-- shrubs -->
+    <g fill="#8E8B81">
+      <ellipse cx="330" cy="516" rx="34" ry="20"/>
+      <ellipse cx="392" cy="518" rx="28" ry="17"/>
+      <ellipse cx="700" cy="518" rx="30" ry="18"/>
+    </g>
+
+    <!-- flat overhead light: no cast shadows, low contrast -->
+    <rect width="1200" height="750" fill="#C9CEDA" opacity="0.1"/>
+  </g>
+</svg>

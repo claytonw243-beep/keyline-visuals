@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Page not found — Keyline Visuals"
+  description="That page is not here. Head back to the work, the pricing, or book a shoot."
+>
+  <section class="section nf">
+    <div class="wash wash--hero" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="mono">404</p>
+      <h1 class="display nf__title">This one is off the map</h1>
+      <p class="prose nf__body">
+        The page you were after does not exist, or it moved. Everything on this site lives in four
+        places — pick one, or call and I will point you at it.
+      </p>
+
+      <div class="nf__links">
+        <a class="btn btn--primary" href="/#book">Book a shoot</a>
+        <a class="btn btn--ghost" href="/work/">See the work</a>
+        <a class="btn btn--ghost" href="/services/">Services</a>
+        <a class="btn btn--ghost" href="/#pricing">Pricing</a>
+      </div>
+
+      <p class="mono nf__call">
+        Or call <a class="link" href={site.phoneHref}>{site.phone}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 62svh;
+    display: flex;
+    align-items: center;
+  }
+  .nf__title {
+    margin-top: 18px;
+    font-size: var(--fs-96);
+  }
+  .nf__body {
+    margin-top: 24px;
+  }
+  .nf__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 38px;
+  }
+  .nf__call {
+    margin-top: 30px;
+  }
+</style>

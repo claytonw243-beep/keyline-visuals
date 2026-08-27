@@ -1,0 +1,167 @@
+---
+import { services } from '../data/services';
+---
+
+<section class="section section--hair" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="mono">What gets shot</p>
+      <h2 class="display">Seven things I do</h2>
+      <p class="prose">
+        Book them as a package or one at a time. Every one of them is priced on the page and
+        delivered on a clock you can plan a listing around.
+      </p>
+    </div>
+
+    <div class="svc">
+      {
+        services.map((s) => (
+          <a
+            class:list={['svc__tile', 'reveal', `svc__tile--${s.size}`]}
+            href={`/services/#${s.slug}`}
+          >
+            {s.image && (
+              <div class="svc__frame">
+                <img
+                  src={s.image}
+                  alt=""
+                  width="1600"
+                  height="1000"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+            <div class="svc__body">
+              <p class="mono svc__eyebrow">{s.eyebrow}</p>
+              <h3 class="display svc__name">{s.name}</h3>
+              <p class="svc__blurb">{s.blurb}</p>
+              <p class="stamp svc__stamp">
+                {s.stamp.map((chunk) => (
+                  <span>{chunk}</span>
+                ))}
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .svc {
+    display: grid;
+    gap: 1px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+
+  .svc__tile {
+    display: flex;
+    flex-direction: column;
+    background: var(--night);
+    padding: 26px;
+    transition: background-color var(--t-hover) var(--ease);
+    outline-offset: -2px;
+  }
+  .svc__tile:hover {
+    background: color-mix(in srgb, var(--night) 76%, var(--cobalt));
+  }
+
+  .svc__frame {
+    position: relative;
+    margin: -26px -26px 24px;
+    border-bottom: 1px solid var(--line-soft);
+    overflow: hidden;
+  }
+  .svc__frame img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    transition: opacity var(--t-hover) var(--ease);
+  }
+  .svc__tile:hover .svc__frame img {
+    opacity: 0.86;
+  }
+
+  .svc__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .svc__eyebrow {
+    margin-bottom: 14px;
+  }
+  .svc__name {
+    font-size: var(--fs-20);
+    line-height: 1.1;
+  }
+  .svc__blurb {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: var(--fs-14);
+    max-width: 46ch;
+  }
+  .svc__stamp {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+
+  /* Border lifts to --horizon on hover, drawn as an inset ring so the 1px
+     grid gaps stay honest and nothing shifts. */
+  .svc__tile {
+    position: relative;
+  }
+  .svc__tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    pointer-events: none;
+    transition: border-color var(--t-hover) var(--ease);
+  }
+  .svc__tile:hover::after {
+    border-color: var(--line-lift);
+  }
+
+  @media (min-width: 700px) {
+    .svc {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .svc__tile--large {
+      grid-column: span 2;
+    }
+    .svc__tile--large .svc__frame img {
+      aspect-ratio: 21 / 9;
+    }
+    /* Odd count — the last tile takes the remainder so no row ends short. */
+    .svc__tile:last-child {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1040px) {
+    .svc {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+    .svc__tile--large {
+      grid-column: span 3;
+    }
+    .svc__tile--large .svc__frame img {
+      aspect-ratio: 16 / 10;
+    }
+    .svc__tile--compact {
+      grid-column: span 2;
+    }
+    .svc__tile:last-child {
+      grid-column: span 4;
+    }
+    .svc__tile {
+      padding: 30px;
+    }
+    .svc__frame {
+      margin: -30px -30px 26px;
+    }
+  }
+</style>

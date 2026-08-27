@@ -1,0 +1,116 @@
+---
+import { faq } from '../data/faq';
+---
+
+<section class="section section--hair" id="faq">
+  <div class="wrap faq">
+    <div class="section-head reveal faq__head">
+      <p class="mono">Before you ask</p>
+      <h2 class="display">Questions I get every week</h2>
+    </div>
+
+    <div class="faq__list">
+      {
+        faq.map((item) => (
+          <details class="faq__item reveal" name="faq">
+            <summary class="faq__q">
+              <span>{item.q}</span>
+              <span class="faq__icon" aria-hidden="true" />
+            </summary>
+            <div class="faq__a">
+              <p>{item.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    gap: clamp(4px, 3vw, 56px);
+  }
+  .faq__head {
+    margin-bottom: 0;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq__item:first-child {
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__q {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 22px;
+    font-size: var(--fs-20);
+    font-weight: 500;
+    line-height: 1.35;
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--t-hover) var(--ease);
+  }
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+  .faq__q:hover {
+    color: var(--signal);
+  }
+  .faq__q:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: -2px;
+  }
+
+  .faq__icon {
+    position: relative;
+    flex: none;
+    width: 13px;
+    height: 13px;
+    align-self: center;
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    /* --horizon is 2.95:1 on --ink, just under the 3:1 floor for a meaningful
+       control. --muted clears it at 6.9:1. */
+    background: var(--muted);
+    transition: transform var(--t-hover) var(--ease), background-color var(--t-hover) var(--ease);
+  }
+  .faq__icon::before {
+    inset: 6px 0;
+    height: 1px;
+  }
+  .faq__icon::after {
+    inset: 0 6px;
+    width: 1px;
+  }
+  .faq__item[open] .faq__icon::after {
+    transform: scaleY(0);
+  }
+  .faq__item[open] .faq__icon::before {
+    background: var(--signal);
+  }
+
+  .faq__a {
+    padding-bottom: 26px;
+  }
+  .faq__a p {
+    color: var(--muted);
+    font-size: var(--fs-14);
+    max-width: 66ch;
+  }
+
+  @media (min-width: 960px) {
+    .faq {
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+      align-items: start;
+    }
+  }
+</style>
