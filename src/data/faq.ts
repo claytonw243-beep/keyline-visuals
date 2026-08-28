@@ -21,8 +21,4 @@ export const faq = [
     q: 'Who owns the photos and where can I use them?',
     a: 'Keyline Visuals licenses images rather than selling them. Your license covers marketing the listed property for the term of the listing, up to one year, and it belongs to the agent who commissioned the shoot. Builders, stagers, designers, and other third parties who want to use the images license them separately. If a listing expires or is withdrawn and another agent takes over, the images don\'t transfer with it. Please don\'t re-edit delivered files.',
   },
-  {
-    q: 'When do I pay?',
-    a: 'Invoice goes out with the gallery link and is due on delivery, before the listing goes live. Card, ACH, or check. Brokerages with more than a few listings a month can be set up on net-15 billing instead of paying per shoot. There is no deposit for a standard booking; a cancellation inside 24 hours of the appointment is billed at half.',
-  },
 ];

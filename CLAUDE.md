@@ -31,14 +31,8 @@ copy anywhere, and adding one is a bug.**
 Travel beyond 30 miles is quoted at booking. **That rate is internal. It must
 never appear on the public site or anywhere in this repo**, including comments.
 
-Two traps around these:
+One trap around these:
 
-- **"24 hours" appears in this codebase meaning two different things.** The
-  settled fact is *turnaround*. But `BookingForm.astro` and the payment answer in
-  `faq.ts` describe a *cancellation window* that also happens to be 24 hours and
-  is **not** settled. They are deliberately not wired to `TURNAROUND`. Never
-  point them at it — changing turnaround later would silently rewrite a
-  cancellation policy.
 - **Two turnarounds, and only two.** Stills are 24 hours (`TURNAROUND_*`);
   video is 48 (`VIDEO_TURNAROUND_*`). Never fold one into the other — they are
   different promises.
@@ -57,7 +51,6 @@ guesswork:
 | Instagram handle | **TBD** |
 | FAA Part 107 certificate number | **TBD** |
 | Business hours | **TBD** |
-| Cancellation policy | **TBD** |
 
 **The dangerous part: not every placeholder looks like one.** Bracketed values
 such as `[INSTAGRAM_HANDLE]` are obvious. But the codebase also contains
@@ -68,9 +61,6 @@ plain-English draft copy that reads as established fact and is not:
 - `src/data/services.ts` → image and frame counts — "30–45 IMAGES", "4K / 60",
   "8–12 FRAMES", "6–8 FRAMES". The turnaround stamps are settled and read from
   constants. The aerial entry's prose is settled and verbatim.
-- `src/data/faq.ts` — half-price cancellation inside 24 hours, net-15 brokerage
-  billing, the rush-delivery claim (the licensing answer is settled and
-  verbatim — do not reword it)
 - `src/components/Process.astro` — text-when-finished, partial reshoot promise
 - `src/layouts/BaseLayout.astro` — JSON-LD opening hours (Mon–Fri 08:00–19:00,
   Sat 09:00–17:00)
@@ -79,6 +69,19 @@ plain-English draft copy that reads as established fact and is not:
 clients and legal claims about drone certification. Do not repeat them in new
 copy, do not cite them as settled, and do not let them propagate into a new page
 as if they were confirmed. If a task needs one of these values, ask.
+
+### Deliberately not on the site
+
+Payment terms are handled on the invoice, not in the marketing. The "When do I
+pay?" FAQ and the booking-form footer line were **removed on purpose**, taking
+these four unverified claims with them: net-15 billing for brokerages, no
+deposit, a cancellation inside 24 hours billed at half, and "cancel free up to
+24 hours out". Invoice timing, payment methods, deposits, and the cancellation
+window are **not TBD — they are off the site by decision.** Do not reintroduce
+them.
+
+The one payment detail that stays is "The invoice comes with the gallery" in
+`Process.astro` step 3.
 
 Never invent a testimonial, client logo, star rating, review count, or credential.
 
@@ -147,7 +150,7 @@ a task needs either, that is a deliberate change to propose, not to assume.
    a fact is settled it has a named constant in `site.ts` — import it. Never
    restate a settled value as a literal, not even inside prose.
 7. **The site speaks as "we".** Keyline Visuals is a business, not a person —
-   no "I", "my", or "me" in visitor-facing copy. Two exceptions: the six **FAQ
+   no "I", "my", or "me" in visitor-facing copy. Two exceptions: the five **FAQ
    questions are in the reader's voice** (`"How fast do I get the photos?"` is
    the visitor asking us), and `rel="me"` in the footer is a microformats
    attribute, not prose. Never write "our pilots", "our team", or anything else

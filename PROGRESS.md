@@ -7,6 +7,34 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Payment terms taken off the site
+
+Four claims were live that had never been confirmed: net-15 billing for
+brokerages "with more than a few listings a month", no deposit, a cancellation
+inside 24 hours billed at half, and "cancel free up to 24 hours out". All are
+now gone.
+
+Removed: the "When do I pay?" question and answer from `faq.ts` entirely, with
+no replacement, and the booking-form footer line under the submit button. The
+dead `.form__foot` rule went with it.
+
+Kept: "The invoice comes with the gallery" in `Process.astro` step 3 — the one
+payment detail worth having on the site, already in the right place.
+
+**A trap disappeared with them.** `BookingForm.astro` and the payment answer
+were the two places where "24 hours" meant a *cancellation window* rather than
+turnaround. `CLAUDE.md` carried a warning never to wire them to `TURNAROUND`,
+because changing turnaround would have silently rewritten a cancellation
+policy. Both are gone, so the warning is gone and 24 hours now means exactly
+one thing in this codebase.
+
+`CLAUDE.md` records these as **off the site by decision, not TBD**, so a future
+session does not helpfully restore them. The cancellation-policy row is out of
+the TBD table.
+
+Five FAQs remain. `CLAUDE.md` rule 7 said "six FAQ questions are in the
+reader's voice" — corrected to five.
+
 ## 2026-08-27 — Sales tax line removed
 
 "Sales tax added at invoice" is gone from the Pricing add-ons footer, which now

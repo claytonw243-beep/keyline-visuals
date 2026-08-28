@@ -119,10 +119,6 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
         <button class="btn btn--primary btn--wide form__submit" type="submit" data-form-submit>
           Send booking request
         </button>
-
-        <p class="mono form__foot">
-          No deposit · We confirm by text or email · Cancel free up to 24 hours out
-        </p>
       </form>
 
       <div class="done" data-form-done hidden>
@@ -286,10 +282,6 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
     opacity: 0.7;
     pointer-events: none;
   }
-  .form__foot {
-    text-align: center;
-  }
-
   .done {
     padding-block: 20px;
   }

@@ -151,14 +151,12 @@ when an agent pastes your link into a text or a Facebook group.
 
 ## 5. Copy to check before launch
 
-- `src/data/faq.ts` — the payment answer says no deposit and half-price
-  cancellation inside 24 hours. **Still a draft business decision, not settled.**
-  Note it is unrelated to the 24-hour turnaround and is deliberately not wired to
-  the `TURNAROUND` constant, so changing turnaround will not move it.
-  (The licensing answer is settled — supplied verbatim by the owner.)
+- `src/data/faq.ts` — the licensing answer is settled, supplied verbatim by the
+  owner. Nothing else in the FAQ carries a business term any more: the payment
+  question was removed on purpose, along with net-15, deposits, and the
+  cancellation window. Do not add them back.
 - `src/data/services.ts` — the aerial entry claims Part 107 and mentions LAANC
-  for Tupelo. The virtual staging entry promises a disclosure label baked into
-  every file. Make sure you do all of that.
+  for Tupelo. Make sure both are true.
 - `src/components/Process.astro` — promises a text when the shoot is done and a
   partial reshoot if the seller changes something.
 - `src/components/Coverage.astro` — settled: travel included inside 30 miles,
