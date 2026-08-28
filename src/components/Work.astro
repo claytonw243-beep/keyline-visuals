@@ -1,4 +1,5 @@
 ---
+import { Picture, getImage } from 'astro:assets';
 import { gallery, filters } from '../data/gallery';
 
 interface Props {
@@ -19,6 +20,19 @@ const {
 
 const shots = limit ? gallery.slice(0, limit) : gallery;
 const Heading = headingLevel;
+
+/* The lightbox is vanilla JS and sets img.src from a data attribute, so it
+   needs a concrete URL. Generate one derivative per shot at build time. */
+const lightboxSrc = await Promise.all(
+  shots.map((shot) => getImage({ src: shot.image, width: 1600, format: 'webp' }))
+).then((images) => images.map((image) => image.src));
+
+/* Cap the column count at the number of photos so a partial set does not leave
+   empty columns. */
+const cols = `--cols-md:${Math.min(2, shots.length)};--cols-lg:${Math.min(3, shots.length)}`;
+
+/* Only show the full-gallery link when there is more to see. */
+const hasMore = Boolean(limit) && gallery.length > shots.length;
 ---
 
 <section class="section section--hair" id="work">
@@ -48,35 +62,42 @@ const Heading = headingLevel;
       Showing {shots.length} of {shots.length}
     </p>
 
-    <div class="work__grid" data-work-grid>
+    <div class="work__grid" data-work-grid style={cols}>
       {
-        shots.map((shot, i) => (
-          <button
-            type="button"
-            class:list={['work__item', 'reveal', `work__item--${shot.orientation}`]}
-            data-filter={shot.filter}
-            data-lb={i}
-            data-lb-src={shot.file}
-            data-lb-caption={shot.caption}
-            data-lb-meta={`${shot.propertyType} · ${shot.area} · ${shot.meta}`}
-          >
-            <img
-              src={shot.file}
-              alt={shot.caption}
-              width={shot.orientation === 'portrait' ? 1067 : 1600}
-              height={shot.orientation === 'portrait' ? 1600 : 1067}
-              loading={i < 3 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
-            <span class="work__overlay">
-              <span class="mono work__meta">
-                <span>{shot.propertyType}</span>
-                <span>{shot.area}</span>
-                <span>{shot.meta}</span>
-              </span>
-            </span>
-          </button>
-        ))
+        shots.map((shot, i) => {
+          const facts = [shot.propertyType, shot.area, shot.meta].filter(Boolean);
+          return (
+            <button
+              type="button"
+              class="work__item reveal"
+              data-filter={shot.filter}
+              data-lb={i}
+              data-lb-src={lightboxSrc[i]}
+              data-lb-caption={shot.caption}
+              data-lb-meta={facts.join(' · ')}
+            >
+              <Picture
+                src={shot.image}
+                formats={['avif', 'webp']}
+                fallbackFormat="jpg"
+                widths={[400, 800, 1200, 1600]}
+                sizes="(min-width: 1040px) 372px, (min-width: 640px) 45vw, 90vw"
+                alt={shot.caption}
+                loading={i < 3 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+              {facts.length > 0 && (
+                <span class="work__overlay">
+                  <span class="mono work__meta">
+                    {facts.map((fact) => (
+                      <span>{fact}</span>
+                    ))}
+                  </span>
+                </span>
+              )}
+            </button>
+          );
+        })
       }
     </div>
 
@@ -86,7 +107,7 @@ const Heading = headingLevel;
     </p>
 
     {
-      limit && (
+      hasMore && (
         <div class="work__more reveal">
           <a class="btn btn--ghost" href="/work/">
             See the full gallery
@@ -153,7 +174,7 @@ const Heading = headingLevel;
   }
 
   .work__grid {
-    columns: 1;
+    columns: var(--cols-sm, 1);
     column-gap: 14px;
   }
 
@@ -175,6 +196,9 @@ const Heading = headingLevel;
   }
   .work__item[hidden] {
     display: none;
+  }
+  .work__item picture {
+    display: contents;
   }
   .work__item img {
     width: 100%;
@@ -221,12 +245,12 @@ const Heading = headingLevel;
 
   @media (min-width: 640px) {
     .work__grid {
-      columns: 2;
+      columns: var(--cols-md, 2);
     }
   }
   @media (min-width: 1040px) {
     .work__grid {
-      columns: 3;
+      columns: var(--cols-lg, 3);
     }
   }
 

@@ -173,18 +173,21 @@ Real limitations found in an audit of the codebase. Do not trip on them:
   `:last-child` trailing-row hack has been deleted. An odd count strands the
   last tile with empty columns beside it, and needs the layout rethought rather
   than another span rule.
-- **`gallery.ts` declares its categories twice** — once as a union in the `Shot`
-  type, once in the `filters` array — with nothing keeping them in sync.
 - **`BaseLayout` accepts only `title`, `description`, and `ogImage`.** No
   `noindex`, no per-page JSON-LD override, and the LocalBusiness description is
   hardcoded in the layout rather than in `site.ts`.
 
-Two smaller notes: turnaround, travel radius, and the twilight add-on price were
+One smaller note: turnaround, travel radius, and the twilight add-on price were
 consolidated into constants in `site.ts` and are no longer duplicated — but other
-facts still are, so check before adding a seventh copy of anything. And only the
-two hero photos go through `astro:assets` — the
-gallery and service tiles are still raw `<img>` tags pointing at `public/`,
-which is correct for SVG placeholders but must change when real photos land.
+facts still are, so check before adding a seventh copy of anything.
+
+**Images.** The hero pair and all gallery photographs go through `astro:assets`
+from `src/assets/`. The gallery resolves files with `import.meta.glob`, derives
+each shot's orientation from the file, and derives the filter row from the
+categories actually present — so a partial set works and there are no dead
+filter buttons. An entry whose file is missing is skipped with a build warning.
+The **two service tiles are the last raw `<img>` tags pointing at `public/`**
+and still need converting when real photos replace them.
 
 ## Working agreement
 

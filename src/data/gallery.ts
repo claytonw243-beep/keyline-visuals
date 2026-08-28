@@ -1,144 +1,107 @@
-export type Shot = {
-  id: string;
+import type { ImageMetadata } from 'astro';
+
+/* Real photographs live in src/assets/gallery/ and go through astro:assets.
+   Full-resolution originals stay in masters/, which is gitignored.
+
+   To add a photo: export it to src/assets/gallery/ at 1600px on the long edge,
+   then add an entry below. Order here is display order.
+
+   An entry whose file is missing is dropped with a build warning rather than
+   crashing, so a partial set works and a typo is survivable. */
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/gallery/*.{jpg,jpeg,png,avif,webp}',
+  { eager: true }
+);
+
+/** Declared once. The filter row is derived from this, so there is no second
+    list to keep in sync. */
+export const CATEGORIES = {
+  interiors: 'Interiors',
+  exteriors: 'Exteriors',
+  aerial: 'Aerial',
+  twilight: 'Twilight',
+  video: 'Video',
+} as const;
+
+export type Category = keyof typeof CATEGORIES;
+
+type Entry = {
+  /** Filename inside src/assets/gallery/ */
   file: string;
-  filter: 'interiors' | 'exteriors' | 'aerial' | 'twilight' | 'video';
-  propertyType: string;
-  area: string;
-  meta: string;
-  orientation: 'portrait' | 'landscape';
+  filter: Category;
+  /** Used as the alt text and the lightbox caption. Describe what is in the
+      frame — not when or how it was shot. */
   caption: string;
+  /* CONTENT-TODO: the three below are optional and currently unset. They are
+     facts about the listing that only the owner knows. The hover overlay shows
+     whichever are present and renders nothing when none are. */
+  propertyType?: string;
+  area?: string;
+  meta?: string;
 };
 
-export const filters = [
-  { key: 'all', label: 'All' },
-  { key: 'interiors', label: 'Interiors' },
-  { key: 'exteriors', label: 'Exteriors' },
-  { key: 'aerial', label: 'Aerial' },
-  { key: 'twilight', label: 'Twilight' },
-  { key: 'video', label: 'Video' },
-] as const;
+const entries: Entry[] = [
+  {
+    file: '01-front-elevation.jpg',
+    filter: 'exteriors',
+    caption: 'Front elevation with the drive curving in past mature oaks.',
+  },
+  {
+    file: '02-sitting-room.jpg',
+    filter: 'interiors',
+    caption: 'Sitting room in charcoal, with the pocket door open through to the dining area.',
+  },
+  {
+    file: '03-lot-aerial.jpg',
+    filter: 'aerial',
+    caption: 'Overhead frame with the lot boundary drawn on.',
+  },
+  {
+    file: '04-dining-area.jpg',
+    filter: 'interiors',
+    caption: 'Dining area with the hall and staircase beyond.',
+  },
+  {
+    file: '05-front-porch.jpg',
+    filter: 'exteriors',
+    caption: 'Covered porch running the front of the house, with the entry door centred.',
+  },
+  {
+    file: '06-study.jpg',
+    filter: 'interiors',
+    caption: 'Study with charcoal built-ins and a butcher-block desk run.',
+  },
+];
 
-/* CONTENT-TODO: swap each `file` for a real photograph.
-   Recommended dimensions are listed in CONTENT-TODO.md. */
-export const gallery: Shot[] = [
-  {
-    id: 'g01',
-    file: '/placeholders/work-01-twilight-front.svg',
-    filter: 'twilight',
-    propertyType: 'New construction',
-    area: 'Grand Oaks',
-    meta: '38 IMAGES',
-    orientation: 'landscape',
-    caption: 'Front elevation with the windows lit and the sky deep blue.',
-  },
-  {
-    id: 'g02',
-    file: '/placeholders/work-02-interior-kitchen.svg',
-    filter: 'interiors',
-    propertyType: 'Single family',
-    area: 'Oxford Commons',
-    meta: '42 IMAGES',
-    orientation: 'portrait',
-    caption: 'Kitchen with the view out the window still visible.',
-  },
-  {
-    id: 'g03',
-    file: '/placeholders/work-03-aerial-lot.svg',
-    filter: 'aerial',
-    propertyType: 'Acreage',
-    area: 'Lafayette County',
-    meta: '11 FRAMES',
-    orientation: 'landscape',
-    caption: 'Lot boundary and treeline, flown under Part 107.',
-  },
-  {
-    id: 'g04',
-    file: '/placeholders/work-04-interior-living.svg',
-    filter: 'interiors',
-    propertyType: 'Townhome',
-    area: 'Old Taylor Road',
-    meta: '31 IMAGES',
-    orientation: 'landscape',
-    caption: 'Living room at the height a buyer actually sees it from.',
-  },
-  {
-    id: 'g05',
-    file: '/placeholders/work-05-exterior-front.svg',
-    filter: 'exteriors',
-    propertyType: 'Historic',
-    area: 'North Lamar',
-    meta: '36 IMAGES',
-    orientation: 'portrait',
-    caption: 'Straightened verticals on a facade that leans in every phone photo.',
-  },
-  {
-    id: 'g06',
-    file: '/placeholders/work-06-video-walkthrough.svg',
-    filter: 'video',
-    propertyType: 'Single family',
-    area: 'Country Club Road',
-    meta: '4K / 60 · 1:34',
-    orientation: 'landscape',
-    caption: 'Ninety-second walkthrough, one continuous path through the house.',
-  },
-  {
-    id: 'g07',
-    file: '/placeholders/work-07-twilight-rear.svg',
-    filter: 'twilight',
-    propertyType: 'Lakefront',
-    area: 'Sardis Lake',
-    meta: '8 FRAMES',
-    orientation: 'landscape',
-    caption: 'Rear elevation and dock, house lit against a deep blue sky.',
-  },
-  {
-    id: 'g08',
-    file: '/placeholders/work-08-interior-bath.svg',
-    filter: 'interiors',
-    propertyType: 'New construction',
-    area: 'The Links',
-    meta: '45 IMAGES',
-    orientation: 'portrait',
-    caption: 'Primary bath, mirrors worked around rather than shot into.',
-  },
-  {
-    id: 'g09',
-    file: '/placeholders/work-09-aerial-neighborhood.svg',
-    filter: 'aerial',
-    propertyType: 'Short-term rental',
-    area: 'Ole Miss campus area',
-    meta: '9 FRAMES',
-    orientation: 'landscape',
-    caption: 'Walking distance to the Square, shown instead of claimed.',
-  },
-  {
-    id: 'g10',
-    file: '/placeholders/work-10-exterior-rear.svg',
-    filter: 'exteriors',
-    propertyType: 'Single family',
-    area: 'Taylor',
-    meta: '33 IMAGES',
-    orientation: 'landscape',
-    caption: 'Back yard and porch from the rear of the lot.',
-  },
-  {
-    id: 'g11',
-    file: '/placeholders/work-11-interior-primary.svg',
-    filter: 'interiors',
-    propertyType: 'Builder spec',
-    area: 'Water Valley',
-    meta: '29 IMAGES',
-    orientation: 'portrait',
-    caption: 'Primary bedroom in an unfurnished spec.',
-  },
-  {
-    id: 'g12',
-    file: '/placeholders/work-12-video-vertical.svg',
-    filter: 'video',
-    propertyType: 'Condo',
-    area: 'Tupelo',
-    meta: '9:16 · 0:48',
-    orientation: 'portrait',
-    caption: 'Vertical cut, delivered with the horizontal for Reels.',
-  },
+export type Shot = Omit<Entry, 'file'> & {
+  image: ImageMetadata;
+  orientation: 'portrait' | 'landscape';
+};
+
+export const gallery: Shot[] = entries.flatMap((entry) => {
+  const mod = files[`../assets/gallery/${entry.file}`];
+  if (!mod) {
+    console.warn(`[gallery] "${entry.file}" is not in src/assets/gallery/ — entry skipped.`);
+    return [];
+  }
+  const image = mod.default;
+  return [
+    {
+      ...entry,
+      image,
+      orientation: image.width >= image.height ? ('landscape' as const) : ('portrait' as const),
+    },
+  ];
+});
+
+/** Only categories that actually have a photo. Prevents a filter button that
+    always resolves to an empty grid. */
+const present = new Set(gallery.map((shot) => shot.filter));
+
+export const filters = [
+  { key: 'all' as const, label: 'All' },
+  ...(Object.keys(CATEGORIES) as Category[])
+    .filter((key) => present.has(key))
+    .map((key) => ({ key, label: CATEGORIES[key] })),
 ];

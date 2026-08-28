@@ -71,84 +71,63 @@ agent buys on its own. Change it alongside any price change.
 
 ## 4. Photography
 
-Placeholders live in `public/placeholders/` with a machine-readable index at
-`public/placeholders/manifest.json`. Every placeholder is labelled on-image with
-its filename and pixel dimensions, so you can match a real file to its slot by
-looking at it.
+**Six real photographs are in.** They live in `src/assets/gallery/` and run
+through `astro:assets`, which generates AVIF and WebP at four widths each.
 
-**Swap in real photos by keeping the same filename** (change the extension and
-update the path in the data file), or point the data file at a new name.
+### Adding more
 
-### The hero slider — done
+1. Put the full-resolution original in `masters/` — gitignored, never committed.
+2. Export to `src/assets/gallery/` as **JPEG, sRGB, 1600px on the long edge,
+   quality ~85**. Do not pre-shrink further; Astro derives the smaller sizes.
+3. Add an entry to the `entries` array in `src/data/gallery.ts`. Array order is
+   display order.
 
-Both halves are real photographs of 108 Cedar Hill Drive, and they are a genuine
-matched pair. Measured registration between the two frames is **scale 1.001 with
-sub-pixel offset**, so the house does not shift when the handle moves.
+Name files `NN-subject.jpg` — lowercase, hyphens. The number is for your own
+sanity in the folder; ordering comes from the array, not the filename.
 
-| Half | File |
-| --- | --- |
-| Midday | `src/assets/hero-day.jpg` |
-| Blue hour | `src/assets/hero-twilight.jpg` |
+An entry whose file is missing is **skipped with a build warning** rather than
+crashing, so a partial set always works and a typo is survivable.
 
-Both run through `astro:assets` — AVIF, WebP, and JPEG at four widths each,
-generated at build time.
+### Metadata still to supply
 
-Nothing to do here unless you want to swap the property. **If you do, both frames
-have to be reshot together** from one tripod position — replacing only one breaks
-the comparison, which is the entire point of the interaction.
+Each gallery entry can carry `propertyType`, `area`, and `meta` (an image
+count). **All three are unset**, because they are facts about the listing that
+only you know — inventing a neighbourhood would be inventing a client. The hover
+overlay shows whichever are present and renders nothing when none are, so the
+gallery looks correct without them.
 
-Both sources are 1536 × 1024, matched deliberately so the two halves have
-identical sharpness at any display size. If you ever have the twilight frame at
-full resolution, re-export both at the same larger size rather than just the one.
+Fill them in per entry when you know them, for example:
 
-The 6000 × 4000 original the midday half was derived from lives at
-`masters/108_Cedar_Hill_Dr-2.jpg`. `masters/` is gitignored — full-resolution
-originals stay on your machine and are never committed. Keep new shoot originals
-there and export web-sized versions into `src/assets/`. See the README.
+```
+propertyType: 'Single family',
+area: 'Lafayette County',
+meta: '38 IMAGES',
+```
 
-### Service tiles — 2 photos
+### Categories with no photo yet
+
+The filter row is generated from what actually exists, so there are currently
+four buttons: All, Interiors, Exteriors, Aerial. **Twilight and Video have no
+photo**, so no dead buttons appear. Both are still services — a twilight
+conversion and a video still would each add their filter back automatically.
+
+### Service tiles — 2 images, still placeholders
 
 | File | Slot | Recommended | Aspect |
 | --- | --- | --- | --- |
 | `service-stills.svg` | Stills tile | 1600 × 1000 | 16:10 |
 | `service-video.svg` | Video tile | 1600 × 1000 | 16:10 |
 
-Referenced in `src/data/services.ts` (`image` field). The two compact tiles have
-no image by design — leave them that way unless you have frames strong enough to
-carry them.
-
-### Gallery — 12 photos
-
-Referenced in `src/data/gallery.ts`. Each entry also carries a `propertyType`,
-`area`, `meta`, and `caption` you should rewrite to describe the real listing —
-the alt text and lightbox caption both come from `caption`, so write it as a
-plain sentence about what's in the frame.
-
-| File | Type | Recommended | Aspect |
-| --- | --- | --- | --- |
-| `work-01-twilight-front.svg` | Twilight, front elevation | 1600 × 1067 | 3:2 landscape |
-| `work-02-interior-kitchen.svg` | Interior, kitchen | 1067 × 1600 | 2:3 portrait |
-| `work-03-aerial-lot.svg` | Aerial, lot and treeline | 1600 × 1067 | 3:2 landscape |
-| `work-04-interior-living.svg` | Interior, living room | 1600 × 1067 | 3:2 landscape |
-| `work-05-exterior-front.svg` | Exterior, front elevation | 1067 × 1600 | 2:3 portrait |
-| `work-06-video-walkthrough.svg` | Video still, walkthrough | 1600 × 900 | 16:9 landscape |
-| `work-07-twilight-rear.svg` | Twilight, rear elevation | 1600 × 1067 | 3:2 landscape |
-| `work-08-interior-bath.svg` | Interior, primary bath | 1067 × 1600 | 2:3 portrait |
-| `work-09-aerial-neighborhood.svg` | Aerial, neighbourhood context | 1600 × 1067 | 3:2 landscape |
-| `work-10-exterior-rear.svg` | Exterior, rear and yard | 1600 × 1067 | 3:2 landscape |
-| `work-11-interior-primary.svg` | Interior, primary bedroom | 1067 × 1600 | 2:3 portrait |
-| `work-12-video-vertical.svg` | Video still, vertical cut | 900 × 1600 | 9:16 portrait |
-
-**Mix matters more than count.** The grid is a masonry column layout, so a run of
-identical aspect ratios makes it look like a spreadsheet. Keep roughly the
-landscape/portrait split above. If you add more than 12, the home page shows the
-first 8 and `/work` shows all of them — no code change needed.
+These are the last two placeholder images on the site. Unlike the gallery they
+are still raw `<img>` tags pointing at `public/`, so they skip AVIF and WebP
+generation. When real photos replace them, move them into `src/assets/` and
+convert the tile to `<Picture>` the way the gallery now works.
 
 ### Open Graph image
 
 `public/og-default.png` (1200 × 630) is generated art, not a photo. Replace it
-with a real twilight frame plus your logotype once you have one — it's what shows
-when an agent pastes your link into a text or a Facebook group.
+with a real frame plus your logotype — it is what shows when an agent pastes
+your link into a text or a Facebook group.
 
 ## 5. Copy to check before launch
 

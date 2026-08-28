@@ -7,6 +7,62 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-28 — Real photographs in, gallery converted to astro:assets
+
+**Six real photographs replace the twelve placeholders.** Exported from
+`masters/` to `src/assets/gallery/` at 1600px on the long edge, JPEG q85,
+2.1MB total. EXIF is stripped on export — listing photos routinely carry GPS
+coordinates and those should not ship.
+
+| File | Category |
+| --- | --- |
+| 01-front-elevation.jpg | exteriors |
+| 02-sitting-room.jpg | interiors (the only portrait) |
+| 03-lot-aerial.jpg | aerial |
+| 04-dining-area.jpg | interiors |
+| 05-front-porch.jpg | exteriors |
+| 06-study.jpg | interiors |
+
+**The gallery now goes through `astro:assets`.** `gallery.ts` resolves files
+with `import.meta.glob`, and `Work.astro` renders `<Picture>` with AVIF and
+WebP at four widths. The `sizes` attribute is `372px` at desktop, which is the
+measured 3-column width — verified against the live layout rather than guessed.
+
+The lightbox is vanilla JS and sets `img.src` from a data attribute, so it
+needs a concrete URL. `getImage()` generates one 1600px WebP derivative per
+shot at build time and the script is unchanged.
+
+**Partial sets are handled four ways**, all verified live:
+
+1. A missing file drops its entry with a build warning instead of a Vite crash.
+2. The filter row is derived from categories actually present — currently All,
+   Interiors, Exteriors, Aerial. Twilight and Video have no photo and so have no
+   dead buttons.
+3. Column count is capped at the photo count. Simulated a two-photo set: two
+   columns, no empty third.
+4. "See the full gallery" only renders when there are more shots than the home
+   page limit. With six photos and a limit of eight it is correctly absent.
+
+**Two things derived rather than declared.** `orientation` now comes from the
+file's own dimensions, and the categories are declared once in a `CATEGORIES`
+record. That retires the `gallery.ts` architectural constraint in `CLAUDE.md` —
+categories were previously written twice with nothing syncing them.
+
+**Metadata deliberately left unset.** `propertyType`, `area`, and `meta` are
+facts about the listing that only the owner knows; inventing a neighbourhood
+would be inventing a client. All three are optional and the hover overlay
+renders nothing when none are present.
+
+**Cleanup:** the twelve `work-*.svg` placeholders and both `hero-*.svg`
+placeholders are deleted, and `manifest.json` trimmed to the two service tiles —
+the last placeholder images on the site, and the last raw `<img>` tags pointing
+at `public/`.
+
+**Flagged, not changed:** the three-column masonry is unbalanced with this set.
+Measured column heights are 820 / 775 / 249, a 571px spread, because five
+landscapes and one portrait cannot divide evenly across three columns. Two
+columns measured a 315px spread with larger images.
+
 ## 2026-08-27 — Gallery captions and a real priceRange
 
 **Four captions rewritten.** Captions are used as alt text as well as visible
