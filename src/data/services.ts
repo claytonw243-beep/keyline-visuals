@@ -24,7 +24,7 @@ export const services: Service[] = [
     eyebrow: 'Photography',
     name: 'Interior & exterior stills',
     blurb:
-      'Every room a buyer cares about, plus the front, back, and street view. Flashed so the windows still read and the walls stay the color they actually are.',
+      'Every room a buyer cares about, plus the front, back, and street view.',
     stamp: [TURNAROUND_STAMP, '30–45 IMAGES'],
     size: 'large',
     image: '/placeholders/service-stills.svg',

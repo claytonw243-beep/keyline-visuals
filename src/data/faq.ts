@@ -7,7 +7,7 @@ export const faq = [
   },
   {
     q: 'What happens if it rains?',
-    a: 'We shoot interiors in any weather — the flash does not care what the sky is doing. Exteriors, aerial, and twilight get moved to the next clear slot at no charge. We will call you the morning of rather than letting you find out when we do not show up. Twilight in particular gets rescheduled on a flat gray evening even if it is dry, because the shot does not work without color in the sky.',
+    a: 'We shoot interiors in any weather. Exteriors, aerial, and twilight get moved to the next clear slot at no charge. We will call you the morning of rather than letting you find out when we do not show up. Twilight in particular gets rescheduled on a flat gray evening even if it is dry, because the shot does not work without color in the sky.',
   },
   {
     q: 'Does the house need to be staged first?',

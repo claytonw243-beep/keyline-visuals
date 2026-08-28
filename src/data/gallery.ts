@@ -39,7 +39,7 @@ export const gallery: Shot[] = [
     area: 'Oxford Commons',
     meta: '42 IMAGES',
     orientation: 'portrait',
-    caption: 'Kitchen flashed against the ambient so the window keeps its view.',
+    caption: 'Kitchen with the view out the window still visible.',
   },
   {
     id: 'g03',

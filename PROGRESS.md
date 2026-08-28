@@ -7,6 +7,34 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Flash claims removed, Process narrowed to three clean steps
+
+**Flash is gone from the site entirely.** Keyline Visuals does not shoot with
+flash, and the remaining four claims were removed rather than rewritten —
+technique is more detail than a listing agent needs:
+
+- stills `blurb` — the "Flashed so the windows still read" sentence dropped; the
+  blurb is now one line about what gets shot
+- `faq.ts` rain answer — "the flash does not care what the sky is doing" cut. The
+  promise stands on its own; the reason was the part that was wrong
+- `gallery.ts` — the kitchen caption, which is also alt text, now reads "Kitchen
+  with the view out the window still visible"
+- `Process.astro` — "We bring lighting for every interior" replaced with "A drone
+  comes too if the package has one", keeping the useful half
+
+Verified: zero occurrences of flash, strobe, off-camera, or speedlight in `src/`
+or in any built page.
+
+**Process.astro — Option A.** Three steps kept, no CSS change. Step 2 now names
+video, floor plans, and virtual staging together at `EXTRAS_TURNAROUND`, which
+resolves the contradiction with `faq.ts`. Step 3 narrows to the listing website,
+the invoice, and the reshoot promise; its title changed from "Everything else
+lands before the listing goes live" to "The last pieces land…", since "everything
+else" no longer described one remaining deliverable.
+
+`CLAUDE.md` — the "known factually wrong" flash block added last commit is
+removed, since nothing in it is true of the codebase any more.
+
 ## 2026-08-27 — Plural voice, 48-hour extras, contact details, coverage link, flash claims
 
 **Voice.** The site now speaks as "we" — 38 rendered strings across 10 files.

@@ -74,17 +74,6 @@ plain-English draft copy that reads as established fact and is not:
 - `src/layouts/BaseLayout.astro` — JSON-LD opening hours (Mon–Fri 08:00–19:00,
   Sat 09:00–17:00)
 
-**Known factually wrong — not merely unverified.** Keyline Visuals does **not**
-shoot with flash. The stills service copy has been corrected, but three flash
-claims and one lighting-equipment claim are still in the codebase pending a
-decision, and must not be repeated or cited:
-
-- `src/data/services.ts` stills `blurb` — "Flashed so the windows still read"
-- `src/data/faq.ts` rain answer — "the flash does not care what the sky is doing"
-- `src/data/gallery.ts` — "Kitchen flashed against the ambient" (alt text and
-  lightbox caption, so it reaches screen readers)
-- `src/components/Process.astro` — "We bring lighting for every interior"
-
 **Treat all of it as unverified draft copy.** These are commitments to paying
 clients and legal claims about drone certification. Do not repeat them in new
 copy, do not cite them as settled, and do not let them propagate into a new page
