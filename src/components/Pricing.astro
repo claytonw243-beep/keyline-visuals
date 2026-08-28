@@ -9,41 +9,21 @@ import { FREE_TRAVEL_RADIUS_MILES } from '../data/site';
   <div class="wrap">
     <div class="section-head reveal">
       <p class="mono">What it costs</p>
-      <h2 class="display">Priced by square footage</h2>
+      <h2 class="display">Starting prices</h2>
       <p class="prose">
-        Square footage is what actually drives the time on site, so it is what drives the price.
-        No quotes, no discovery call — pick the tier the house falls in.
+        No tiers and no discovery call. Add-ons go on top of any booking.
       </p>
     </div>
 
     <div class="price">
       {
         packages.map((pkg) => (
-          <article class:list={['price__card', 'reveal', pkg.featured && 'price__card--featured']}>
-            {pkg.tag && <p class="mono price__tag">{pkg.tag}</p>}
+          <article class="price__card reveal">
             <h3 class="display price__name">{pkg.name}</h3>
             <p class="price__summary">{pkg.summary}</p>
-
-            <dl class="price__tiers">
-              {pkg.tiers.map((tier) => (
-                <div class="price__tier">
-                  <dt class="mono">{tier.label}</dt>
-                  <dd>{tier.price}</dd>
-                </div>
-              ))}
-            </dl>
-
-            <ul class="price__list">
-              {pkg.includes.map((line) => (
-                <li>{line}</li>
-              ))}
-            </ul>
-
-            <a
-              class:list={['btn', 'btn--wide', pkg.featured ? 'btn--primary' : 'btn--ghost']}
-              href="#book"
-            >
-              Book {pkg.name}
+            <p class="price__amount">{pkg.price}</p>
+            <a class="btn btn--ghost btn--wide" href="#book">
+              Book {pkg.name.toLowerCase()}
             </a>
           </article>
         ))
@@ -86,19 +66,6 @@ import { FREE_TRAVEL_RADIUS_MILES } from '../data/site';
     padding: 30px 26px 26px;
     position: relative;
   }
-  .price__card--featured {
-    background: color-mix(in srgb, var(--night) 72%, var(--cobalt));
-  }
-
-  .price__tag {
-    color: var(--glow);
-    margin-bottom: 14px;
-  }
-  /* Keeps the three cards' headings on the same baseline. */
-  .price__card:not(.price__card--featured) .price__name {
-    margin-top: calc(var(--fs-12) * 1.4 + 14px);
-  }
-
   .price__name {
     font-size: var(--fs-28);
   }
@@ -109,44 +76,13 @@ import { FREE_TRAVEL_RADIUS_MILES } from '../data/site';
     max-width: 34ch;
   }
 
-  .price__tiers {
-    margin: 26px 0 0;
+  .price__amount {
+    margin: 26px 0 30px;
+    padding-top: 22px;
     border-top: 1px solid var(--line);
-  }
-  .price__tier {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    padding-block: 13px;
-    border-bottom: 1px solid var(--line);
-  }
-  .price__tier dd {
-    margin: 0;
-    font-size: var(--fs-20);
+    font-size: var(--fs-28);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
-  }
-
-  .price__list {
-    margin: 24px 0 30px;
-    display: grid;
-    gap: 10px;
-    font-size: var(--fs-14);
-    color: var(--muted);
-  }
-  .price__list li {
-    padding-left: 20px;
-    position: relative;
-  }
-  .price__list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.62em;
-    width: 8px;
-    height: 1px;
-    background: var(--horizon);
   }
   .price__card .btn {
     margin-top: auto;

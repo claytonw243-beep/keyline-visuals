@@ -7,6 +7,61 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Real prices, twilight becomes a post edit, services cut to four
+
+**Pricing is settled and the structure is gone.** Three flat "starting at"
+products — Photos $180, Video $180, Drone only $125 — plus two add-ons, Drone
+add-on $35 and Virtual twilight $15. Cut: the three square-footage tiers, the
+Essential / Full Listing / Signature names and all nine tier prices, the
+`MOST BOOKED` tag, and every add-on that only had a placeholder price.
+
+Pricing cards carry no bullet lists. Reusing each service's `includes` would
+have shipped a bug — aerial's list says "4K aerial clips folded into the video
+cut", which is false for a Drone only product with no video. Instead each card
+pulls its one-line summary from the matching service `blurb` by slug, so there
+is no second copy to drift, and a renamed slug throws at build time.
+
+**Twilight is a post-production conversion, not a shoot.** We do not shoot real
+twilight sessions; the only twilight product is a $15 edit of a daytime
+exterior. The service entry was rewritten accordingly and four false claims
+were removed: the twenty-minute window after sunset, the dusk drive, the seller
+lights-on prep checklist, and the weather reschedule — including "free
+reschedule on an overcast evening" from `includes`.
+
+The same claim was traced out of `faq.ts` (the twilight rescheduling sentence
+and twilight in the weather list), the JSON-LD `serviceType`, three meta
+descriptions, and the hero subhead. The slider and both photographs stay — the
+image demonstrates the look an agent gets — and its caption already read
+"conversion" rather than "session". The $15 is interpolated from
+`TWILIGHT_ADDON_PRICE`; no literal survives anywhere.
+
+**Floor plans and virtual staging removed.** Neither had a real price. Three
+knock-ons found by tracing rather than by the brief: `faq.ts` still offered
+same-day rush delivery, which was one of the cut add-ons; `faq.ts` still sold
+virtual staging in the staging answer; and the hero subhead still listed
+twilight as a shot service.
+
+**EXTRAS_TURNAROUND renamed to VIDEO_TURNAROUND.** Floor plans and virtual
+staging were two of the three things on 48 hours. Video is the only one left,
+so a plural "extras" name covering a single service stopped being true. Still
+three consumers — the video stamp, the FAQ answer, and the Process body — so it
+keeps its own home.
+
+**Grid is 4 tiles, which is even, so nothing broke.** Worth recording that the
+brief said 5; the arithmetic is 6 services minus 2, and twilight being the
+*fourth* tile is its position, not the count. Five would have stranded a tile
+with three empty columns beside it. Verified live: two rows of 571px at
+desktop.
+
+**Process step 3 re-stamped "Afterward".** With listing websites gone nothing in
+that step takes a week, and the reshoot promise has no deadline attached.
+
+**Not changed, flagged for a decision:** two gallery captions still describe a
+real dusk shoot — "Front elevation at blue hour, lawn and window lighting
+balanced by hand" and "Rear elevation and dock in the twenty minutes after
+sunset". They are alt text as well as captions. Placeholder gallery data, so
+they disappear when real listings land, but they are live copy today.
+
 ## 2026-08-27 — Coverage and process copy, service area trimmed, listing websites removed
 
 **Service area.** "Ole Miss campus area" removed from `towns` in `site.ts`. That

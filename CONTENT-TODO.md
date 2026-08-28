@@ -47,40 +47,26 @@ And in `src/layouts/BaseLayout.astro`: the `openingHoursSpecification` block in
 the JSON-LD is set to Mon–Fri 08:00–19:00 and Sat 09:00–17:00. Change to your
 real hours.
 
-## 3. Prices
+## 3. Prices — settled
 
-All in `src/data/pricing.ts`. Sixteen numbers:
+Nothing to fill in. Flat "starting at" pricing lives in `src/data/pricing.ts`:
 
-**Packages** — three tiers each:
+| Product | Price |
+| --- | --- |
+| Photos | Starting at $180 |
+| Video | Starting at $180 |
+| Drone only | Starting at $125 |
+| Drone add-on | $35 |
+| Virtual twilight | $15 |
 
-1. Essential — up to 2,000 sq ft
-2. Essential — 2,001–3,500 sq ft
-3. Essential — 3,501+ sq ft
-4. Full Listing — up to 2,000 sq ft
-5. Full Listing — 2,001–3,500 sq ft
-6. Full Listing — 3,501+ sq ft
-7. Signature — up to 2,000 sq ft
-8. Signature — 2,001–3,500 sq ft
-9. Signature — 3,501+ sq ft
+The square-footage tiers and the Essential / Full Listing / Signature packages
+are gone, along with every add-on that never had a real price. Virtual twilight
+reads from `TWILIGHT_ADDON_PRICE` in `src/data/site.ts`, which also feeds the
+twilight service stamp and the hero slider caption — change it there and all
+three follow.
 
-**Add-ons:**
-
-10. Twilight session
-11. Aerial photo & video
-12. Floor plan
-13. Virtual staging (per image)
-14. Vertical social cut
-15. Same-day rush delivery
-16. Reshoot after seller changes
-
-~~18. Travel fee per mile past the free radius~~ — **no longer applies.** Travel
-inside 30 miles of Oxford is included in the price; beyond that it is quoted at
-booking. That rate is internal and deliberately appears nowhere on the site or in
-this repo. Nothing to fill in.
-
-The twilight price now lives in exactly one place — `TWILIGHT_ADDON_PRICE` in
-`src/data/site.ts`. Set it there and the pricing table, the twilight service
-stamp, and the hero slider caption all follow. Nothing to keep in sync.
+`site.priceRange` in the JSON-LD is still `$$`. Confirm that is the band you
+want now that real numbers are published.
 
 ## 4. Photography
 
@@ -126,7 +112,7 @@ there and export web-sized versions into `src/assets/`. See the README.
 | `service-stills.svg` | Stills tile | 1600 × 1000 | 16:10 |
 | `service-video.svg` | Video tile | 1600 × 1000 | 16:10 |
 
-Referenced in `src/data/services.ts` (`image` field). The four compact tiles have
+Referenced in `src/data/services.ts` (`image` field). The two compact tiles have
 no image by design — leave them that way unless you have frames strong enough to
 carry them.
 

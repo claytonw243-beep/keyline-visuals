@@ -20,10 +20,11 @@ copy anywhere, and adding one is a bug.**
 | Fact | Value | Constant |
 | --- | --- | --- |
 | Photo turnaround | 24 hours | `TURNAROUND_HOURS`, `TURNAROUND`, `TURNAROUND_STAMP` |
-| Video, floor plans, virtual staging | 48 hours | `EXTRAS_TURNAROUND_HOURS`, `EXTRAS_TURNAROUND`, `EXTRAS_TURNAROUND_STAMP` |
+| Video turnaround | 48 hours | `VIDEO_TURNAROUND_HOURS`, `VIDEO_TURNAROUND`, `VIDEO_TURNAROUND_STAMP` |
 | Travel included within | 30 miles of Oxford | `FREE_TRAVEL_RADIUS_MILES` |
 | Phone | (662) 801-8541 | `site.phone` / `site.phoneHref` / `site.smsHref` |
 | Email | info@keylinevisuals.com | `site.email` |
+| Prices | Photos $180, Video $180, Drone only $125, Drone add-on $35, Virtual twilight $15 — all "starting at", no tiers | `pricing.ts`, `TWILIGHT_ADDON_PRICE` |
 | Image licensing | See the answer in `src/data/faq.ts` — supplied verbatim, do not reword | — |
 | Aerial service copy | `src/data/services.ts` — supplied verbatim, do not reword | — |
 
@@ -38,10 +39,13 @@ Two traps around these:
   is **not** settled. They are deliberately not wired to `TURNAROUND`. Never
   point them at it — changing turnaround later would silently rewrite a
   cancellation policy.
-- **Per-service turnarounds are settled but separate.** Stills are 24 hours;
-  video, floor plans, and virtual staging are all 48 and read from
-  `EXTRAS_TURNAROUND_*`. Nothing sits outside those two. Never fold the extras
-  into `TURNAROUND` — stills and extras are different promises.
+- **Two turnarounds, and only two.** Stills are 24 hours (`TURNAROUND_*`);
+  video is 48 (`VIDEO_TURNAROUND_*`). Never fold one into the other — they are
+  different promises.
+- **Twilight is a post-production conversion, not a shoot.** $15 per listing,
+  a daytime exterior converted in editing. Never write copy implying a dusk
+  session, a weather reschedule, or a second visit — that was removed
+  deliberately because it was false.
 
 ### Everything else is TBD
 
@@ -53,11 +57,10 @@ guesswork:
 | Instagram handle | **TBD** |
 | FAA Part 107 certificate number | **TBD** |
 | Business hours | **TBD** |
-| All prices (9 package tiers + 8 add-ons) | **TBD** |
 | Cancellation policy | **TBD** |
 
 **The dangerous part: not every placeholder looks like one.** Bracketed values
-such as `[INSTAGRAM_HANDLE]` and `$[XXX]` are obvious. But the codebase also contains
+such as `[INSTAGRAM_HANDLE]` are obvious. But the codebase also contains
 plain-English draft copy that reads as established fact and is not:
 
 - `src/data/site.ts` → `trustStrip` — "MLS + print sizes" and "FAA Part 107
@@ -68,7 +71,6 @@ plain-English draft copy that reads as established fact and is not:
 - `src/data/faq.ts` — half-price cancellation inside 24 hours, net-15 brokerage
   billing, the rush-delivery claim (the licensing answer is settled and
   verbatim — do not reword it)
-- `src/data/pricing.ts` — square-footage tiers and package contents
 - `src/components/Process.astro` — text-when-finished, partial reshoot promise
 - `src/layouts/BaseLayout.astro` — JSON-LD opening hours (Mon–Fri 08:00–19:00,
   Sat 09:00–17:00)
@@ -163,10 +165,11 @@ Real limitations found in an audit of the codebase. Do not trip on them:
   `sqft`, `package`, `dates`, `notes`) are hardcoded.** Reusing those components
   twice on one page produces duplicate DOM IDs — an accessibility failure that
   also breaks label associations.
-- **The services grid works on an even number of tiles.** There are 6 — 2 large
-  and 4 compact — which pair up cleanly at both breakpoints, so the old
-  `:last-child` trailing-row hack has been deleted. Adding a 7th service brings
-  the ragged row back; that needs the layout rethought, not another span rule.
+- **The services grid works on an even number of tiles.** There are 4 — 2 large
+  and 2 compact — which pair up cleanly at both breakpoints; the old
+  `:last-child` trailing-row hack has been deleted. An odd count strands the
+  last tile with empty columns beside it, and needs the layout rethought rather
+  than another span rule.
 - **`gallery.ts` declares its categories twice** — once as a union in the `Shot`
   type, once in the `filters` array — with nothing keeping them in sync.
 - **`BaseLayout` accepts only `title`, `description`, and `ogImage`.** No

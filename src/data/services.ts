@@ -1,7 +1,7 @@
 import {
   TURNAROUND,
   TURNAROUND_STAMP,
-  EXTRAS_TURNAROUND_STAMP,
+  VIDEO_TURNAROUND_STAMP,
   TWILIGHT_ADDON_PRICE,
 } from './site';
 
@@ -46,7 +46,7 @@ export const services: Service[] = [
     name: 'Walkthrough video',
     blurb:
       'A steady walk through the house the way a buyer moves through it, cut to about ninety seconds. Vertical version included for Reels.',
-    stamp: ['4K / 60', EXTRAS_TURNAROUND_STAMP],
+    stamp: ['4K / 60', VIDEO_TURNAROUND_STAMP],
     size: 'large',
     image: '/placeholders/service-video.svg',
     ratio: [16, 10],
@@ -85,65 +85,23 @@ export const services: Service[] = [
   },
   {
     slug: 'twilight',
-    eyebrow: 'Blue hour',
-    name: 'Twilight photos',
+    eyebrow: 'Post-production',
+    name: 'Virtual twilight',
     blurb:
-      'The shot that goes at the top of the listing. Twenty-minute window after sunset, every light on inside, sky still holding color.',
-    stamp: [`+${TWILIGHT_ADDON_PRICE} PER LISTING`, '6–8 FRAMES'],
+      'A daytime exterior converted to a twilight look in editing. The shot that goes at the top of the listing, without a second visit.',
+    stamp: [`+${TWILIGHT_ADDON_PRICE} PER LISTING`, 'DONE IN POST'],
     size: 'compact',
     ratio: [4, 3],
     detail: [
-      'There is a window of roughly twenty minutes after the sun goes down where the sky is deep blue and the windows read warm. Before it, the sky is washed out. After it, the sky is black and the house looks like a security photo.',
-      'It takes preparation on your side: every interior light on, every blind open, cars off the driveway, and the porch lights working. We send a one-page checklist when a twilight is on the order.',
-      'Weather kills more twilights than anything else. If the sky is flat gray, we will tell you before driving out and reschedule instead of shooting something you would not post.',
+      'Twilight is the frame agents want at the top of a listing — deep blue sky, windows reading warm. Getting it in camera means a second trip at dusk and a narrow window to work in.',
+      'We do it in editing instead. You pick a daytime exterior from the gallery, and we convert it: sky replaced, windows and landscape lighting brought up, the house left alone.',
+      `It is ${TWILIGHT_ADDON_PRICE} per listing and comes back with the rest of the gallery, so nothing waits on the weather or a second appointment.`,
     ],
     includes: [
-      'Front elevation at blue hour',
-      'Rear or pool elevation where it applies',
-      'Window and lawn lighting balanced by hand',
-      'Free reschedule on an overcast evening',
-    ],
-  },
-  {
-    slug: 'floor-plans',
-    eyebrow: 'Measured',
-    name: 'Floor plans',
-    blurb:
-      'Measured on site, drawn to scale, with room dimensions and total square footage under each level.',
-    stamp: [EXTRAS_TURNAROUND_STAMP, 'PDF + PNG'],
-    size: 'compact',
-    ratio: [4, 3],
-    detail: [
-      'Buyers scroll a gallery and still cannot tell how the rooms connect. A floor plan answers that in one image, and listings that carry one get fewer wasted showings.',
-      'We laser-measure on site while we are already there shooting, so it does not add a second appointment. Room labels and dimensions are included, and a black-on-white and a white-on-dark version both come in the folder.',
-      'These are marketing floor plans, drawn from our own measurements. They are not an appraisal and not a survey — if your MLS requires a certified square footage figure, use the county or an appraiser for that number.',
-    ],
-    includes: [
-      'Laser-measured on shoot day',
-      'Room labels and dimensions',
-      'Per-level and total square footage',
-      'Light and dark versions, PDF and PNG',
-    ],
-  },
-  {
-    slug: 'virtual-staging',
-    eyebrow: 'Digital',
-    name: 'Virtual staging',
-    blurb:
-      'Empty rooms furnished digitally. Photorealistic, always disclosed, and a fraction of what real staging costs.',
-    stamp: [EXTRAS_TURNAROUND_STAMP, 'PER IMAGE'],
-    size: 'compact',
-    ratio: [4, 3],
-    detail: [
-      'An empty living room reads smaller than it is and buyers cannot place their own furniture in it. Staging it digitally fixes that for a fraction of the cost of trucking in real furniture for a listing that may sell in a week.',
-      'You pick the direction — transitional, traditional, or something closer to what sells in that neighborhood — and we furnish the room to match the scale of the space rather than filling it.',
-      'Every staged image is delivered with a "virtually staged" label baked into the corner, and we recommend keeping the empty original in the gallery next to it. Most MLS rules require the disclosure, and buyers trust the listing more when both are there.',
-    ],
-    includes: [
-      'Photorealistic furniture at true scale',
-      'Style chosen per room',
-      'Disclosure label on every staged file',
-      'Empty original delivered alongside',
+      'Front elevation converted from a daytime frame',
+      'Sky, window, and landscape lighting balanced',
+      'Delivered with the rest of the gallery',
+      `${TWILIGHT_ADDON_PRICE} per listing, no second visit`,
     ],
   },
 ];

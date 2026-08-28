@@ -1,17 +1,17 @@
-import { TURNAROUND, EXTRAS_TURNAROUND } from './site';
+import { TURNAROUND, VIDEO_TURNAROUND } from './site';
 
 export const faq = [
   {
     q: 'How fast do I get the photos?',
-    a: `Photos are in your inbox within ${TURNAROUND} of the shoot. Video, floor plans, and virtual staging follow within ${EXTRAS_TURNAROUND}. If you book before 10am and need it that night, add rush delivery and the gallery lands by 8pm.`,
+    a: `Photos are in your inbox within ${TURNAROUND} of the shoot. Video follows within ${VIDEO_TURNAROUND}.`,
   },
   {
     q: 'What happens if it rains?',
-    a: 'We shoot interiors in any weather. Exteriors, aerial, and twilight get moved to the next clear slot at no charge. We will call you the morning of rather than letting you find out when we do not show up. Twilight in particular gets rescheduled on a flat gray evening even if it is dry, because the shot does not work without color in the sky.',
+    a: 'We shoot interiors in any weather. Exteriors and aerial get moved to the next clear slot at no charge. We will call you the morning of rather than letting you find out when we do not show up.',
   },
   {
     q: 'Does the house need to be staged first?',
-    a: 'No, but it needs to be picked up. Staging helps and virtual staging covers an empty house, but the thing that actually costs you photos is clutter: countertops, bathroom counters, refrigerator doors, and cars in the driveway. We send a one-page prep sheet when you book so the seller knows what to do. We will move a chair or a trash can, but we are not going to clear a kitchen island while the clock runs.',
+    a: 'No, but it needs to be picked up. Staging helps, but the thing that actually costs you photos is clutter: countertops, bathroom counters, refrigerator doors, and cars in the driveway. We send a one-page prep sheet when you book so the seller knows what to do. We will move a chair or a trash can, but we are not going to clear a kitchen island while the clock runs.',
   },
   {
     q: 'Can you shoot an occupied house?',

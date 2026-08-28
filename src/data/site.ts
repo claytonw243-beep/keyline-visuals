@@ -8,8 +8,8 @@
    and the whole site follows.
    --------------------------------------------------------------------------- */
 
-/** Photo turnaround, stills only. Everything else is 48 hours and lives in
-    EXTRAS_TURNAROUND_* — never point those at this constant. */
+/** Photo turnaround, stills only. Video is 48 hours and lives in
+    VIDEO_TURNAROUND_* — never point that at this constant. */
 export const TURNAROUND_HOURS = 24;
 
 /** Prose form, e.g. "in your inbox within 24 hours". */
@@ -18,24 +18,24 @@ export const TURNAROUND = `${TURNAROUND_HOURS} hours`;
 /** Mono metadata-stamp form. The .mono class uppercases it on render. */
 export const TURNAROUND_STAMP = `${TURNAROUND_HOURS} HR DELIVERY`;
 
-/** Everything that is not stills: walkthrough video, floor plans, and virtual
-    staging all land at 48 hours. Nothing sits outside this constant. */
-export const EXTRAS_TURNAROUND_HOURS = 48;
+/** Walkthrough video. Named for video specifically — floor plans and virtual
+    staging used to share this figure, but neither is offered any more. */
+export const VIDEO_TURNAROUND_HOURS = 48;
 
-/** Prose form, e.g. "follow within 48 hours". */
-export const EXTRAS_TURNAROUND = `${EXTRAS_TURNAROUND_HOURS} hours`;
+/** Prose form, e.g. "follows within 48 hours". */
+export const VIDEO_TURNAROUND = `${VIDEO_TURNAROUND_HOURS} hours`;
 
 /** Mono metadata-stamp form. */
-export const EXTRAS_TURNAROUND_STAMP = `${EXTRAS_TURNAROUND_HOURS} HR DELIVERY`;
+export const VIDEO_TURNAROUND_STAMP = `${VIDEO_TURNAROUND_HOURS} HR DELIVERY`;
 
 /** Travel inside this radius of Oxford is included in the price. Beyond it,
     travel is quoted at booking — that rate is internal and must never appear
     on the public site or anywhere in this repo. */
 export const FREE_TRAVEL_RADIUS_MILES = 30;
 
-/** CONTENT-TODO: still TBD. Priced once here, read by pricing.ts,
-    services.ts, and TwilightSlider.astro. */
-export const TWILIGHT_ADDON_PRICE = '$[XX]';
+/** Settled. Read by pricing.ts, the twilight service stamp in services.ts,
+    and the hero slider caption. */
+export const TWILIGHT_ADDON_PRICE = '$15';
 
 export const site = {
   name: 'Keyline Visuals',
