@@ -37,7 +37,10 @@ All in `src/data/site.ts`:
 
 Also in `src/data/site.ts`:
 
-- **`trustStrip`** — four claims under the hero. Edit each one until it is literally true. Right now they say next-morning by 9am, MLS + print sizes, 45-mile radius, Part 107.
+- **`trustStrip`** — four claims under the hero. Turnaround and Coverage are
+  settled and read from the constants above them. The other two are still draft:
+  "MLS + print sizes" and "FAA Part 107 licensed" — confirm both are literally
+  true before launch.
 - **`towns`** — the service-area list. Add or cut towns to match where you'll actually drive.
 
 And in `src/layouts/BaseLayout.astro`: the `openingHoursSpecification` block in
@@ -46,7 +49,7 @@ real hours.
 
 ## 3. Prices
 
-All in `src/data/pricing.ts`. Eighteen numbers:
+All in `src/data/pricing.ts`. Seventeen numbers:
 
 **Packages** — three tiers each:
 
@@ -71,15 +74,14 @@ All in `src/data/pricing.ts`. Eighteen numbers:
 16. Same-day rush delivery
 17. Reshoot after seller changes
 
-**And:**
+~~18. Travel fee per mile past the free radius~~ — **no longer applies.** Travel
+inside 30 miles of Oxford is included in the price; beyond that it is quoted at
+booking. That rate is internal and deliberately appears nowhere on the site or in
+this repo. Nothing to fill in.
 
-18. Travel fee per mile past the free radius — `$[X]` in the `addOns__foot` line
-    of `src/components/Pricing.astro`. The free radius is written as 25 miles
-    there and in `src/components/Coverage.astro`; change both if that's wrong.
-
-One more: the twilight price appears a second time as the slider caption in
-`src/components/TwilightSlider.astro` (`+$[XX] per listing`) and in the twilight
-service `stamp` in `src/data/services.ts`. Keep all three in sync.
+The twilight price now lives in exactly one place — `TWILIGHT_ADDON_PRICE` in
+`src/data/site.ts`. Set it there and the pricing table, the twilight service
+stamp, and the hero slider caption all follow. Nothing to keep in sync.
 
 ## 4. Photography
 
@@ -165,14 +167,17 @@ when an agent pastes your link into a text or a Facebook group.
 ## 5. Copy to check before launch
 
 - `src/data/faq.ts` — the payment answer says no deposit and half-price
-  cancellation inside 24 hours. The licensing answer says the license is tied to
-  the listing, not the agent. **Both are business decisions, not defaults.**
+  cancellation inside 24 hours. **Still a draft business decision, not settled.**
+  Note it is unrelated to the 24-hour turnaround and is deliberately not wired to
+  the `TURNAROUND` constant, so changing turnaround will not move it.
+  (The licensing answer is settled — supplied verbatim by the owner.)
 - `src/data/services.ts` — the aerial entry claims Part 107 and mentions LAANC
   for Tupelo. The virtual staging entry promises a disclosure label baked into
   every file. Make sure you do all of that.
 - `src/components/Process.astro` — promises a text when the shoot is done and a
   partial reshoot if the seller changes something.
-- `src/components/Coverage.astro` — free travel inside 25 miles, per-mile past it.
+- `src/components/Coverage.astro` — settled: travel included inside 30 miles,
+  anything further quoted at booking.
 
 Nothing on this site invents a testimonial, a client logo, or a star rating.
 Keep it that way.

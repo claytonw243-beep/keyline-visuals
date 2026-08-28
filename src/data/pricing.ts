@@ -1,3 +1,5 @@
+import { TURNAROUND, TWILIGHT_ADDON_PRICE } from './site';
+
 /* CONTENT-TODO — every price on this page is a placeholder.
    Fill in, in order:
      1. Essential   — up to 2,000 sq ft ....... $[XXX]
@@ -10,7 +12,6 @@
      8. Signature   — 2,001–3,500 sq ft ....... $[XXX]
      9. Signature   — 3,501+ sq ft ............ $[XXX]
     10–17. Every add-on price below
-    18. Travel fee per mile past the free radius
    The same values also appear in the JSON-LD priceRange in src/data/site.ts. */
 
 export type Package = {
@@ -35,7 +36,7 @@ export const packages: Package[] = [
       '25–35 edited photos',
       'Interior and exterior stills',
       'MLS-sized and full-resolution files',
-      'Next-morning delivery by 9am',
+      `Delivered in ${TURNAROUND}`,
     ],
   },
   {
@@ -79,7 +80,7 @@ export const packages: Package[] = [
 export type AddOn = { name: string; price: string; note: string };
 
 export const addOns: AddOn[] = [
-  { name: 'Twilight session', price: '$[XX]', note: 'Added to any package, same week' },
+  { name: 'Twilight session', price: TWILIGHT_ADDON_PRICE, note: 'Added to any package, same week' },
   { name: 'Aerial photo & video', price: '$[XX]', note: 'Standalone, Part 107 licensed' },
   { name: 'Floor plan', price: '$[XX]', note: 'Measured on shoot day' },
   { name: 'Virtual staging', price: '$[XX]', note: 'Per image, 72 hour turnaround' },

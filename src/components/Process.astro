@@ -1,4 +1,6 @@
 ---
+import { TURNAROUND } from '../data/site';
+
 const steps = [
   {
     stamp: 'Shoot day',
@@ -6,9 +8,9 @@ const steps = [
     body: 'Send the address, the square footage, and a lockbox code or a time. I bring lighting for every interior and a drone if the package has one. A 2,500 square foot house takes about an hour. You get a text when I am done and another if anything on site needs your attention — a burned-out bulb, a dead lawn, a neighbor\'s boat in the frame.',
   },
   {
-    stamp: 'Next morning',
-    title: 'Photos are in your inbox by nine',
-    body: 'Edited overnight: exposure blended, verticals straightened, color corrected room by room. The gallery link has MLS-sized files in one folder and full-resolution in another, so you are not resizing anything before you upload. Video and floor plans follow one day behind.',
+    stamp: TURNAROUND,
+    title: `Photos are in your inbox within ${TURNAROUND}`,
+    body: 'Edited and delivered inside a day: exposure blended, verticals straightened, color corrected room by room. The gallery link has MLS-sized files in one folder and full-resolution in another, so you are not resizing anything before you upload. Video and floor plans follow one day behind.',
   },
   {
     stamp: 'Same week',

@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import day from '../assets/hero-day.jpg';
 import twilight from '../assets/hero-twilight.jpg';
+import { TWILIGHT_ADDON_PRICE } from '../data/site';
 
 /* A real matched pair: 108 Cedar Hill Drive, shot from one tripod position in
    midday light and again at blue hour. Measured registration between the two
@@ -62,8 +63,7 @@ import twilight from '../assets/hero-twilight.jpg';
   </div>
 
   <figcaption class="mono tw__cap">
-    <!-- CONTENT-TODO: the twilight add-on price -->
-    Twilight conversion · +$[XX] per listing
+    Twilight conversion · +{TWILIGHT_ADDON_PRICE} per listing
   </figcaption>
 </figure>
 

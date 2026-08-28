@@ -9,11 +9,12 @@ import Pricing from '../components/Pricing.astro';
 import Coverage from '../components/Coverage.astro';
 import Faq from '../components/Faq.astro';
 import BookingForm from '../components/BookingForm.astro';
+import { TURNAROUND } from '../data/site';
 ---
 
 <BaseLayout
   title="Keyline Visuals — Real estate photography in Oxford, MS"
-  description="Real estate photography, video, aerial, and twilight for listing agents in Oxford and North Mississippi. Shot today, in your inbox by 9am tomorrow. Priced on the page."
+  description={`Real estate photography, video, aerial, and twilight for listing agents in Oxford and North Mississippi. Shot today, in your inbox within ${TURNAROUND}. Priced on the page.`}
 >
   <Hero />
   <TrustStrip />

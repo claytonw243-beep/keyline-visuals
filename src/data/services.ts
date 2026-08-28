@@ -1,3 +1,5 @@
+import { TURNAROUND, TURNAROUND_STAMP, TWILIGHT_ADDON_PRICE } from './site';
+
 export type Service = {
   slug: string;
   eyebrow: string;
@@ -18,14 +20,14 @@ export const services: Service[] = [
     name: 'Interior & exterior stills',
     blurb:
       'Every room a buyer cares about, plus the front, back, and street view. Flashed so the windows still read and the walls stay the color they actually are.',
-    stamp: ['24 HR DELIVERY', '30–45 IMAGES'],
+    stamp: [TURNAROUND_STAMP, '30–45 IMAGES'],
     size: 'large',
     image: '/placeholders/service-stills.svg',
     ratio: [16, 10],
     detail: [
       'This is the base of every package. I shoot each room with off-camera flash and blend it against the ambient exposure, which means the view out the window is still there instead of a white rectangle, and a beige wall does not come back green under the recessed cans.',
       'I shoot wide but not distorted. A 16mm-equivalent frame makes a bedroom look like a hotel lobby and the buyer notices the moment they walk in. Rooms are framed to read honestly at the size they are.',
-      'Files land in a gallery link the next morning. Web-sized JPEGs are sized for MLS upload limits, and full-resolution copies are in the same folder for print and flyers.',
+      `Files land in a gallery link within ${TURNAROUND}. Web-sized JPEGs are sized for MLS upload limits, and full-resolution copies are in the same folder for print and flyers.`,
     ],
     includes: [
       'Off-camera flash on every interior',
@@ -83,7 +85,7 @@ export const services: Service[] = [
     name: 'Twilight photos',
     blurb:
       'The shot that goes at the top of the listing. Twenty-minute window after sunset, every light on inside, sky still holding color.',
-    stamp: ['+$[XX] PER LISTING', '6–8 FRAMES'],
+    stamp: [`+${TWILIGHT_ADDON_PRICE} PER LISTING`, '6–8 FRAMES'],
     size: 'compact',
     ratio: [4, 3],
     detail: [

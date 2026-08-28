@@ -1,5 +1,6 @@
 ---
 import { packages, addOns } from '../data/pricing';
+import { FREE_TRAVEL_RADIUS_MILES } from '../data/site';
 ---
 
 <section class="section section--hair" id="pricing">
@@ -63,7 +64,7 @@ import { packages, addOns } from '../data/pricing';
         }
       </ul>
       <p class="mono addons__foot">
-        Travel is free inside 25 miles of Oxford · $[X] per mile past that · Sales tax added at
+        Travel within {FREE_TRAVEL_RADIUS_MILES} miles of Oxford is included · Sales tax added at
         invoice
       </p>
     </div>

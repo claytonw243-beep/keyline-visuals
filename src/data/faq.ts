@@ -1,7 +1,9 @@
+import { TURNAROUND } from './site';
+
 export const faq = [
   {
     q: 'How fast do I get the photos?',
-    a: 'Photos are in your inbox by 9am the morning after the shoot. Video and floor plans take one more day. If you book before 10am and need it that night, add rush delivery and the gallery lands by 8pm.',
+    a: `Photos are in your inbox within ${TURNAROUND} of the shoot. Video and floor plans take one more day. If you book before 10am and need it that night, add rush delivery and the gallery lands by 8pm.`,
   },
   {
     q: 'What happens if it rains?',
@@ -17,7 +19,7 @@ export const faq = [
   },
   {
     q: 'Who owns the photos and where can I use them?',
-    a: 'I keep the copyright and you get an unlimited license to market that property: MLS, your website, social, print, portals, and your brokerage\'s marketing. The license is tied to the listing, not to you personally, so if the listing expires and moves to another agent, that agent needs their own license. Builders and short-term rental owners who want ongoing use past a single sale should ask about a broader license when booking.',
+    a: 'Keyline Visuals licenses images rather than selling them. Your license covers marketing the listed property for the term of the listing, up to one year, and it belongs to the agent who commissioned the shoot. Builders, stagers, designers, and other third parties who want to use the images license them separately. If a listing expires or is withdrawn and another agent takes over, the images don\'t transfer with it. Please don\'t re-edit delivered files.',
   },
   {
     q: 'When do I pay?',
