@@ -7,6 +7,24 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Sales tax line removed
+
+"Sales tax added at invoice" is gone from the Pricing add-ons footer, which now
+reads only "Travel within 30 miles of Oxford is included".
+
+Searched the whole repo for other tax language — `tax`, `VAT`, `taxable`,
+`surcharge` — across `src/`, `public/`, `brand/`, the markdown docs, and the
+workflow. That footer was the only occurrence. Nothing in `pricing.ts`,
+`faq.ts`, the payment answer, `Process.astro`, or any meta description
+mentioned tax. Zero occurrences remain in source or in any built page.
+
+Adjacent billing language was left alone, since none of it is about tax: the
+payment answer in `faq.ts` (invoice due on delivery, card/ACH/check, net-15 for
+brokerages, no deposit, half-price cancellation inside 24 hours), the "No
+deposit" line in `BookingForm.astro`, and "The invoice comes with the gallery"
+in `Process.astro`. The cancellation and net-15 terms there are still
+unverified draft, as `CLAUDE.md` records.
+
 ## 2026-08-27 — Real prices, twilight becomes a post edit, services cut to four
 
 **Pricing is settled and the structure is gone.** Three flat "starting at"
