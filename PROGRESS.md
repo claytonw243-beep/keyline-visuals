@@ -7,6 +7,67 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Coverage and process copy, service area trimmed, listing websites removed
+
+**Service area.** "Ole Miss campus area" removed from `towns` in `site.ts`. That
+array feeds both the visible list in `Coverage.astro` and `areaServed` in the
+JSON-LD, so one edit covered both — verified in the built output on all four
+pages.
+
+**Coverage** rewritten. "Oxford out to about 30 miles" framed the business
+around a radius; it now leads with where the business is and what it covers:
+"Based in Oxford, working across North Mississippi." The travel rule stays but
+is tightened to one sentence, and the radius is still interpolated from
+`FREE_TRAVEL_RADIUS_MILES` rather than hardcoded.
+
+**Process.** The intro now asks for the address and the square footage rather
+than "an address and a way in". Shoot day no longer says "Send the address" —
+that implied emailing us, when everything arrives at booking. The
+burned-out-bulb / dead-lawn / neighbor's-boat list is cut.
+
+Step 3 was "The last pieces land before the listing goes live", which was
+filler wrapped around a deliverable list. It now leads with the reshoot
+guarantee — "If something changes, we come back" — which is the actual reason
+an agent would choose us and was previously buried in the last clause.
+
+**Listing websites removed as a service.** The `services.ts` entry is gone, and
+with it the grid tile, the `#listing-websites` section, and the jump-nav link on
+/services/ — all three are data-driven, so deleting the entry removed them.
+Manual edits: the Signature package bullet and the add-on row in `pricing.ts`,
+the /services/ meta description, and the service count in two headings
+("Seven things we do" → "Six").
+
+**The 7-tile grid hack is retired.** The `.svc__tile:last-child` span rule at
+both breakpoints existed only to fill a trailing row that an odd count left
+short. Measured at 6 tiles it did the opposite: at =1040px it stretched virtual
+staging to 761px in a 1144px grid, leaving a 383px hole, and at 700-1039px it
+left floor plans alone in a half-empty row and made virtual staging full-width
+for no reason.
+
+Both rules are deleted and `.svc__tile--compact` goes from `span 2` to `span 3`
+at =1040px. Because 6 is 2 large + 4 compact, tiles now pair up with no
+special case: three rows of 571px at desktop, and full / full / 401+401 /
+401+401 at tablet. Verified live at both breakpoints. Compact tiles are wider
+than before — the grid is uniformly 2-across, so the large/compact distinction
+is carried by the image frame rather than width.
+
+**EXTRAS_TURNAROUND simplified.** Listing websites were the only service sitting
+outside it. The rule is now simply stills 24 hours, everything else 48, and the
+carve-out language is deleted from four places: the doc comments on both
+`TURNAROUND_HOURS` and `EXTRAS_TURNAROUND_HOURS`, the per-service bullet in
+`CLAUDE.md`, and the `Listing-website turnaround` row in the TBD table.
+
+`CLAUDE.md` architectural constraints: the hardcoded-7-tiles item is replaced
+with a note that the grid takes any even count and that a 7th service would
+bring the ragged row back.
+
+**Still open:** booking moves to an external portal and the on-site form
+becomes contact-only. That work is on hold pending the portal URL. Six CTAs
+point at `#book` today (nav desktop and mobile, hero, 404, three pricing cards,
+and every service on /services/), and the form still collects booking fields —
+address, square footage, package, preferred dates — that will belong to the
+portal instead.
+
 ## 2026-08-27 — Flash claims removed, Process narrowed to three clean steps
 
 **Flash is gone from the site entirely.** Keyline Visuals does not shoot with

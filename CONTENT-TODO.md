@@ -49,7 +49,7 @@ real hours.
 
 ## 3. Prices
 
-All in `src/data/pricing.ts`. Seventeen numbers:
+All in `src/data/pricing.ts`. Sixteen numbers:
 
 **Packages** — three tiers each:
 
@@ -69,10 +69,9 @@ All in `src/data/pricing.ts`. Seventeen numbers:
 11. Aerial photo & video
 12. Floor plan
 13. Virtual staging (per image)
-14. Listing website
-15. Vertical social cut
-16. Same-day rush delivery
-17. Reshoot after seller changes
+14. Vertical social cut
+15. Same-day rush delivery
+16. Reshoot after seller changes
 
 ~~18. Travel fee per mile past the free radius~~ — **no longer applies.** Travel
 inside 30 miles of Oxford is included in the price; beyond that it is quoted at
@@ -127,7 +126,7 @@ there and export web-sized versions into `src/assets/`. See the README.
 | `service-stills.svg` | Stills tile | 1600 × 1000 | 16:10 |
 | `service-video.svg` | Video tile | 1600 × 1000 | 16:10 |
 
-Referenced in `src/data/services.ts` (`image` field). The five compact tiles have
+Referenced in `src/data/services.ts` (`image` field). The four compact tiles have
 no image by design — leave them that way unless you have frames strong enough to
 carry them.
 

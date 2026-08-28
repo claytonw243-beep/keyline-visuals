@@ -6,7 +6,7 @@ import { services } from '../data/services';
   <div class="wrap">
     <div class="section-head reveal">
       <p class="mono">What gets shot</p>
-      <h2 class="display">Seven things we do</h2>
+      <h2 class="display">Six things we do</h2>
       <p class="prose">
         Book them as a package or one at a time. Every one of them is priced on the page and
         delivered on a clock you can plan a listing around.
@@ -135,10 +135,6 @@ import { services } from '../data/services';
     .svc__tile--large .svc__frame img {
       aspect-ratio: 21 / 9;
     }
-    /* Odd count — the last tile takes the remainder so no row ends short. */
-    .svc__tile:last-child {
-      grid-column: span 2;
-    }
   }
 
   @media (min-width: 1040px) {
@@ -151,11 +147,10 @@ import { services } from '../data/services';
     .svc__tile--large .svc__frame img {
       aspect-ratio: 16 / 10;
     }
+    /* 2 large + 4 compact pairs up cleanly at both breakpoints, so no
+       trailing-row hack is needed. A 7th service would break that. */
     .svc__tile--compact {
-      grid-column: span 2;
-    }
-    .svc__tile:last-child {
-      grid-column: span 4;
+      grid-column: span 3;
     }
     .svc__tile {
       padding: 30px;

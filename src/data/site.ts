@@ -8,9 +8,8 @@
    and the whole site follows.
    --------------------------------------------------------------------------- */
 
-/** Photo turnaround. Per-service times (video, floor plans, virtual staging,
-    listing websites) are separate and live in services.ts — do not point them
-    at this constant. */
+/** Photo turnaround, stills only. Everything else is 48 hours and lives in
+    EXTRAS_TURNAROUND_* — never point those at this constant. */
 export const TURNAROUND_HOURS = 24;
 
 /** Prose form, e.g. "in your inbox within 24 hours". */
@@ -20,8 +19,7 @@ export const TURNAROUND = `${TURNAROUND_HOURS} hours`;
 export const TURNAROUND_STAMP = `${TURNAROUND_HOURS} HR DELIVERY`;
 
 /** Everything that is not stills: walkthrough video, floor plans, and virtual
-    staging all land at 48 hours. Listing websites are "same week" and are NOT
-    covered by this constant. */
+    staging all land at 48 hours. Nothing sits outside this constant. */
 export const EXTRAS_TURNAROUND_HOURS = 48;
 
 /** Prose form, e.g. "follow within 48 hours". */
@@ -61,7 +59,6 @@ export const site = {
    Coverage.astro states the travel rule once; these are just places. */
 export const towns = [
   'Oxford',
-  'Ole Miss campus area',
   'Lafayette County',
   'Tupelo',
   'Batesville',

@@ -38,10 +38,10 @@ Two traps around these:
   is **not** settled. They are deliberately not wired to `TURNAROUND`. Never
   point them at it — changing turnaround later would silently rewrite a
   cancellation policy.
-- **Per-service turnarounds are settled but separate.** Video, floor plans, and
-  virtual staging are all 48 hours and read from `EXTRAS_TURNAROUND_*`. Listing
-  websites are "same week" and are **not** covered by that constant. Never fold
-  any of these into `TURNAROUND` — stills and extras are different promises.
+- **Per-service turnarounds are settled but separate.** Stills are 24 hours;
+  video, floor plans, and virtual staging are all 48 and read from
+  `EXTRAS_TURNAROUND_*`. Nothing sits outside those two. Never fold the extras
+  into `TURNAROUND` — stills and extras are different promises.
 
 ### Everything else is TBD
 
@@ -55,7 +55,6 @@ guesswork:
 | Business hours | **TBD** |
 | All prices (9 package tiers + 8 add-ons) | **TBD** |
 | Cancellation policy | **TBD** |
-| Listing-website turnaround ("same week") | **TBD** |
 
 **The dangerous part: not every placeholder looks like one.** Bracketed values
 such as `[INSTAGRAM_HANDLE]` and `$[XXX]` are obvious. But the codebase also contains
@@ -164,10 +163,10 @@ Real limitations found in an audit of the codebase. Do not trip on them:
   `sqft`, `package`, `dates`, `notes`) are hardcoded.** Reusing those components
   twice on one page produces duplicate DOM IDs — an accessibility failure that
   also breaks label associations.
-- **The services grid is hardcoded to exactly 7 tiles** via a
-  `.svc__tile:last-child { grid-column: span N }` rule at two breakpoints, which
-  exists only to fill the trailing row. Adding or removing a service silently
-  breaks the layout.
+- **The services grid works on an even number of tiles.** There are 6 — 2 large
+  and 4 compact — which pair up cleanly at both breakpoints, so the old
+  `:last-child` trailing-row hack has been deleted. Adding a 7th service brings
+  the ragged row back; that needs the layout rethought, not another span rule.
 - **`gallery.ts` declares its categories twice** — once as a union in the `Shot`
   type, once in the `filters` array — with nothing keeping them in sync.
 - **`BaseLayout` accepts only `title`, `description`, and `ogImage`.** No

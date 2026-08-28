@@ -146,25 +146,4 @@ export const services: Service[] = [
       'Empty original delivered alongside',
     ],
   },
-  {
-    slug: 'listing-websites',
-    eyebrow: 'Delivery',
-    name: 'Listing websites',
-    blurb:
-      'A single-property page carrying your branding and the full gallery, on its own address you can paste into the remarks.',
-    stamp: ['SAME WEEK', 'CUSTOM URL'],
-    size: 'compact',
-    ratio: [4, 3],
-    detail: [
-      'One page, one property, your name and headshot on it. The gallery, the video, the floor plan, and a contact form that emails you directly, all at an address short enough to read out loud at an open house.',
-      'It gives you somewhere to send a buyer that is not a portal covered in three other agents advertising against your listing.',
-      'The page stays live through the listing and for thirty days after closing, and you can hand it to the seller as part of your listing presentation for the next one.',
-    ],
-    includes: [
-      'Custom short URL',
-      'Your branding, photo, and contact form',
-      'Full gallery, video, and floor plan',
-      'Live through closing plus 30 days',
-    ],
-  },
 ];

@@ -11,7 +11,7 @@ import { TURNAROUND, EXTRAS_TURNAROUND_HOURS, TWILIGHT_ADDON_PRICE } from './sit
      7. Signature   — up to 2,000 sq ft ....... $[XXX]
      8. Signature   — 2,001–3,500 sq ft ....... $[XXX]
      9. Signature   — 3,501+ sq ft ............ $[XXX]
-    10–17. Every add-on price below
+    10–16. Every add-on price below
    The same values also appear in the JSON-LD priceRange in src/data/site.ts. */
 
 export type Package = {
@@ -71,7 +71,6 @@ export const packages: Package[] = [
       'Everything in Full Listing',
       'Twilight session, 6–8 frames',
       'Aerial twilight where airspace allows',
-      'Single-property listing website',
       'Three virtually staged rooms',
     ],
   },
@@ -84,7 +83,6 @@ export const addOns: AddOn[] = [
   { name: 'Aerial photo & video', price: '$[XX]', note: 'Standalone, Part 107 licensed' },
   { name: 'Floor plan', price: '$[XX]', note: 'Measured on shoot day' },
   { name: 'Virtual staging', price: '$[XX]', note: `Per image, ${EXTRAS_TURNAROUND_HOURS} hour turnaround` },
-  { name: 'Listing website', price: '$[XX]', note: 'Live through closing plus 30 days' },
   { name: 'Vertical social cut', price: '$[XX]', note: 'Included in Full Listing and up' },
   { name: 'Same-day rush delivery', price: '$[XX]', note: 'Booked before 10am, in by 8pm' },
   { name: 'Reshoot after seller changes', price: '$[XX]', note: 'Return visit, same listing' },
