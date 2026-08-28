@@ -8,7 +8,16 @@ import { trustStrip } from '../data/site';
       trustStrip.map((item) => (
         <div class="strip__cell reveal">
           <span class="mono strip__label">{item.label}</span>
-          <span class="strip__value">{item.value}</span>
+          {
+            item.href ? (
+              <a class="strip__value strip__value--link" href={item.href}>
+                {item.value}
+                <span class="strip__chev" aria-hidden="true" />
+              </a>
+            ) : (
+              <span class="strip__value">{item.value}</span>
+            )
+          }
         </div>
       ))
     }
@@ -37,6 +46,35 @@ import { trustStrip } from '../data/site';
     font-size: var(--fs-14);
     font-weight: 500;
     color: var(--paper);
+  }
+
+  /* The one linked cell. At rest it is pixel-identical to its three siblings —
+     same colour, size, and weight, no underline — so the strip still reads as
+     one row of facts. The only resting cue is a small chevron; it points down
+     because the target section sits further down the page. */
+  .strip__value--link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--paper);
+    transition: color var(--t-hover) var(--ease);
+  }
+  .strip__chev {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.5;
+    transition: transform var(--t-hover) var(--ease), opacity var(--t-hover) var(--ease);
+  }
+  .strip__value--link:hover {
+    color: var(--signal);
+  }
+  .strip__value--link:hover .strip__chev {
+    transform: translateY(2px) rotate(45deg);
+    opacity: 1;
   }
 
   @media (min-width: 760px) {

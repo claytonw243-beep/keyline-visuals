@@ -7,6 +7,71 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Plural voice, 48-hour extras, contact details, coverage link, flash claims
+
+**Voice.** The site now speaks as "we" — 38 rendered strings across 10 files.
+Three things were deliberately left in the first person singular: the six FAQ
+*questions* (that "I" is the visitor asking us something), and `rel="me"` in the
+footer, which is a microformats attribute rather than copy. Several answers
+needed real rewrites rather than word swaps, since subject-verb agreement moved
+with them. Added as rule 7 in `CLAUDE.md`, including a ban on "our pilots" or
+anything else implying headcount.
+
+**Per-service turnaround.** Virtual staging 72 → 48 hours. Video and floor plans
+confirmed at 48. All three now read from `EXTRAS_TURNAROUND_*` in `site.ts`
+rather than four separate literals. Listing websites stay "same week" and are
+explicitly outside that constant. The FAQ line that said "video and floor plans
+take one more day" now names the actual figure and folds staging in.
+
+**Contact.** Phone (662) 801-8541 and info@keylinevisuals.com are live in
+`site.ts`. Instagram, Part 107 number, hours, and booking window stay TBD.
+
+**Coverage link.** The trust strip's Coverage value changed from
+"30 miles, travel included" to "North Mississippi", linking to `/#coverage`. At
+rest it is pixel-identical to its three siblings — same colour, size, weight, no
+underline — with a 6px chevron at 50% opacity as the only cue. It points down
+because the target is further down the page. On hover the text goes `--signal`
+and the chevron nudges down and solidifies.
+
+**JSON-LD left alone, deliberately.** `areaServed` still lists the nine towns as
+`City` objects. Widening it to "North Mississippi" would mean typing a region
+that is not an administrative entity as a generic `Place` — a broader claim that
+tells search engines less. The visible label is a plain-language summary; the
+structured data staying specific is correct, not contradictory.
+
+**Aerial copy** replaced verbatim with the owner's text.
+
+**Credential phrasing.** `Footer.astro` said "Licensed FAA Part 107 remote pilot",
+which describes a person. Now "Aerial flown under an FAA Part 107 certificate" —
+the credential as an activity, no headcount implied.
+
+**Frequency claim removed.** The FAQ heading "Questions we get every week" became
+"Questions we get most often". Weekly inbound volume was the same kind of
+unearned claim as the "regular run" language deleted in the previous task.
+
+**Flash.** Keyline Visuals does not shoot with flash, so the stills service was
+carrying a false claim about its own technique. The "Off-camera flash on every
+interior" bullet is gone and the two body paragraphs were replaced with the
+owner's verbatim text. The third paragraph, on file delivery, was kept — it is
+technique-neutral and is the only place that entry describes MLS sizing.
+
+**Still wrong, awaiting a decision — do not treat as verified:**
+
+- `src/data/services.ts` stills **blurb** — "Flashed so the windows still read".
+  This is the tile copy on the home page, directly above the body just corrected.
+- `src/data/faq.ts` rain answer — "the flash does not care what the sky is
+  doing". Load-bearing: it is the *reason* the answer gives for shooting
+  interiors in any weather, so it needs a rewrite rather than a deletion.
+- `src/data/gallery.ts` — "Kitchen flashed against the ambient so the window
+  keeps its view". This is alt text and the lightbox caption, so it reaches
+  screen readers too.
+- `src/components/Process.astro` — "We bring lighting for every interior". Not
+  the word flash, but an equipment claim of the same family, and unverified.
+
+**Also outstanding:** `Process.astro` still groups virtual staging under the
+"Same week" step while `faq.ts` groups it with the 48-hour deliverables. Three
+restructure options were put to the owner; none applied yet.
+
 ## 2026-08-27 — Business facts consolidated into a single source of truth
 
 Settled facts moved into named constants at the top of `src/data/site.ts`:

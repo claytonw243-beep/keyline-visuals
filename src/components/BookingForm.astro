@@ -18,9 +18,9 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
   <div class="wrap book">
     <div class="book__aside reveal">
       <p class="mono">Book a shoot</p>
-      <h2 class="display book__title">Tell me the address and a day</h2>
+      <h2 class="display book__title">Tell us the address and a day</h2>
       <p class="prose book__intro">
-        I answer booking requests within a couple of hours during the week. If the date is tight,
+        We answer booking requests within a couple of hours during the week. If the date is tight,
         call — a text gets a faster yes or no than a form does.
       </p>
 
@@ -44,7 +44,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
         action={endpoint || undefined}
         method="post"
         novalidate
-        data-fail-msg={`That did not send — the connection dropped somewhere. Try again, or call ${site.phone} and I will book it over the phone right now.`}
+        data-fail-msg={`That did not send — the connection dropped somewhere. Try again, or call ${site.phone} and we will book it over the phone right now.`}
       >
         <p class="form__error" data-form-error hidden role="alert"></p>
 
@@ -52,7 +52,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <div class="field">
             <label class="field__label" for="name">Your name</label>
             <input class="field__input" id="name" name="name" type="text" autocomplete="name" required
-              data-msg="Enter your name so I know who the gallery goes to." />
+              data-msg="Enter your name so we know who the gallery goes to." />
             <p class="field__msg" data-msg-for="name" hidden></p>
           </div>
 
@@ -66,7 +66,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <div class="field">
             <label class="field__label" for="email">Email</label>
             <input class="field__input" id="email" name="email" type="email" autocomplete="email" required
-              data-msg="Enter an email so I can send the gallery link."
+              data-msg="Enter an email so we can send the gallery link."
               data-msg-format="That address is missing an @ — check it and try again." />
             <p class="field__msg" data-msg-for="email" hidden></p>
           </div>
@@ -74,7 +74,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <div class="field">
             <label class="field__label" for="phone">Phone</label>
             <input class="field__input" id="phone" name="phone" type="tel" autocomplete="tel" required
-              data-msg="Add a number so I can text you if something on site needs a decision." />
+              data-msg="Add a number so we can text you if something on site needs a decision." />
             <p class="field__msg" data-msg-for="phone" hidden></p>
           </div>
         </div>
@@ -82,7 +82,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
         <div class="field">
           <label class="field__label" for="address">Property address</label>
           <input class="field__input" id="address" name="address" type="text" autocomplete="street-address" required
-            data-msg="Enter the address so I can check drive time and airspace before I confirm." />
+            data-msg="Enter the address so we can check drive time and airspace before we confirm." />
           <p class="field__msg" data-msg-for="address" hidden></p>
         </div>
 
@@ -109,7 +109,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
         </div>
 
         <div class="field">
-          <label class="field__label" for="notes">Anything I should know <span class="field__opt">optional</span></label>
+          <label class="field__label" for="notes">Anything we should know <span class="field__opt">optional</span></label>
           <textarea class="field__input field__input--area" id="notes" name="notes" rows="4"
             placeholder="Occupied or vacant, lockbox code, gate code, pets, tricky driveway."></textarea>
         </div>
@@ -121,15 +121,15 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
         </button>
 
         <p class="mono form__foot">
-          No deposit · I confirm by text or email · Cancel free up to 24 hours out
+          No deposit · We confirm by text or email · Cancel free up to 24 hours out
         </p>
       </form>
 
       <div class="done" data-form-done hidden>
         <p class="mono">Booking request sent</p>
-        <h3 class="display done__title">Got it. Give me a couple of hours.</h3>
+        <h3 class="display done__title">Got it. Give us a couple of hours.</h3>
         <p class="done__body">
-          I will text or email to confirm the date and time, and send a one-page prep sheet for the
+          We will text or email to confirm the date and time, and send a one-page prep sheet for the
           seller the day before. If you need an answer faster than that, call
           <a class="link" href={site.phoneHref}>{site.phone}</a>.
         </p>

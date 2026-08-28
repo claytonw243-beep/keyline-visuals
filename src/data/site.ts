@@ -19,6 +19,17 @@ export const TURNAROUND = `${TURNAROUND_HOURS} hours`;
 /** Mono metadata-stamp form. The .mono class uppercases it on render. */
 export const TURNAROUND_STAMP = `${TURNAROUND_HOURS} HR DELIVERY`;
 
+/** Everything that is not stills: walkthrough video, floor plans, and virtual
+    staging all land at 48 hours. Listing websites are "same week" and are NOT
+    covered by this constant. */
+export const EXTRAS_TURNAROUND_HOURS = 48;
+
+/** Prose form, e.g. "follow within 48 hours". */
+export const EXTRAS_TURNAROUND = `${EXTRAS_TURNAROUND_HOURS} hours`;
+
+/** Mono metadata-stamp form. */
+export const EXTRAS_TURNAROUND_STAMP = `${EXTRAS_TURNAROUND_HOURS} HR DELIVERY`;
+
 /** Travel inside this radius of Oxford is included in the price. Beyond it,
     travel is quoted at booking — that rate is internal and must never appear
     on the public site or anywhere in this repo. */
@@ -31,10 +42,10 @@ export const TWILIGHT_ADDON_PRICE = '$[XX]';
 export const site = {
   name: 'Keyline Visuals',
   tagline: 'Real estate media for North Mississippi',
-  phone: '[PHONE]', // e.g. '(662) 555-0142'
-  phoneHref: 'tel:[PHONE]', // e.g. 'tel:+16625550142' — digits only, with +1
-  smsHref: 'sms:[PHONE]',
-  email: '[EMAIL]', // e.g. 'clayton@keylinevisuals.com'
+  phone: '(662) 801-8541',
+  phoneHref: 'tel:+16628018541',
+  smsHref: 'sms:+16628018541',
+  email: 'info@keylinevisuals.com',
   instagram: '[INSTAGRAM_HANDLE]', // e.g. 'keylinevisuals'
   instagramUrl: 'https://instagram.com/[INSTAGRAM_HANDLE]',
   droneLicense: '[PART_107_NUMBER]',
@@ -67,11 +78,13 @@ export const nav = [
   { label: 'FAQ', href: '/#faq' },
 ];
 
-export const trustStrip = [
+export type TrustItem = { label: string; value: string; href?: string };
+
+export const trustStrip: TrustItem[] = [
   // Turnaround and Coverage are settled. CONTENT-TODO: Delivery and Drone are
   // still unverified draft — edit until each is literally true.
   { label: 'Turnaround', value: TURNAROUND },
   { label: 'Delivery', value: 'MLS + print sizes' },
-  { label: 'Coverage', value: `${FREE_TRAVEL_RADIUS_MILES} miles, travel included` },
+  { label: 'Coverage', value: 'North Mississippi', href: '/#coverage' },
   { label: 'Drone', value: 'FAA Part 107 licensed' },
 ];

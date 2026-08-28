@@ -27,9 +27,9 @@ All in `src/data/site.ts`:
 
 | Field | Placeholder | Format |
 | --- | --- | --- |
-| `phone` | `[PHONE]` | Display format, e.g. `(662) 555-0142` |
-| `phoneHref` / `smsHref` | `tel:[PHONE]` | Digits with country code, e.g. `tel:+16625550142` |
-| `email` | `[EMAIL]` | |
+| ~~`phone`~~ | **done** — (662) 801-8541 | |
+| ~~`phoneHref` / `smsHref`~~ | **done** — `tel:+16628018541` | |
+| ~~`email`~~ | **done** — info@keylinevisuals.com | |
 | `instagram` | `[INSTAGRAM_HANDLE]` | Handle only, no `@` — it's interpolated into the URL |
 | `droneLicense` | `[PART_107_NUMBER]` | Your FAA Part 107 certificate number |
 | `bookingWindow` | `BOOKING [CURRENT MONTH] — [NEXT MONTH]` | Shown beside the booking form. **Update this every month or two** or it reads as stale. |

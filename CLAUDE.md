@@ -20,8 +20,12 @@ copy anywhere, and adding one is a bug.**
 | Fact | Value | Constant |
 | --- | --- | --- |
 | Photo turnaround | 24 hours | `TURNAROUND_HOURS`, `TURNAROUND`, `TURNAROUND_STAMP` |
+| Video, floor plans, virtual staging | 48 hours | `EXTRAS_TURNAROUND_HOURS`, `EXTRAS_TURNAROUND`, `EXTRAS_TURNAROUND_STAMP` |
 | Travel included within | 30 miles of Oxford | `FREE_TRAVEL_RADIUS_MILES` |
+| Phone | (662) 801-8541 | `site.phone` / `site.phoneHref` / `site.smsHref` |
+| Email | info@keylinevisuals.com | `site.email` |
 | Image licensing | See the answer in `src/data/faq.ts` — supplied verbatim, do not reword | — |
+| Aerial service copy | `src/data/services.ts` — supplied verbatim, do not reword | — |
 
 Travel beyond 30 miles is quoted at booking. **That rate is internal. It must
 never appear on the public site or anywhere in this repo**, including comments.
@@ -34,10 +38,10 @@ Two traps around these:
   is **not** settled. They are deliberately not wired to `TURNAROUND`. Never
   point them at it — changing turnaround later would silently rewrite a
   cancellation policy.
-- **Per-service turnarounds are separate and still draft:** video 48 hr, floor
-  plans 48 hr, virtual staging 72 hr, listing websites same week, plus the "one
-  more day" and rush-delivery lines in `faq.ts`. Do not fold these into
-  `TURNAROUND`.
+- **Per-service turnarounds are settled but separate.** Video, floor plans, and
+  virtual staging are all 48 hours and read from `EXTRAS_TURNAROUND_*`. Listing
+  websites are "same week" and are **not** covered by that constant. Never fold
+  any of these into `TURNAROUND` — stills and extras are different promises.
 
 ### Everything else is TBD
 
@@ -46,31 +50,40 @@ guesswork:
 
 | Detail | Status |
 | --- | --- |
-| Phone number | **TBD** |
-| Email address | **TBD** |
 | Instagram handle | **TBD** |
 | FAA Part 107 certificate number | **TBD** |
 | Business hours | **TBD** |
 | All prices (9 package tiers + 8 add-ons) | **TBD** |
 | Cancellation policy | **TBD** |
-| Per-service turnarounds (video, floor plans, staging, websites) | **TBD** |
+| Listing-website turnaround ("same week") | **TBD** |
 
 **The dangerous part: not every placeholder looks like one.** Bracketed values
-such as `[PHONE]` and `$[XXX]` are obvious. But the codebase also contains
+such as `[INSTAGRAM_HANDLE]` and `$[XXX]` are obvious. But the codebase also contains
 plain-English draft copy that reads as established fact and is not:
 
 - `src/data/site.ts` → `trustStrip` — "MLS + print sizes" and "FAA Part 107
   licensed" (the Turnaround and Coverage entries are settled)
-- `src/data/services.ts` → image counts and the per-service stamps that are not
-  the stills turnaround — "30–45 IMAGES", "4K / 60", "48 HR DELIVERY",
-  "72 HR DELIVERY", "8–12 FRAMES", "FAA PART 107"
+- `src/data/services.ts` → image and frame counts — "30–45 IMAGES", "4K / 60",
+  "8–12 FRAMES", "6–8 FRAMES". The turnaround stamps are settled and read from
+  constants. The aerial entry's prose is settled and verbatim.
 - `src/data/faq.ts` — half-price cancellation inside 24 hours, net-15 brokerage
-  billing, "one more day" for video and floor plans, the rush-delivery claim
-  (the licensing answer is settled and verbatim — do not reword it)
+  billing, the rush-delivery claim (the licensing answer is settled and
+  verbatim — do not reword it)
 - `src/data/pricing.ts` — square-footage tiers and package contents
 - `src/components/Process.astro` — text-when-finished, partial reshoot promise
 - `src/layouts/BaseLayout.astro` — JSON-LD opening hours (Mon–Fri 08:00–19:00,
   Sat 09:00–17:00)
+
+**Known factually wrong — not merely unverified.** Keyline Visuals does **not**
+shoot with flash. The stills service copy has been corrected, but three flash
+claims and one lighting-equipment claim are still in the codebase pending a
+decision, and must not be repeated or cited:
+
+- `src/data/services.ts` stills `blurb` — "Flashed so the windows still read"
+- `src/data/faq.ts` rain answer — "the flash does not care what the sky is doing"
+- `src/data/gallery.ts` — "Kitchen flashed against the ambient" (alt text and
+  lightbox caption, so it reaches screen readers)
+- `src/components/Process.astro` — "We bring lighting for every interior"
 
 **Treat all of it as unverified draft copy.** These are commitments to paying
 clients and legal claims about drone certification. Do not repeat them in new
@@ -143,6 +156,12 @@ a task needs either, that is a deliberate change to propose, not to assume.
 6. **Business facts belong in `src/data/`,** not hardcoded in components. Where
    a fact is settled it has a named constant in `site.ts` — import it. Never
    restate a settled value as a literal, not even inside prose.
+7. **The site speaks as "we".** Keyline Visuals is a business, not a person —
+   no "I", "my", or "me" in visitor-facing copy. Two exceptions: the six **FAQ
+   questions are in the reader's voice** (`"How fast do I get the photos?"` is
+   the visitor asking us), and `rel="me"` in the footer is a microformats
+   attribute, not prose. Never write "our pilots", "our team", or anything else
+   implying headcount — that is a claim nobody has backed.
 
 ## Known architectural constraints
 

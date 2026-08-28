@@ -1,4 +1,4 @@
-import { TURNAROUND, TWILIGHT_ADDON_PRICE } from './site';
+import { TURNAROUND, EXTRAS_TURNAROUND_HOURS, TWILIGHT_ADDON_PRICE } from './site';
 
 /* CONTENT-TODO — every price on this page is a placeholder.
    Fill in, in order:
@@ -83,7 +83,7 @@ export const addOns: AddOn[] = [
   { name: 'Twilight session', price: TWILIGHT_ADDON_PRICE, note: 'Added to any package, same week' },
   { name: 'Aerial photo & video', price: '$[XX]', note: 'Standalone, Part 107 licensed' },
   { name: 'Floor plan', price: '$[XX]', note: 'Measured on shoot day' },
-  { name: 'Virtual staging', price: '$[XX]', note: 'Per image, 72 hour turnaround' },
+  { name: 'Virtual staging', price: '$[XX]', note: `Per image, ${EXTRAS_TURNAROUND_HOURS} hour turnaround` },
   { name: 'Listing website', price: '$[XX]', note: 'Live through closing plus 30 days' },
   { name: 'Vertical social cut', price: '$[XX]', note: 'Included in Full Listing and up' },
   { name: 'Same-day rush delivery', price: '$[XX]', note: 'Booked before 10am, in by 8pm' },
