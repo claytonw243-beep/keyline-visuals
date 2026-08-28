@@ -50,7 +50,7 @@ export const site = {
   domain: '[DOMAIN]', // e.g. 'keylinevisuals.com'
   // CONTENT-TODO: update these two every month or two so the banner stays true.
   bookingWindow: 'BOOKING [CURRENT MONTH] — [NEXT MONTH]',
-  priceRange: '$$',
+  priceRange: '$125-$180',
   base: 'Oxford, Mississippi',
   region: 'North Mississippi',
 };

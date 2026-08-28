@@ -7,6 +7,48 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-27 — Gallery captions and a real priceRange
+
+**Four captions rewritten.** Captions are used as alt text as well as visible
+copy, so these reach screen readers too.
+
+- g01 "Front elevation at blue hour, lawn and window lighting balanced by hand"
+  → "Front elevation with the windows lit and the sky deep blue"
+- g07 "Rear elevation and dock in the twenty minutes after sunset"
+  → "Rear elevation and dock, house lit against a deep blue sky"
+- g10 "Back yard and porch, shot before the afternoon sun crossed the roof"
+  → "Back yard and porch from the rear of the lot"
+- g11 "Primary bedroom in an unfurnished spec, staged digitally after"
+  → "Primary bedroom in an unfurnished spec"
+
+The first two contradicted the twilight rewrite by claiming a dusk shoot. Two
+more turned up on review that had not been flagged: **g10 asserted when it was
+shot**, the identical failure, and **g11 advertised virtual staging**, a service
+cut two commits earlier. All four now describe the frame rather than the
+schedule.
+
+Four technique captions were reviewed and deliberately kept — g03 (Part 107,
+confirmed), g04 (camera height), g05 (straightened verticals, matches the stills
+includes), g08 (mirrors). They describe craft rather than a schedule and none is
+false.
+
+**priceRange is now "$125-$180" instead of "$$".** Checked Google's
+LocalBusiness structured-data documentation rather than guessing: **there are no
+dollar thresholds for the currency-sign notation.** Google's definition allows
+"either a numerical range (for example, \"$10-15\") or a normalized number of
+currency signs", with no cutoffs given for when one sign applies versus three.
+The sign convention is relative to category and locale and carries no defined
+meaning for a photography service, so "$$" was not wrong, just uninformative.
+
+The range covers the three products, not the $15 and $35 add-ons, since those
+are not things an agent buys on their own. Google's only documented constraint
+is that the value stay under 100 characters; this is 9.
+
+`CONTENT-TODO.md` referenced `priceRange` in two places, both now stale: the §2
+table row still listed it as a placeholder and — worse — advised choosing "`$$`
+or `$$$`", the very convention that turns out to mean nothing. Both are marked
+resolved, with a note that the value is a literal range and moves when prices do.
+
 ## 2026-08-27 — Payment terms taken off the site
 
 Four claims were live that had never been confirmed: net-15 billing for

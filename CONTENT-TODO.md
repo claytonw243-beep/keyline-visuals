@@ -33,7 +33,7 @@ All in `src/data/site.ts`:
 | `instagram` | `[INSTAGRAM_HANDLE]` | Handle only, no `@` — it's interpolated into the URL |
 | `droneLicense` | `[PART_107_NUMBER]` | Your FAA Part 107 certificate number |
 | `bookingWindow` | `BOOKING [CURRENT MONTH] — [NEXT MONTH]` | Shown beside the booking form. **Update this every month or two** or it reads as stale. |
-| `priceRange` | `$$` | Feeds the JSON-LD. `$$` or `$$$` |
+| ~~`priceRange`~~ | **done** — `$125-$180` | A literal numerical range, not currency signs. Google defines no dollar thresholds for `$` / `$$` / `$$$`, so the signs carry no meaning for a photography service. **Update this if prices change.** Must stay under 100 characters. |
 
 Also in `src/data/site.ts`:
 
@@ -65,8 +65,9 @@ reads from `TWILIGHT_ADDON_PRICE` in `src/data/site.ts`, which also feeds the
 twilight service stamp and the hero slider caption — change it there and all
 three follow.
 
-`site.priceRange` in the JSON-LD is still `$$`. Confirm that is the band you
-want now that real numbers are published.
+`site.priceRange` in the JSON-LD is `$125-$180`, covering the three products.
+The $15 and $35 add-ons sit below it deliberately — neither is something an
+agent buys on its own. Change it alongside any price change.
 
 ## 4. Photography
 

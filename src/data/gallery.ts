@@ -29,7 +29,7 @@ export const gallery: Shot[] = [
     area: 'Grand Oaks',
     meta: '38 IMAGES',
     orientation: 'landscape',
-    caption: 'Front elevation at blue hour, lawn and window lighting balanced by hand.',
+    caption: 'Front elevation with the windows lit and the sky deep blue.',
   },
   {
     id: 'g02',
@@ -89,7 +89,7 @@ export const gallery: Shot[] = [
     area: 'Sardis Lake',
     meta: '8 FRAMES',
     orientation: 'landscape',
-    caption: 'Rear elevation and dock in the twenty minutes after sunset.',
+    caption: 'Rear elevation and dock, house lit against a deep blue sky.',
   },
   {
     id: 'g08',
@@ -119,7 +119,7 @@ export const gallery: Shot[] = [
     area: 'Taylor',
     meta: '33 IMAGES',
     orientation: 'landscape',
-    caption: 'Back yard and porch, shot before the afternoon sun crossed the roof.',
+    caption: 'Back yard and porch from the rear of the lot.',
   },
   {
     id: 'g11',
@@ -129,7 +129,7 @@ export const gallery: Shot[] = [
     area: 'Water Valley',
     meta: '29 IMAGES',
     orientation: 'portrait',
-    caption: 'Primary bedroom in an unfurnished spec, staged digitally after.',
+    caption: 'Primary bedroom in an unfurnished spec.',
   },
   {
     id: 'g12',
