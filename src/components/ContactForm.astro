@@ -1,8 +1,11 @@
 ---
 import { site } from '../data/site';
-import { packages } from '../data/pricing';
 
-/* Formspree endpoint. GitHub Pages cannot run server code, so the form posts
+/* Contact only. Shoots are booked through the external portal — see
+   BOOKING_URL in src/data/site.ts — so this form deliberately does not collect
+   an address, square footage, a package, or preferred dates.
+
+   Formspree endpoint. GitHub Pages cannot run server code, so the form posts
    straight to Formspree over fetch.
    CONTENT-TODO: create a form at formspree.io, copy the 8-character form ID
    out of its endpoint URL, and put it in .env as:
@@ -12,39 +15,34 @@ const formId = import.meta.env.PUBLIC_FORMSPREE_ID ?? '';
 const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
 ---
 
-<section class="section section--hair" id="book">
+<section class="section section--hair" id="contact">
   <div class="wash wash--soft" aria-hidden="true"></div>
 
-  <div class="wrap book">
-    <div class="book__aside reveal">
-      <p class="mono">Book a shoot</p>
-      <h2 class="display book__title">Tell us the address and a day</h2>
-      <p class="prose book__intro">
-        We answer booking requests within a couple of hours during the week. If the date is tight,
-        call — a text gets a faster yes or no than a form does.
+  <div class="wrap contact">
+    <div class="contact__aside reveal">
+      <p class="mono">Contact</p>
+      <h2 class="display contact__title">Tell us what you need</h2>
+      <p class="prose contact__intro">
+        We answer within a couple of hours during the week. If it is
+        time-sensitive, call — a text gets a faster yes or no than a form does.
       </p>
 
-      <p class="book__status">
-        <span class="book__dot" aria-hidden="true"></span>
-        <span class="mono">{site.bookingWindow}</span>
-      </p>
-
-      <div class="book__direct">
-        <a class="book__phone" href={site.phoneHref}>{site.phone}</a>
-        <p class="mono book__phone-note">
+      <div class="contact__direct">
+        <a class="contact__phone" href={site.phoneHref}>{site.phone}</a>
+        <p class="mono contact__phone-note">
           Call or text · <a class="link" href={`mailto:${site.email}`}>{site.email}</a>
         </p>
       </div>
     </div>
 
-    <div class="book__panel reveal">
+    <div class="contact__panel reveal">
       <form
         class="form"
-        data-book-form
+        data-contact-form
         action={endpoint || undefined}
         method="post"
         novalidate
-        data-fail-msg={`That did not send — the connection dropped somewhere. Try again, or call ${site.phone} and we will book it over the phone right now.`}
+        data-fail-msg={`That did not send — the connection dropped somewhere. Try again, or call ${site.phone}.`}
       >
         <p class="form__error" data-form-error hidden role="alert"></p>
 
@@ -52,7 +50,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <div class="field">
             <label class="field__label" for="name">Your name</label>
             <input class="field__input" id="name" name="name" type="text" autocomplete="name" required
-              data-msg="Enter your name so we know who the gallery goes to." />
+              data-msg="Enter your name so we know who we are replying to." />
             <p class="field__msg" data-msg-for="name" hidden></p>
           </div>
 
@@ -66,68 +64,38 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <div class="field">
             <label class="field__label" for="email">Email</label>
             <input class="field__input" id="email" name="email" type="email" autocomplete="email" required
-              data-msg="Enter an email so we can send the gallery link."
+              data-msg="Enter an email so we can reply."
               data-msg-format="That address is missing an @ — check it and try again." />
             <p class="field__msg" data-msg-for="email" hidden></p>
           </div>
 
           <div class="field">
-            <label class="field__label" for="phone">Phone</label>
-            <input class="field__input" id="phone" name="phone" type="tel" autocomplete="tel" required
-              data-msg="Add a number so we can text you if something on site needs a decision." />
-            <p class="field__msg" data-msg-for="phone" hidden></p>
+            <label class="field__label" for="phone">Phone <span class="field__opt">optional</span></label>
+            <input class="field__input" id="phone" name="phone" type="tel" autocomplete="tel" />
           </div>
         </div>
 
         <div class="field">
-          <label class="field__label" for="address">Property address</label>
-          <input class="field__input" id="address" name="address" type="text" autocomplete="street-address" required
-            data-msg="Enter the address so we can check drive time and airspace before we confirm." />
-          <p class="field__msg" data-msg-for="address" hidden></p>
-        </div>
-
-        <div class="form__row">
-          <div class="field">
-            <label class="field__label" for="sqft">Square footage <span class="field__opt">estimate is fine</span></label>
-            <input class="field__input" id="sqft" name="sqft" type="text" inputmode="numeric" />
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="package">Package</label>
-            <select class="field__input" id="package" name="package">
-              <option value="Not sure yet">Not sure yet — recommend one</option>
-              {packages.map((p) => <option value={p.name}>{p.name}</option>)}
-              <option value="Add-ons only">Add-ons only</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="dates">Preferred dates <span class="field__opt">optional</span></label>
-          <input class="field__input" id="dates" name="dates" type="text"
-            placeholder="Thursday or Friday morning" />
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="notes">Anything we should know <span class="field__opt">optional</span></label>
-          <textarea class="field__input field__input--area" id="notes" name="notes" rows="4"
-            placeholder="Occupied or vacant, lockbox code, gate code, pets, tricky driveway."></textarea>
+          <label class="field__label" for="message">What can we help with</label>
+          <textarea class="field__input field__input--area" id="message" name="message" rows="5" required
+            data-msg="Tell us what you need and we will come back to you."
+            placeholder="A question about pricing, coverage, turnaround, or anything else."></textarea>
+          <p class="field__msg" data-msg-for="message" hidden></p>
         </div>
 
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
 
         <button class="btn btn--primary btn--wide form__submit" type="submit" data-form-submit>
-          Send booking request
+          Send message
         </button>
       </form>
 
       <div class="done" data-form-done hidden>
-        <p class="mono">Booking request sent</p>
+        <p class="mono">Message sent</p>
         <h3 class="display done__title">Got it. Give us a couple of hours.</h3>
         <p class="done__body">
-          We will text or email to confirm the date and time, and send a one-page prep sheet for the
-          seller the day before. If you need an answer faster than that, call
-          <a class="link" href={site.phoneHref}>{site.phone}</a>.
+          We will come back to you by email or text. If you need an answer faster
+          than that, call <a class="link" href={site.phoneHref}>{site.phone}</a>.
         </p>
       </div>
     </div>
@@ -135,40 +103,26 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
 </section>
 
 <style>
-  .book {
+  .contact {
     display: grid;
     gap: clamp(40px, 5vw, 64px);
     align-items: start;
   }
 
-  .book__title {
+  .contact__title {
     margin-top: 18px;
     font-size: var(--fs-40);
   }
-  .book__intro {
+  .contact__intro {
     margin-top: 20px;
   }
 
-  .book__status {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .contact__direct {
     margin-top: 34px;
-  }
-  .book__dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--glow);
-    flex: none;
-  }
-
-  .book__direct {
-    margin-top: 18px;
     padding-top: 24px;
     border-top: 1px solid var(--line);
   }
-  .book__phone {
+  .contact__phone {
     font-family: var(--font-display);
     font-weight: 700;
     font-stretch: 118%;
@@ -177,14 +131,14 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
     border-bottom: 1px solid transparent;
     transition: border-color var(--t-hover) var(--ease);
   }
-  .book__phone:hover {
+  .contact__phone:hover {
     border-bottom-color: var(--glow);
   }
-  .book__phone-note {
+  .contact__phone-note {
     margin-top: 10px;
   }
 
-  .book__panel {
+  .contact__panel {
     border: 1px solid var(--line-soft);
     background: var(--night);
     padding: 26px;
@@ -241,17 +195,8 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
   }
   .field__input--area {
     resize: vertical;
-    min-height: 108px;
+    min-height: 128px;
     font-family: var(--font-body);
-  }
-  select.field__input {
-    appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
-      linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-    background-position: calc(100% - 19px) 22px, calc(100% - 14px) 22px;
-    background-size: 5px 5px, 5px 5px;
-    background-repeat: no-repeat;
-    padding-right: 40px;
   }
 
   .field[data-invalid] .field__input {
@@ -304,10 +249,10 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
     }
   }
   @media (min-width: 980px) {
-    .book {
+    .contact {
       grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     }
-    .book__panel {
+    .contact__panel {
       padding: 32px;
     }
   }

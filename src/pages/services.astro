@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BookingForm from '../components/BookingForm.astro';
+import ContactForm from '../components/ContactForm.astro';
 import { services } from '../data/services';
+import { BOOKING_HREF } from '../data/site';
 ---
 
 <BaseLayout
@@ -49,7 +50,7 @@ import { services } from '../data/services';
               ))}
             </ul>
 
-            <a class="btn btn--ghost srv__cta" href="/#book">
+            <a class="btn btn--ghost srv__cta" href={BOOKING_HREF}>
               Book {s.name.toLowerCase()}
             </a>
           </div>
@@ -58,7 +59,7 @@ import { services } from '../data/services';
     ))
   }
 
-  <BookingForm />
+  <ContactForm />
 </BaseLayout>
 
 <style>

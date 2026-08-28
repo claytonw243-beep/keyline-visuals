@@ -37,6 +37,14 @@ export const FREE_TRAVEL_RADIUS_MILES = 30;
     and the hero slider caption. */
 export const TWILIGHT_ADDON_PRICE = '$15';
 
+/** CONTENT-TODO: the external portal shoots are booked through. Paste the URL
+    here and every "Book a shoot" CTA on the site switches to it at once. */
+export const BOOKING_URL = '';
+
+/** Where every booking CTA points. Falls back to the on-page contact section
+    while BOOKING_URL is empty, so no button is ever a dead link. */
+export const BOOKING_HREF = BOOKING_URL || '/#contact';
+
 export const site = {
   name: 'Keyline Visuals',
   tagline: 'Real estate media for North Mississippi',
@@ -48,8 +56,6 @@ export const site = {
   instagramUrl: 'https://instagram.com/[INSTAGRAM_HANDLE]',
   droneLicense: '[PART_107_NUMBER]',
   domain: '[DOMAIN]', // e.g. 'keylinevisuals.com'
-  // CONTENT-TODO: update these two every month or two so the banner stays true.
-  bookingWindow: 'BOOKING [CURRENT MONTH] — [NEXT MONTH]',
   priceRange: '$125-$180',
   base: 'Oxford, Mississippi',
   region: 'North Mississippi',

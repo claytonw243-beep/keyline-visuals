@@ -70,6 +70,17 @@ clients and legal claims about drone certification. Do not repeat them in new
 copy, do not cite them as settled, and do not let them propagate into a new page
 as if they were confirmed. If a task needs one of these values, ask.
 
+### Booking happens off-site
+
+Shoots are booked through an external portal, not on this site. `BOOKING_URL`
+in `src/data/site.ts` holds it; `BOOKING_HREF` is what every "Book a shoot" CTA
+reads. **While `BOOKING_URL` is empty every CTA falls back to `/#contact`**, so
+no button is ever a dead link — paste the URL and all six switch at once.
+
+The on-site form is **contact only**. It deliberately does not collect an
+address, square footage, a package, or preferred dates; the portal owns those.
+Do not add booking fields back to it.
+
 ### Deliberately not on the site
 
 Payment terms are handled on the invoice, not in the marketing. The "When do I
@@ -163,9 +174,9 @@ Real limitations found in an audit of the codebase. Do not trip on them:
 - **`form.js`, `lightbox.js`, and `nav.js` use `document.querySelector`** (first
   match only), so each of those components can appear **only once per page**. A
   second instance is inert.
-- **Section IDs (`work`, `pricing`, `book`, `services`, `process`, `coverage`,
-  `faq`) and every booking-form field ID (`name`, `email`, `phone`, `address`,
-  `sqft`, `package`, `dates`, `notes`) are hardcoded.** Reusing those components
+- **Section IDs (`work`, `pricing`, `contact`, `services`, `process`,
+  `coverage`, `faq`) and every contact-form field ID (`name`, `brokerage`,
+  `email`, `phone`, `message`) are hardcoded.** Reusing those components
   twice on one page produces duplicate DOM IDs — an accessibility failure that
   also breaks label associations.
 - **The services grid works on an even number of tiles.** There are 4 — 2 large

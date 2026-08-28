@@ -16,10 +16,12 @@ grep -rn "\[PHONE\]\|\[EMAIL\]\|\[XXX\]\|\[XX\]\|your-domain-goes-here\|CONTENT-
 | What | Where | Notes |
 | --- | --- | --- |
 | Domain | `astro.config.mjs` (`SITE`), `public/CNAME`, `public/robots.txt` | All three must match. Replace `your-domain-goes-here.example.com`. Set the apex or `www` — pick one and stay on it. |
-| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | Create a form at formspree.io, copy the 8 characters from `formspree.io/f/xxxxxxxx`. Also add it as a **repository variable** named `PUBLIC_FORMSPREE_ID` (Settings → Secrets and variables → Actions → Variables) or the deployed form will not send. |
+| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | Powers the **contact** form. Create a form at formspree.io, copy the 8 characters from `formspree.io/f/xxxxxxxx`. Also add it as a **repository variable** named `PUBLIC_FORMSPREE_ID` (Settings → Secrets and variables → Actions → Variables) or the deployed form will not send. |
+| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | The external portal shoots are booked through. All six "Book a shoot" CTAs read it. **Until it is set they fall back to `/#contact`**, so nothing is broken — but visitors reach a contact form instead of the booking flow. |
 
-Until the Formspree ID is set, the form validates normally but tells the visitor
-it isn't connected and points them at the phone number — it never fakes a success.
+Until the Formspree ID is set, the contact form validates normally but tells the
+visitor it isn't connected and points them at the phone number — it never fakes
+a success.
 
 ## 2. Contact and identity
 
@@ -32,7 +34,6 @@ All in `src/data/site.ts`:
 | ~~`email`~~ | **done** — info@keylinevisuals.com | |
 | `instagram` | `[INSTAGRAM_HANDLE]` | Handle only, no `@` — it's interpolated into the URL |
 | `droneLicense` | `[PART_107_NUMBER]` | Your FAA Part 107 certificate number |
-| `bookingWindow` | `BOOKING [CURRENT MONTH] — [NEXT MONTH]` | Shown beside the booking form. **Update this every month or two** or it reads as stale. |
 | ~~`priceRange`~~ | **done** — `$125-$180` | A literal numerical range, not currency signs. Google defines no dollar thresholds for `$` / `$$` / `$$$`, so the signs carry no meaning for a photography service. **Update this if prices change.** Must stay under 100 characters. |
 
 Also in `src/data/site.ts`:

@@ -1,5 +1,5 @@
 ---
-import { nav, site } from '../data/site';
+import { nav, site, BOOKING_HREF } from '../data/site';
 const path = Astro.url.pathname;
 ---
 
@@ -26,7 +26,7 @@ const path = Astro.url.pathname;
 
     <div class="nav__cta">
       <a class="nav__call mono" href={site.phoneHref}>{site.phone}</a>
-      <a class="btn btn--primary nav__book" href="/#book">Book a shoot</a>
+      <a class="btn btn--primary nav__book" href={BOOKING_HREF}>Book a shoot</a>
     </div>
 
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-nav-toggle>
@@ -38,7 +38,7 @@ const path = Astro.url.pathname;
   <div class="nav__panel" id="mobile-menu" hidden data-nav-panel>
     <div class="wrap nav__panel-inner">
       {nav.map((item) => <a href={item.href} class="nav__panel-link">{item.label}</a>)}
-      <a href="/#book" class="btn btn--primary nav__panel-book">Book a shoot</a>
+      <a href={BOOKING_HREF} class="btn btn--primary nav__panel-book">Book a shoot</a>
       <a href={site.phoneHref} class="mono nav__panel-call">{site.phone}</a>
     </div>
   </div>

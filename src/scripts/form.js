@@ -1,4 +1,4 @@
-const form = document.querySelector('[data-book-form]');
+const form = document.querySelector('[data-contact-form]');
 
 if (form) {
   const done = document.querySelector('[data-form-done]');
@@ -66,7 +66,7 @@ if (form) {
     const endpoint = form.getAttribute('action');
     if (!endpoint) {
       banner.textContent =
-        'The form is not connected yet. Set PUBLIC_FORMSPREE_ID in .env, or call the number on the left.';
+        'The form is not connected yet. Set PUBLIC_FORMSPREE_ID in .env, or use the phone number listed.';
       banner.hidden = false;
       return;
     }
@@ -93,7 +93,7 @@ if (form) {
       banner.focus?.();
     } finally {
       submit.removeAttribute('aria-busy');
-      submit.textContent = 'Send booking request';
+      submit.textContent = 'Send message';
     }
   });
 }

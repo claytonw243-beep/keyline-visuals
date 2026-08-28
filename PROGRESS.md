@@ -7,6 +7,34 @@ the launch checklist and it is not duplicated here.
 
 ---
 
+## 2026-08-28 — Booking form replaced with a contact form
+
+Shoots are not booked through this site, so the booking form is gone.
+`BookingForm.astro` is now `ContactForm.astro` and the section id moved from
+`#book` to `#contact`.
+
+**The form no longer collects booking data.** Address, square footage, package,
+and preferred dates are removed — the portal owns those. What is left is name,
+brokerage (optional), email, phone (optional), and a message. Validation copy
+was rewritten for a contact context; "Send booking request" is "Send message",
+and the `BOOKING [CURRENT MONTH] — [NEXT MONTH]` availability banner is gone
+along with `site.bookingWindow`.
+
+**Six CTAs would have become dead anchors.** `#book` was the target of the nav
+button on desktop and mobile, the hero, the 404 page, all three pricing cards,
+and every service on /services/. They now read `BOOKING_HREF` from `site.ts`,
+which resolves to `BOOKING_URL` when that is set and falls back to `/#contact`
+while it is empty. Nothing is broken today, and pasting the portal URL switches
+all six at once — recorded as a launch blocker in `CONTENT-TODO.md`.
+
+Formspree still backs the form and `form.js` is unchanged apart from its
+selector and two strings. Verified live: `#book` is gone, `#contact` exists,
+the five fields validate with contact-appropriate messages, and a valid submit
+correctly reports that Formspree is not connected rather than faking success.
+
+`CLAUDE.md` records that booking is off-site and that booking fields must not
+be added back to the contact form.
+
 ## 2026-08-28 — Real photographs in, gallery converted to astro:assets
 
 **Six real photographs replace the twelve placeholders.** Exported from
