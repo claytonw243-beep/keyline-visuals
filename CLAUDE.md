@@ -142,10 +142,18 @@ must be true first or it will not resolve:
   CNAME — a CNAME on the apex is the usual mistake. See CONTENT-TODO.md §1 for
   the addresses.
 
-**Forms:** Formspree, since GitHub Pages cannot run server code. The endpoint ID
-comes from `PUBLIC_FORMSPREE_ID` (`.env` locally, an Actions *variable* in CI).
-Unset, the form validates normally and tells the visitor it is not connected —
-it never fakes a success.
+**Forms:** Formspree, since GitHub Pages cannot run server code. The contact
+form posts to `https://formspree.io/f/{id}` over `fetch` from
+`src/scripts/form.js` — this is Formspree's documented AJAX pattern, written by
+hand. **Do not replace it with `@formspree/ajax` or a plain `action` POST:** the
+library would add a dependency and, via its CDN build, a network request to a
+site that currently makes none; a plain POST would navigate the visitor off-site
+and lose the inline validation, the success state, and the not-connected
+fallback.
+
+The ID (`mdeokplg`) comes from `PUBLIC_FORMSPREE_ID` — `.env` locally, an Actions
+*variable* in CI. Unset, the form validates normally and tells the visitor it is
+not connected. It never fakes a success.
 
 **Commands:** `npm run dev` · `npm run build` · `npm run preview` · `npm run check`
 

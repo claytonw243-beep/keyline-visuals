@@ -63,8 +63,13 @@ are in `CONTENT-TODO.md` §1.
 | Domain `keylinevisuals.com` | `astro.config.mjs` (`SITE`), `public/CNAME`, `public/robots.txt` | **done** |
 | DNS A records for the apex | registrar | outstanding — see `CONTENT-TODO.md` §1 |
 | Pages source = GitHub Actions | repo settings | outstanding |
-| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID`, **and** a GitHub Actions *variable* of the same name | outstanding |
+| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | **done locally** — ID `mdeokplg` |
+| Formspree ID as a CI variable | repo → Actions → Variables | outstanding |
 | Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | **done** |
+
+The contact form posts to `https://formspree.io/f/mdeokplg`. `form.js` implements
+Formspree's AJAX pattern by hand — **do not swap it for `@formspree/ajax` or a
+plain `action` POST**; the reasoning is in `CLAUDE.md`.
 
 The domain is set in three files and nowhere else; everything downstream derives
 from `Astro.site`. Verified: canonical, `og:url`, `og:image`, `twitter:image`,
@@ -107,7 +112,7 @@ target, the rel, and the announcement; the twilight one to carry none of them.
 
 ### 5. Waiting on the owner
 
-- Formspree form ID
+- Formspree ID added as a GitHub Actions repository variable
 - DNS records at the registrar, and Pages source set to GitHub Actions
 - Instagram handle, FAA Part 107 certificate number, business hours
 - `propertyType` / `area` / `meta` per gallery photo

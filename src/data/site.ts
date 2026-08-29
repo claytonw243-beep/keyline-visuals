@@ -67,7 +67,6 @@ export const site = {
   instagram: '[INSTAGRAM_HANDLE]', // e.g. 'keylinevisuals'
   instagramUrl: 'https://instagram.com/[INSTAGRAM_HANDLE]',
   droneLicense: '[PART_107_NUMBER]',
-  domain: '[DOMAIN]', // e.g. 'keylinevisuals.com'
   priceRange: '$125-$180',
   base: 'Oxford, Mississippi',
   region: 'North Mississippi',

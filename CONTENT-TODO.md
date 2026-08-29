@@ -16,7 +16,7 @@ grep -rn "\[INSTAGRAM_HANDLE\]\|\[PART_107_NUMBER\]\|CONTENT-TODO" src public as
 | What | Where | Notes |
 | --- | --- | --- |
 | ~~Domain~~ | | **done** — `keylinevisuals.com`, apex. Set in `astro.config.mjs` (`SITE`), `public/CNAME`, and `public/robots.txt`. Everything downstream derives from it. **DNS still needs configuring — see below.** |
-| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | Powers the **contact** form. Create a form at formspree.io, copy the 8 characters from `formspree.io/f/xxxxxxxx`. Also add it as a **repository variable** named `PUBLIC_FORMSPREE_ID` (Settings → Secrets and variables → Actions → Variables) or the deployed form will not send. |
+| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | ID is **`mdeokplg`** (endpoint `https://formspree.io/f/mdeokplg`). Set locally. **Still required in CI:** add a repository *variable* named `PUBLIC_FORMSPREE_ID` under Settings → Secrets and variables → Actions → Variables, or the deployed form will tell visitors it is not connected. `.env` is gitignored, so recreate it on a fresh clone with `echo 'PUBLIC_FORMSPREE_ID=mdeokplg' > .env` — the ID is not a secret, it ships in the page's `action` attribute. |
 | ~~Booking portal URL~~ | | **done** — Fotello at `https://book.keylinevisuals.com/book/default`, in `src/data/site.ts` → `BOOKING_URL`. A **subdomain**, because Pages holds the apex and would swallow any path on it. Virtual twilight is exempt and points at the contact form instead. |
 
 Until the Formspree ID is set, the contact form validates normally but tells the

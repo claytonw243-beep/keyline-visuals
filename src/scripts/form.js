@@ -88,7 +88,7 @@ if (form) {
     } catch {
       banner.textContent =
         form.dataset.failMsg ??
-        'That did not send. Check your connection and try again, or call and I will book it over the phone.';
+        'That did not send. Check your connection and try again, or use the phone number listed.';
       banner.hidden = false;
       banner.focus?.();
     } finally {

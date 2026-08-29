@@ -5,14 +5,17 @@ import { site } from '../data/site';
    BOOKING_URL in src/data/site.ts — so this form deliberately does not collect
    an address, square footage, a package, or preferred dates.
 
-   Formspree endpoint. GitHub Pages cannot run server code, so the form posts
-   straight to Formspree over fetch.
-   CONTENT-TODO: create a form at formspree.io, copy the 8-character form ID
-   out of its endpoint URL, and put it in .env as:
-       PUBLIC_FORMSPREE_ID=xxxxxxxx
-   See .env.example. */
+   GitHub Pages cannot run server code, so the form posts to Formspree over
+   fetch — see src/scripts/form.js. The form ID is mdeokplg; it comes from
+   PUBLIC_FORMSPREE_ID rather than being hardcoded so a fork or a preview build
+   can point somewhere else. .env is gitignored, so a fresh clone needs it
+   recreating — the value is recorded in CONTENT-TODO.md §1. */
 const formId = import.meta.env.PUBLIC_FORMSPREE_ID ?? '';
 const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
+
+/* Formspree reads _subject as the notification email's subject line. The host
+   comes off Astro.site so the domain is not written down a second time. */
+const subject = `New contact from ${Astro.site?.host ?? 'the website'}`;
 ---
 
 <section class="section section--hair" id="contact">
@@ -83,6 +86,7 @@ const endpoint = formId ? `https://formspree.io/f/${formId}` : '';
           <p class="field__msg" data-msg-for="message" hidden></p>
         </div>
 
+        <input type="hidden" name="_subject" value={subject} />
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true" />
 
         <button class="btn btn--primary btn--wide form__submit" type="submit" data-form-submit>
