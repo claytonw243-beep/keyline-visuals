@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://your-domain-goes-here.example.com/sitemap-index.xml
+Sitemap: https://keylinevisuals.com/sitemap-index.xml

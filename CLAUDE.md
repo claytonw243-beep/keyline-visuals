@@ -6,10 +6,12 @@ Read this before doing anything else in this repo.
 
 **Keyline Visuals** — real estate photography and video, based in Oxford, Mississippi.
 
-**Domain:** `keylinevisuals.com` — purchased, but **not yet wired into the code**.
-Three files still carry the `your-domain-goes-here.example.com` placeholder and
-must be updated together: `astro.config.mjs` (the `SITE` constant), `public/CNAME`,
-and `public/robots.txt`. See CONTENT-TODO.md §1.
+**Domain:** `keylinevisuals.com` — apex, not www. **Wired in.** It lives in three
+places that must stay in step: `astro.config.mjs` (`SITE`), `public/CNAME`, and
+the Sitemap line in `public/robots.txt`. Everything else derives from
+`Astro.site` — canonical URLs, `og:url`, `og:image`, `twitter:image`, the
+JSON-LD `@id`/`url`/`image`, and the sitemap. Never hardcode the domain
+anywhere else.
 
 ### Settled facts
 
@@ -115,11 +117,14 @@ width), Manrope, IBM Plex Mono. Do not add Google Fonts links.
 Custom domain via `public/CNAME`. **No remote is configured and nothing has been
 pushed.**
 
-⚠️ **The workflow fires on the first push to `main`.** Until the domain is wired
-in, that would publish a live site whose canonical URLs, sitemap, and Open Graph
-tags all read `your-domain-goes-here.example.com`, with a `CNAME` pointing at a
-domain that does not exist. Set the domain first, or push to a branch that is
-not `main`.
+⚠️ **The workflow fires on the first push to `main`**, and the domain is now
+real, so that push publishes a live site at `keylinevisuals.com`. Two things
+must be true first or it will not resolve:
+
+- **Settings → Pages → Source: GitHub Actions** on the repo.
+- **DNS.** An apex domain needs **A records** (or an ALIAS/ANAME), *not* a
+  CNAME — a CNAME on the apex is the usual mistake. See CONTENT-TODO.md §1 for
+  the addresses.
 
 **Forms:** Formspree, since GitHub Pages cannot run server code. The endpoint ID
 comes from `PUBLIC_FORMSPREE_ID` (`.env` locally, an Actions *variable* in CI).

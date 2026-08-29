@@ -13,12 +13,12 @@ facts. `CONTENT-TODO.md` is the launch checklist. Neither is duplicated here.
 
 | | |
 | --- | --- |
-| Branch | `main`, 11 commits, working tree clean |
-| HEAD | `947288e7c1895030b95b3472602c71a9cbc51f08` — *Replace the booking form with a contact form* |
+| Branch | `main`, working tree clean |
+| HEAD | **run `git log -1`** — a file cannot record its own commit hash without being one behind |
 | Remote | **none.** Nothing has ever been pushed. |
 | Repo size | 1.26 MiB packed |
 | Build | clean · `astro check` 0 errors, 1 hint (an intentional `is:inline` on the JSON-LD script) |
-| Live? | No. Not deployed, not pushed, no domain wired. |
+| Live? | No. Not deployed, not pushed. Domain **is** wired; DNS is not configured. |
 
 **The site is structurally finished and content-accurate.** Four pages, twelve
 components, real prices, real contact details, six real photographs. Everything
@@ -50,21 +50,25 @@ What it is not is *live* — that is plumbing, and it is listed below.
 No remote exists. The owner asked for a **private** repo and a push, then the
 session ended before it happened.
 
-⚠️ **`.github/workflows/deploy.yml` triggers on push to `main`.** Pushing right
-now would deploy a live site whose canonical URLs, sitemap, and Open Graph tags
-all say `your-domain-goes-here.example.com`, with a `CNAME` pointing at a domain
-that does not exist. **Wire the domain first, or push a non-`main` branch.**
+⚠️ **`.github/workflows/deploy.yml` triggers on push to `main`.** The domain is
+now real, so that push publishes a live site at `keylinevisuals.com`. It will
+not resolve until **Settings → Pages → Source: GitHub Actions** is set and DNS
+points at GitHub — an apex domain needs **A records, not a CNAME**. Addresses
+are in `CONTENT-TODO.md` §1.
 
 ### 2. Deploy plumbing — three values, all in `CONTENT-TODO.md` §1
 
-| What | Where |
-| --- | --- |
-| Domain `keylinevisuals.com` | `astro.config.mjs` (`SITE`), `public/CNAME`, `public/robots.txt` — **all three must match** |
-| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID`, **and** a GitHub Actions *variable* of the same name |
-| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` |
+| What | Where | Status |
+| --- | --- | --- |
+| Domain `keylinevisuals.com` | `astro.config.mjs` (`SITE`), `public/CNAME`, `public/robots.txt` | **done** |
+| DNS A records for the apex | registrar | outstanding — see `CONTENT-TODO.md` §1 |
+| Pages source = GitHub Actions | repo settings | outstanding |
+| Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID`, **and** a GitHub Actions *variable* of the same name | outstanding |
+| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | **on hold** — see below |
 
-The domain placeholder is a *valid hostname* rather than `[DOMAIN]` because
-Astro's config refuses to parse a non-URL. Grep `your-domain-goes-here`.
+The domain is set in three files and nowhere else; everything downstream derives
+from `Astro.site`. Verified: canonical, `og:url`, `og:image`, `twitter:image`,
+the JSON-LD `@id`/`url`/`image`, and the sitemap all resolve to the real host.
 
 ### 3. Task B — booking portal, half done
 
@@ -75,7 +79,24 @@ to `/#contact`.
 **Consequence: every "Book a shoot" button currently lands on a contact form.**
 Not broken, but the button does not do what it says. One constant fixes all six.
 
-**Blocked on:** the owner supplying the portal URL.
+**Blocked on:** the portal URL, and a conflict worth understanding first.
+
+The URL offered was `https://keylinevisuals.com/book/default` — a **path on the
+apex domain GitHub Pages now serves**. That cannot work. DNS resolves a
+hostname, not a path, so once the apex points at Pages every request to it goes
+to Pages, including `/book/default`, which would 404. Pages offers no path-level
+proxy or rewrite; splitting one hostname across two services needs a reverse
+proxy in front.
+
+Two ways out: use the scheduler's **native URL** on its own domain, or put the
+scheduler on a **subdomain** (`book.keylinevisuals.com`) — independent DNS, so
+it can point anywhere while the apex stays on Pages. The owner is checking where
+that URL came from.
+
+**Also flagged for when the CTAs are wired:** `/services/` generates a button per
+service, so one of them reads *"Book virtual twilight"*. That is a $15
+post-production edit, not a shoot — it should point at the contact form or lose
+its button rather than open a shoot scheduler.
 
 ### 4. Photography — partially in
 
@@ -91,8 +112,9 @@ Not broken, but the button does not do what it says. One constant fixes all six.
 
 ### 5. Waiting on the owner
 
-- Booking portal URL
-- Domain and Formspree ID
+- Booking portal URL — see §3, and the domain conflict below
+- Formspree form ID
+- DNS records at the registrar, and Pages source set to GitHub Actions
 - Instagram handle, FAA Part 107 certificate number, business hours
 - `propertyType` / `area` / `meta` per gallery photo
 - Whether gallery captions (written here, not supplied) are approved

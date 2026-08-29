@@ -6,7 +6,7 @@ the first section blocks deploying, the rest block the site being *true*.
 A fast way to find what's left at any point:
 
 ```bash
-grep -rn "\[PHONE\]\|\[EMAIL\]\|\[XXX\]\|\[XX\]\|your-domain-goes-here\|CONTENT-TODO" src public astro.config.mjs
+grep -rn "\[INSTAGRAM_HANDLE\]\|\[PART_107_NUMBER\]\|CONTENT-TODO" src public astro.config.mjs
 ```
 
 ---
@@ -15,13 +15,44 @@ grep -rn "\[PHONE\]\|\[EMAIL\]\|\[XXX\]\|\[XX\]\|your-domain-goes-here\|CONTENT-
 
 | What | Where | Notes |
 | --- | --- | --- |
-| Domain | `astro.config.mjs` (`SITE`), `public/CNAME`, `public/robots.txt` | All three must match. Replace `your-domain-goes-here.example.com`. Set the apex or `www` — pick one and stay on it. |
+| ~~Domain~~ | | **done** — `keylinevisuals.com`, apex. Set in `astro.config.mjs` (`SITE`), `public/CNAME`, and `public/robots.txt`. Everything downstream derives from it. **DNS still needs configuring — see below.** |
 | Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | Powers the **contact** form. Create a form at formspree.io, copy the 8 characters from `formspree.io/f/xxxxxxxx`. Also add it as a **repository variable** named `PUBLIC_FORMSPREE_ID` (Settings → Secrets and variables → Actions → Variables) or the deployed form will not send. |
 | Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | The external portal shoots are booked through. All six "Book a shoot" CTAs read it. **Until it is set they fall back to `/#contact`**, so nothing is broken — but visitors reach a contact form instead of the booking flow. |
 
 Until the Formspree ID is set, the contact form validates normally but tells the
 visitor it isn't connected and points them at the phone number — it never fakes
 a success.
+
+### DNS for the apex domain
+
+`keylinevisuals.com` is an **apex** domain, so it needs **A records**, not a
+CNAME. Pointing a CNAME at the apex is the usual mistake and it will not work.
+At your registrar, create four A records for `@`:
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+Optionally the four AAAA records for IPv6:
+
+```
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
+```
+
+An ALIAS or ANAME record pointing at your `username.github.io` default domain
+works instead, if your registrar supports one.
+
+Then in the repo: **Settings → Pages → Source: GitHub Actions**, and tick
+**Enforce HTTPS** once the certificate provisions. `public/CNAME` is GitHub's
+own config file — confusingly named, since the apex must not use a DNS CNAME.
+
+*(Addresses checked against GitHub's custom-domain documentation, not recalled.)*
 
 ## 2. Contact and identity
 

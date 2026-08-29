@@ -1,11 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// CONTENT-TODO #1 — replace this with your real domain, e.g. 'https://keylinevisuals.com'.
-// It must match public/CNAME (without the protocol) and the Sitemap line in
-// public/robots.txt. Astro needs a parseable URL here, so the placeholder is a
-// valid hostname rather than [DOMAIN] — search the repo for "your-domain-goes-here".
-const SITE = process.env.SITE_URL ?? 'https://your-domain-goes-here.example.com';
+// The live domain. Apex, not www. Must stay in step with public/CNAME (same
+// value, no protocol) and the Sitemap line in public/robots.txt.
+// Everything else derives from it: canonical URLs, og:url, og:image,
+// twitter:image, the JSON-LD @id/url/image, and the sitemap.
+// SITE_URL overrides it for a preview build without touching the file.
+const SITE = process.env.SITE_URL ?? 'https://keylinevisuals.com';
 
 export default defineConfig({
   site: SITE,
