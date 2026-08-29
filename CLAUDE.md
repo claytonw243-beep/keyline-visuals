@@ -61,6 +61,9 @@ plain-English draft copy that reads as established fact and is not:
 - `src/data/services.ts` → image and frame counts — "30–45 IMAGES", "4K / 60",
   "8–12 FRAMES", "6–8 FRAMES". The turnaround stamps are settled and read from
   constants. The aerial entry's prose is settled and verbatim.
+- `src/data/gallery.ts` → every `caption`. These were written by reading the
+  photographs, not supplied by the owner. They are accurate descriptions of
+  what is in frame but nobody has approved the wording.
 - `src/components/Process.astro` — text-when-finished, partial reshoot promise
 - `src/layouts/BaseLayout.astro` — JSON-LD opening hours (Mon–Fri 08:00–19:00,
   Sat 09:00–17:00)
@@ -109,8 +112,14 @@ width), Manrope, IBM Plex Mono. Do not add Google Fonts links.
 
 **Deploy:** GitHub Pages via GitHub Actions (`.github/workflows/deploy.yml`,
 `withastro/action@v3` → `actions/deploy-pages@v4`), triggered on push to `main`.
-Custom domain via `public/CNAME`. **No remote is configured yet and nothing has
-been pushed** — the first push to `main` will deploy.
+Custom domain via `public/CNAME`. **No remote is configured and nothing has been
+pushed.**
+
+⚠️ **The workflow fires on the first push to `main`.** Until the domain is wired
+in, that would publish a live site whose canonical URLs, sitemap, and Open Graph
+tags all read `your-domain-goes-here.example.com`, with a `CNAME` pointing at a
+domain that does not exist. Set the domain first, or push to a branch that is
+not `main`.
 
 **Forms:** Formspree, since GitHub Pages cannot run server code. The endpoint ID
 comes from `PUBLIC_FORMSPREE_ID` (`.env` locally, an Actions *variable* in CI).
@@ -199,6 +208,22 @@ categories actually present — so a partial set works and there are no dead
 filter buttons. An entry whose file is missing is skipped with a build warning.
 The **two service tiles are the last raw `<img>` tags pointing at `public/`**
 and still need converting when real photos replace them.
+
+**Adding a gallery photo:** full-resolution original into `masters/`
+(gitignored, never committed), a 1600px-long-edge JPEG at q85 into
+`src/assets/gallery/`, then an entry in the `entries` array in `gallery.ts`.
+Array order is display order. Strip EXIF on export — listing photographs carry
+GPS coordinates.
+
+Each entry can also carry `propertyType`, `area`, and `meta`. **All three are
+deliberately empty on all six photos.** They are facts about a listing that
+only the owner knows, and inventing a neighbourhood would be inventing a
+client. The hover overlay renders nothing when they are absent, so the gallery
+looks correct without them. Ask; do not fill them in.
+
+**The gallery grid is CSS `columns`, not the services grid** — any tile count
+and any aspect ratio works there. The even-count rule below applies only to the
+services grid.
 
 ## Working agreement
 
