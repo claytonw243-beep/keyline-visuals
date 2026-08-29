@@ -11,6 +11,10 @@ export type Service = {
   name: string;
   blurb: string;
   stamp: string[];
+  /** False when the product is not a scheduled shoot, so its CTA points at the
+      contact form rather than the booking portal. A $15 post-production edit
+      does not belong in a shoot scheduler. Omitted means bookable. */
+  bookable?: boolean;
   size: 'large' | 'compact';
   image?: string;
   ratio?: [number, number];
@@ -90,6 +94,7 @@ export const services: Service[] = [
     blurb:
       'A daytime exterior converted to a twilight look in editing. The shot that goes at the top of the listing, without a second visit.',
     stamp: [`+${TWILIGHT_ADDON_PRICE} PER LISTING`, 'DONE IN POST'],
+    bookable: false,
     size: 'compact',
     ratio: [4, 3],
     detail: [

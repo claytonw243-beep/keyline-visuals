@@ -77,10 +77,26 @@ as if they were confirmed. If a task needs one of these values, ask.
 
 ### Booking happens off-site
 
-Shoots are booked through an external portal, not on this site. `BOOKING_URL`
-in `src/data/site.ts` holds it; `BOOKING_HREF` is what every "Book a shoot" CTA
-reads. **While `BOOKING_URL` is empty every CTA falls back to `/#contact`**, so
-no button is ever a dead link — paste the URL and all six switch at once.
+Shoots are booked on **Fotello**, at
+`https://book.keylinevisuals.com/book/default`. It lives in `BOOKING_URL` in
+`src/data/site.ts`; spread `BOOKING_LINK` onto a CTA rather than writing the
+href, target and rel by hand.
+
+**It has to be a subdomain.** GitHub Pages holds the apex, and DNS resolves a
+hostname rather than a path — so any `keylinevisuals.com/...` path is served by
+Pages and would 404. Pages offers no path-level proxy. Do not "simplify" this
+back onto the apex.
+
+Booking CTAs open in a new tab and carry a visually-hidden "(opens in a new
+tab)", gated on `BOOKING_NEW_TAB` so the announcement only appears when it is
+true.
+
+**One deliberate exception.** Virtual twilight carries `bookable: false` in
+`services.ts`, so its CTA reads *"Ask about virtual twilight"* and points at
+`/#contact`. It is a $15 post-production edit, not a shoot; sending someone
+into a shoot scheduler for it would be wrong. The flag lives in the data rather
+than a template conditional so the reason travels with the product. **Do not
+re-point it at the portal.**
 
 The on-site form is **contact only**. It deliberately does not collect an
 address, square footage, a package, or preferred dates; the portal owns those.

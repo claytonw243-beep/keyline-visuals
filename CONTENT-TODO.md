@@ -17,11 +17,15 @@ grep -rn "\[INSTAGRAM_HANDLE\]\|\[PART_107_NUMBER\]\|CONTENT-TODO" src public as
 | --- | --- | --- |
 | ~~Domain~~ | | **done** — `keylinevisuals.com`, apex. Set in `astro.config.mjs` (`SITE`), `public/CNAME`, and `public/robots.txt`. Everything downstream derives from it. **DNS still needs configuring — see below.** |
 | Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID` | Powers the **contact** form. Create a form at formspree.io, copy the 8 characters from `formspree.io/f/xxxxxxxx`. Also add it as a **repository variable** named `PUBLIC_FORMSPREE_ID` (Settings → Secrets and variables → Actions → Variables) or the deployed form will not send. |
-| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | The external portal shoots are booked through. All six "Book a shoot" CTAs read it. **Until it is set they fall back to `/#contact`**, so nothing is broken — but visitors reach a contact form instead of the booking flow. |
+| ~~Booking portal URL~~ | | **done** — Fotello at `https://book.keylinevisuals.com/book/default`, in `src/data/site.ts` → `BOOKING_URL`. A **subdomain**, because Pages holds the apex and would swallow any path on it. Virtual twilight is exempt and points at the contact form instead. |
 
 Until the Formspree ID is set, the contact form validates normally but tells the
 visitor it isn't connected and points them at the phone number — it never fakes
 a success.
+
+DNS note: `book.keylinevisuals.com` is a separate record from the apex, pointing
+at Fotello rather than GitHub. Changing the apex does not affect it, and vice
+versa.
 
 ### DNS for the apex domain
 

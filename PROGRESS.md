@@ -64,39 +64,34 @@ are in `CONTENT-TODO.md` §1.
 | DNS A records for the apex | registrar | outstanding — see `CONTENT-TODO.md` §1 |
 | Pages source = GitHub Actions | repo settings | outstanding |
 | Formspree form ID | `.env` → `PUBLIC_FORMSPREE_ID`, **and** a GitHub Actions *variable* of the same name | outstanding |
-| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | **on hold** — see below |
+| Booking portal URL | `src/data/site.ts` → `BOOKING_URL` | **done** |
 
 The domain is set in three files and nowhere else; everything downstream derives
 from `Astro.site`. Verified: canonical, `og:url`, `og:image`, `twitter:image`,
 the JSON-LD `@id`/`url`/`image`, and the sitemap all resolve to the real host.
 
-### 3. Task B — booking portal, half done
+### 3. Booking portal — done
 
-Shoots are booked on an external portal. The contact form is built and the six
-CTAs are rewired, but **`BOOKING_URL` is empty**, so `BOOKING_HREF` falls back
-to `/#contact`.
+Shoots are booked on **Fotello** at `https://book.keylinevisuals.com/book/default`,
+set once in `BOOKING_URL` in `src/data/site.ts`. Booking CTAs spread
+`BOOKING_LINK` (href + `target="_blank"` + `rel="noopener"`) and carry a
+visually-hidden "(opens in a new tab)".
 
-**Consequence: every "Book a shoot" button currently lands on a contact form.**
-Not broken, but the button does not do what it says. One constant fixes all six.
+**The earlier conflict is resolved by the subdomain.** The URL first offered was
+a path on the apex, which GitHub Pages would have swallowed — DNS resolves a
+hostname, not a path, and Pages has no path-level proxy. `book.` is a separate
+DNS record pointing at Fotello, so the apex staying on Pages is no longer a
+problem. Do not move this back onto the apex.
 
-**Blocked on:** the portal URL, and a conflict worth understanding first.
+**Virtual twilight is exempt**, by decision. It carries `bookable: false` in
+`services.ts`; its CTA reads *"Ask about virtual twilight"* and goes to
+`/#contact`. A $15 post-production edit does not belong in a shoot scheduler.
+The flag lives in the data rather than a template conditional so the reason
+travels with the product.
 
-The URL offered was `https://keylinevisuals.com/book/default` — a **path on the
-apex domain GitHub Pages now serves**. That cannot work. DNS resolves a
-hostname, not a path, so once the apex points at Pages every request to it goes
-to Pages, including `/book/default`, which would 404. Pages offers no path-level
-proxy or rewrite; splitting one hostname across two services needs a reverse
-proxy in front.
-
-Two ways out: use the scheduler's **native URL** on its own domain, or put the
-scheduler on a **subdomain** (`book.keylinevisuals.com`) — independent DNS, so
-it can point anywhere while the apex stays on Pages. The owner is checking where
-that URL came from.
-
-**Also flagged for when the CTAs are wired:** `/services/` generates a button per
-service, so one of them reads *"Book virtual twilight"*. That is a $15
-post-production edit, not a shoot — it should point at the contact form or lose
-its button rather than open a shoot scheduler.
+Seventeen anchors render across the four pages — the nav accounts for two on
+each. All sixteen portal links were verified in the built HTML to carry the
+target, the rel, and the announcement; the twilight one to carry none of them.
 
 ### 4. Photography — partially in
 
@@ -112,7 +107,6 @@ its button rather than open a shoot scheduler.
 
 ### 5. Waiting on the owner
 
-- Booking portal URL — see §3, and the domain conflict below
 - Formspree form ID
 - DNS records at the registrar, and Pages source set to GitHub Actions
 - Instagram handle, FAA Part 107 certificate number, business hours

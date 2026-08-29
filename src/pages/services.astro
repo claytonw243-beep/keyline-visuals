@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { services } from '../data/services';
-import { BOOKING_HREF } from '../data/site';
+import { BOOKING_LINK, BOOKING_NEW_TAB } from '../data/site';
 ---
 
 <BaseLayout
@@ -50,9 +50,16 @@ import { BOOKING_HREF } from '../data/site';
               ))}
             </ul>
 
-            <a class="btn btn--ghost srv__cta" href={BOOKING_HREF}>
-              Book {s.name.toLowerCase()}
-            </a>
+            {s.bookable === false ? (
+              <a class="btn btn--ghost srv__cta" href="/#contact">
+                Ask about {s.name.toLowerCase()}
+              </a>
+            ) : (
+              <a class="btn btn--ghost srv__cta" {...BOOKING_LINK}>
+                Book {s.name.toLowerCase()}
+                {BOOKING_NEW_TAB && <span class="visually-hidden"> (opens in a new tab)</span>}
+              </a>
+            )}
           </div>
         </div>
       </section>

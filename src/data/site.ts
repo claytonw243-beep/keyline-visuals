@@ -37,13 +37,25 @@ export const FREE_TRAVEL_RADIUS_MILES = 30;
     and the hero slider caption. */
 export const TWILIGHT_ADDON_PRICE = '$15';
 
-/** CONTENT-TODO: the external portal shoots are booked through. Paste the URL
-    here and every "Book a shoot" CTA on the site switches to it at once. */
-export const BOOKING_URL = '';
+/** The external portal shoots are booked through — Fotello, on its own
+    subdomain. It has to be a subdomain: GitHub Pages holds the apex, and DNS
+    resolves a hostname rather than a path, so any keylinevisuals.com/... path
+    would be served by Pages and 404. */
+export const BOOKING_URL = 'https://book.keylinevisuals.com/book/default';
 
 /** Where every booking CTA points. Falls back to the on-page contact section
-    while BOOKING_URL is empty, so no button is ever a dead link. */
+    if BOOKING_URL is ever emptied, so no button is a dead link. */
 export const BOOKING_HREF = BOOKING_URL || '/#contact';
+
+/** True when a booking CTA leaves the site. Drives the visually-hidden
+    "(opens in a new tab)" — announce it only when it is actually true. */
+export const BOOKING_NEW_TAB = Boolean(BOOKING_URL);
+
+/** Spread onto every booking CTA so href, target and rel are not repeated at
+    ten call sites. The fallback deliberately does not open a new tab. */
+export const BOOKING_LINK = BOOKING_NEW_TAB
+  ? { href: BOOKING_URL, target: '_blank', rel: 'noopener' }
+  : { href: '/#contact' };
 
 export const site = {
   name: 'Keyline Visuals',

@@ -1,6 +1,6 @@
 ---
 import { packages, addOns } from '../data/pricing';
-import { FREE_TRAVEL_RADIUS_MILES, BOOKING_HREF } from '../data/site';
+import { FREE_TRAVEL_RADIUS_MILES, BOOKING_LINK, BOOKING_NEW_TAB } from '../data/site';
 ---
 
 <section class="section section--hair" id="pricing">
@@ -22,8 +22,9 @@ import { FREE_TRAVEL_RADIUS_MILES, BOOKING_HREF } from '../data/site';
             <h3 class="display price__name">{pkg.name}</h3>
             <p class="price__summary">{pkg.summary}</p>
             <p class="price__amount">{pkg.price}</p>
-            <a class="btn btn--ghost btn--wide" href={BOOKING_HREF}>
+            <a class="btn btn--ghost btn--wide" {...BOOKING_LINK}>
               Book {pkg.name.toLowerCase()}
+              {BOOKING_NEW_TAB && <span class="visually-hidden"> (opens in a new tab)</span>}
             </a>
           </article>
         ))

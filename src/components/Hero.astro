@@ -1,6 +1,6 @@
 ---
 import TwilightSlider from './TwilightSlider.astro';
-import { TURNAROUND, BOOKING_HREF } from '../data/site';
+import { TURNAROUND, BOOKING_LINK, BOOKING_NEW_TAB } from '../data/site';
 ---
 
 <section class="section hero">
@@ -21,7 +21,7 @@ import { TURNAROUND, BOOKING_HREF } from '../data/site';
       </p>
 
       <div class="hero__actions" data-rise="4">
-        <a class="btn btn--primary" href={BOOKING_HREF}>Book a shoot</a>
+        <a class="btn btn--primary" {...BOOKING_LINK}>Book a shoot{BOOKING_NEW_TAB && <span class="visually-hidden"> (opens in a new tab)</span>}</a>
         <a class="btn btn--ghost" href="#work">See the work</a>
       </div>
     </div>
